@@ -1,6 +1,6 @@
 export const metadata = {
   title: "About Us - PrompX",
-  description: "Learn more about Local-AI Studio and our mission.",
+  description: "Learn more about Agentic AI Studio and our mission.",
 };
 
 export default function AboutUs() {
