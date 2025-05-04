@@ -21,7 +21,7 @@ export default function HeroHome() {
               data-aos="zoom-y-out"
               data-aos-delay={150}
             >
-              Local-AI Studio for Big-Data Insight <br className="max-lg:hidden" />
+              Agentic AI Studio for Big-Data Insight <br className="max-lg:hidden" />
 
             </h1>
             <div className="mx-auto max-w-3xl">
@@ -34,19 +34,19 @@ export default function HeroHome() {
               </p>
               <div className="relative before:absolute before:inset-0 before:border-y before:[border-image:linear-gradient(to_right,transparent,--theme(--color-slate-300/.8),transparent)1]">
                 <div
-                  className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center"
+                  className="mx-auto flex max-w-xs flex-col gap-4 sm:max-w-none sm:flex-row sm:justify-center"
                   data-aos="zoom-y-out"
                   data-aos-delay={450}
                 >
-                  <button className="btn group mb-4 w-full bg-linear-to-t from-blue-600 to-blue-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-sm hover:bg-[length:100%_150%] sm:mb-0 sm:w-auto flex items-center justify-center">
+                  <button className="btn group w-full bg-linear-to-t from-blue-600 to-blue-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-sm hover:bg-[length:100%_150%] sm:w-auto flex items-center justify-center">
                     <FaWindows className="mr-2" />
                     Download for Windows
                   </button>
-                  <button className="btn w-full bg-white text-gray-800 shadow-sm hover:bg-gray-50 sm:ml-4 sm:w-auto flex items-center justify-center">
+                  <button className="btn w-full bg-white text-gray-800 shadow-sm hover:bg-gray-50 sm:w-auto flex items-center justify-center">
                     <FaApple className="mr-2" />
                     Download for macOS
                   </button>
-                  <button className="btn w-full bg-white text-gray-800 shadow-sm hover:bg-gray-50 sm:ml-4 sm:w-auto flex items-center justify-center">
+                  <button className="btn w-full bg-white text-gray-800 shadow-sm hover:bg-gray-50 sm:w-auto flex items-center justify-center">
                     <FaLinux className="mr-2" />
                     Download for Linux
                   </button>

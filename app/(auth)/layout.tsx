@@ -65,26 +65,26 @@ export default function AuthLayout({
                 </div>
                 <div className="font-mono text-sm text-gray-500 transition duration-300 [&_span]:opacity-0">
                   <span className="animate-[code-1_10s_infinite] text-gray-200">
-                    npm login
+                    Analyzing data row-by-row
                   </span>{" "}
                   <span className="animate-[code-2_10s_infinite]">
-                    --registry=https://npm.pkg.github.com
+                    Processing batch inputs...
                   </span>
                   <br />
                   <span className="animate-[code-3_10s_infinite]">
-                    --scope=@phanatic
+                    Evaluating images, voice, and code
                   </span>{" "}
                   <span className="animate-[code-4_10s_infinite]">
-                    Successfully logged-in.
+                    Aggregating insights
                   </span>
                   <br />
                   <br />
                   <span className="animate-[code-5_10s_infinite] text-gray-200">
-                    npm publish
+                    Compiling results from big data
                   </span>
                   <br />
                   <span className="animate-[code-6_10s_infinite]">
-                    Package published.
+                    Analysis complete – insights ready
                   </span>
                 </div>
               </div>
