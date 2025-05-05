@@ -38,10 +38,14 @@ export default function HeroHome() {
                   data-aos="zoom-y-out"
                   data-aos-delay={450}
                 >
-                  <button className="btn group w-full bg-linear-to-t from-blue-600 to-blue-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-sm hover:bg-[length:100%_150%] sm:w-auto flex items-center justify-center">
+                  <a
+                    href="/PrompX Setup 0.0.1.exe"
+                    download
+                    className="btn group w-full bg-linear-to-t from-blue-600 to-blue-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-sm hover:bg-[length:100%_150%] sm:w-auto flex items-center justify-center"
+                  >
                     <FaWindows className="mr-2" />
                     Download for Windows
-                  </button>
+                  </a>
                   <button className="btn w-full bg-white text-gray-800 shadow-sm hover:bg-gray-50 sm:w-auto flex items-center justify-center">
                     <FaApple className="mr-2" />
                     Download for macOS
