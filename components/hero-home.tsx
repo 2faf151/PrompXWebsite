@@ -46,14 +46,30 @@ export default function HeroHome() {
                     <FaWindows className="mr-2" />
                     Download for Windows
                   </a>
-                  <button className="btn w-full bg-white text-gray-800 shadow-sm hover:bg-gray-50 sm:w-auto flex items-center justify-center">
-                    <FaApple className="mr-2" />
-                    Download for macOS
-                  </button>
-                  <button className="btn w-full bg-white text-gray-800 shadow-sm hover:bg-gray-50 sm:w-auto flex items-center justify-center">
-                    <FaLinux className="mr-2" />
-                    Download for Linux
-                  </button>
+                  <div className="group relative">
+                    <button
+                      className="btn w-full bg-white text-gray-800 shadow-sm hover:bg-gray-50 sm:w-auto flex items-center justify-center"
+                      disabled
+                    >
+                      <FaApple className="mr-2" />
+                      Download for macOS
+                    </button>
+                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 hidden group-hover:block bg-gray-800 text-white text-sm px-2 py-1 rounded">
+                      Unavailable
+                    </div>
+                  </div>
+                  <div className="group relative">
+                    <button
+                      className="btn w-full bg-white text-gray-800 shadow-sm hover:bg-gray-50 sm:w-auto flex items-center justify-center"
+                      disabled
+                    >
+                      <FaLinux className="mr-2" />
+                      Download for Linux
+                    </button>
+                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 hidden group-hover:block bg-gray-800 text-white text-sm px-2 py-1 rounded">
+                      Unavailable
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
