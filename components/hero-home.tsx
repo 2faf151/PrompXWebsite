@@ -58,104 +58,22 @@ export default function HeroHome() {
               </div>
             </div>
           </div>
-          {/* Hero image */}
+          {/* Hero video */}
           <div
             className="mx-auto max-w-3xl"
             data-aos="zoom-y-out"
             data-aos-delay={600}
           >
-            <UnifiedAnalysis />
+            <video
+              className="w-full rounded-2xl shadow-xl"
+              controls
+              src="/PrompX Video.mp4"
+            >
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-const analysisData = {
-  data: [
-    { type: "Data", content: ["Market Analysis", "User Behavior", "Sales Trends", "Performance Metrics", "Growth Patterns"] },
-    { type: "Features", content: ["Segmentation", "Clustering", "Prediction", "Optimization", "Insights"] },
-    { type: "Results", content: ["27% Growth", "85% Accuracy", "12% Improvement", "3x ROI", "95% Confidence"] }
-  ],
-  images: [
-    { type: "Image", content: ["Portrait.jpg", "Product.png", "Scene.jpg", "Document.png", "Diagram.jpg"] },
-    { type: "Objects", content: ["Face detected", "Product identified", "Scene analyzed", "Text extracted", "Chart parsed"] },
-    { type: "Actions", content: ["Processing", "Analyzing", "Classifying", "Detecting", "Segmenting"] }
-  ],
-  voice: [
-    { type: "Audio", content: ["Call-1.mp3", "Meeting.wav", "Notes.m4a", "Interview.mp3", "Speech.wav"] },
-    { type: "Text", content: ["Converting audio", "Transcribing", "Analyzing tone", "Detecting mood", "Summarizing"] },
-    { type: "Sentiment", content: ["Positive", "Neutral", "Enthusiastic", "Professional", "Engaging"] }
-  ],
-  code: [
-    { type: "File", content: ["main.py", "index.js", "app.cpp", "utils.rs", "core.go"] },
-    { type: "Analysis", content: ["Complexity: O(n)", "Security audit", "Performance check", "Memory usage", "Code quality"] },
-    { type: "Status", content: ["Optimizing", "Securing", "Refactoring", "Testing", "Reviewing"] }
-  ]
-};
-
-function UnifiedAnalysis() {
-  const [currentType, setCurrentType] = useState("data");
-  const [currentRow, setCurrentRow] = useState(0);
-
-  useEffect(() => {
-    const typeInterval = setInterval(() => {
-      setCurrentType(prev => {
-        const types = ["data", "images", "voice", "code"];
-        const nextIndex = (types.indexOf(prev) + 1) % types.length;
-        return types[nextIndex];
-      });
-      setCurrentRow(0);
-    }, 3000);
-
-    return () => clearInterval(typeInterval);
-  }, []);
-
-  useEffect(() => {
-    const rowInterval = setInterval(() => {
-      setCurrentRow(prev => (prev + 1) % 5);
-    }, 500);
-
-    return () => clearInterval(rowInterval);
-  }, []);
-
-  const getBackgroundColor = (type: string) => {
-    const colors = {
-      data: "bg-blue-100",
-      images: "bg-green-100",
-      voice: "bg-yellow-100",
-      code: "bg-orange-100"
-    };
-    return colors[type as keyof typeof colors];
-  };
-
-  return (
-    <div className={`relative aspect-video rounded-2xl ${getBackgroundColor(currentType)} px-5 py-3 shadow-xl overflow-hidden`}>
-      <table className="w-full text-sm text-left text-gray-500">
-        <thead className="text-xs text-gray-700 uppercase bg-opacity-50 bg-white">
-          <tr>
-            {analysisData[currentType as keyof typeof analysisData].map((col, i) => (
-              <th key={i} scope="col" className="px-6 py-3">{col.type}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {[0, 1, 2, 3, 4].map((row) => (
-            <tr
-              key={row}
-              className={`bg-white bg-opacity-75 border-b transition-all duration-200 ${row === currentRow ? "bg-opacity-100 shadow-md" : ""
-                }`}
-            >
-              {analysisData[currentType as keyof typeof analysisData].map((col, i) => (
-                <td key={i} className="px-6 py-4">
-                  {col.content[row]}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
   );
 }
