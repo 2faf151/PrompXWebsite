@@ -18,8 +18,15 @@ export default function Header() {
                 href="/ContactUs"
                 className="btn-sm bg-white text-gray-800 shadow-sm hover:bg-gray-50"
               >
-
                 Contact
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/UseCases"
+                className="btn-sm bg-white text-gray-800 shadow-sm hover:bg-gray-50"
+              >
+                Use Cases
               </Link>
             </li>
             <li>
