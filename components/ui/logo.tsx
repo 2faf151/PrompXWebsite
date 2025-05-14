@@ -1,7 +1,8 @@
 import Link from 'next/link'
 
 interface LogoProps {
-  trace?: boolean
+  trace?: boolean;
+  className?: string;
 }
 
 export default function Logo({ trace = false }: LogoProps) {

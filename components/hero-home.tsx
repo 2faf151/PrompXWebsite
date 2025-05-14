@@ -1,12 +1,46 @@
 "use client";
 import { FaWindows, FaApple, FaLinux } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import EmailPopup from './email-popup';
+
 export default function HeroHome() {
+  const [showPopup, setShowPopup] = useState(false);
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownload = async (email: string) => {
+    try {
+      setDownloading(true);
+      const response = await fetch('/api/downloads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to record download');
+      }
+
+      // Trigger the actual download
+      window.location.href = '/PrompX Setup 0.0.1.exe';
+      setShowPopup(false);
+    } catch (error) {
+      console.error('Error handling download:', error);
+      alert('Failed to start download. Please try again.');
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <section className="relative">
-
+      <EmailPopup
+        isOpen={showPopup}
+        onClose={() => setShowPopup(false)}
+        onSubmit={handleDownload}
+      />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-
         <div className="pb-12 pt-32 md:pb-20 md:pt-40">
           {/* Section header */}
           <div className="pb-12 text-center md:pb-16">
@@ -14,7 +48,6 @@ export default function HeroHome() {
               className="mb-6 border-y [border-image:linear-gradient(to_right,transparent,--theme(--color-slate-300/.8),transparent)1]"
               data-aos="zoom-y-out"
             >
-
             </div>
             <h1
               className="mb-6 border-y text-5xl font-bold [border-image:linear-gradient(to_right,transparent,--theme(--color-slate-300/.8),transparent)1] md:text-6xl"
@@ -22,7 +55,6 @@ export default function HeroHome() {
               data-aos-delay={150}
             >
               Agentic AI Studio for Big-Data Insight <br className="max-lg:hidden" />
-
             </h1>
             <div className="mx-auto max-w-3xl">
               <p
@@ -39,8 +71,11 @@ export default function HeroHome() {
                   data-aos-delay={450}
                 >
                   <a
-                    href="/PrompX Setup 0.0.1.exe"
-                    download
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowPopup(true);
+                    }}
                     className="btn group w-full bg-linear-to-t from-blue-600 to-blue-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-sm hover:bg-[length:100%_150%] sm:w-auto flex items-center justify-center"
                   >
                     <FaWindows className="mr-2" />
