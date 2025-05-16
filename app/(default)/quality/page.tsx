@@ -1,125 +1,65 @@
 // app/(default)/quality/page.tsx
-
-import { Camera, ShieldCheck, Activity } from "lucide-react";
-import { motion } from "framer-motion";
+import { Camera, Cpu, CheckCircle } from 'lucide-react';
 
 export const metadata = {
-    title: "AI Quality Inspection | PrompX",
-    description:
-        "Real-time computer-vision inspection for flawless mass-production quality control.",
+    title: "AI Quality Inspection – PrompX",
+    description: "On-premise AI scanning and CCTV quality checks for mass production lines.",
 };
 
 export default function QualityHome() {
     return (
-        <main className="bg-white text-gray-900">
+        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 min-h-screen text-white">
             {/* Hero */}
-            <section className="relative isolate overflow-hidden bg-gradient-to-b from-sky-100/40 to-white py-28">
-                <div className="absolute inset-y-0 w-full skew-y-6 bg-sky-50/60" aria-hidden="true" />
-                <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="text-5xl font-extrabold tracking-tight md:text-6xl"
-                    >
-                        AI Quality Inspection
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.15, duration: 0.6, ease: "easeOut" }}
-                        className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-700"
-                    >
-                        Computer-vision scanners fine-tuned on your production line deliver instant
-                        pass / fail decisions at <span className="font-semibold">&gt;200 fps</span>,
-                        cutting defects to zero while capturing rich analytics for continuous
-                        improvement.
-                    </motion.p>
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
-                        className="mt-10 flex items-center justify-center gap-x-6"
-                    >
-                        <button className="rounded-2xl bg-sky-600 text-white px-8 py-4 text-base font-semibold hover:bg-sky-700">
-                            Request a Demo
-                        </button>
-                        <a
-                            href="#how-it-works"
-                            className="text-base font-medium underline-offset-4 hover:underline"
-                        >
-                            How it works ↗
-                        </a>
-                    </motion.div>
-                </div>
-            </section>
+            <header className="container mx-auto px-6 py-24 text-center">
+                <h1 className="text-6xl font-extrabold mb-4">AI Quality Inspection</h1>
+                <p className="text-xl max-w-2xl mx-auto">
+                    Revolutionize your production line with on-premise AI scanners and CCTV
+                    that detect defects in real time—no cloud required.
+                </p>
+            </header>
 
             {/* Features */}
-            <section id="how-it-works" className="mx-auto max-w-6xl px-6 py-24">
-                <h2 className="mb-12 text-center text-3xl font-bold md:text-4xl">
-                    Why choose PrompX Quality AI?
-                </h2>
+            <main className="container mx-auto px-6 py-16 bg-white rounded-t-3xl -mt-12 text-gray-800 space-y-16">
+                <section className="grid gap-8 md:grid-cols-3">
+                    <div className="p-8 bg-gray-50 rounded-2xl shadow-lg text-center">
+                        <Camera className="mx-auto mb-4 w-12 h-12 text-indigo-600" />
+                        <h3 className="text-2xl font-semibold mb-2">High-Speed Scanning</h3>
+                        <p>
+                            Capture every product detail on the line with real-time image analysis.
+                        </p>
+                    </div>
 
-                <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-                    <Feature
-                        icon={<Camera className="h-6 w-6" />}
-                        title="Vision Optimised"
-                        description="High-resolution cameras capture every angle; our model flags microscopic defects invisible to the human eye."
-                    />
-                    <Feature
-                        icon={<Activity className="h-6 w-6" />}
-                        title="Real-time Decisions"
-                        description="Latency under 5 ms ensures faulty items are rejected before leaving the line — no bottlenecks."
-                    />
-                    <Feature
-                        icon={<ShieldCheck className="h-6 w-6" />}
-                        title="On-Prem Privacy"
-                        description="Runs entirely on your local edge devices. No cloud. Your proprietary designs never leave the factory."
-                    />
-                </div>
-            </section>
+                    <div className="p-8 bg-gray-50 rounded-2xl shadow-lg text-center">
+                        <Cpu className="mx-auto mb-4 w-12 h-12 text-indigo-600" />
+                        <h3 className="text-2xl font-semibold mb-2">Local AI Engine</h3>
+                        <p>
+                            Deploy our fine-tuned AI model entirely on-premise for maximum privacy.
+                        </p>
+                    </div>
 
-            {/* CTA */}
-            <section className="bg-sky-50 py-20">
-                <div className="mx-auto max-w-5xl px-6 text-center">
-                    <h3 className="text-3xl font-semibold md:text-4xl">
-                        Ready to eliminate defects?
-                    </h3>
-                    <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-700">
-                        Talk to our engineers about integrating PrompX Quality AI into your existing
-                        production line or new facility.
+                    <div className="p-8 bg-gray-50 rounded-2xl shadow-lg text-center">
+                        <CheckCircle className="mx-auto mb-4 w-12 h-12 text-indigo-600" />
+                        <h3 className="text-2xl font-semibold mb-2">Real-Time Alerts</h3>
+                        <p>
+                            Instantly detect defects and anomalies, ensuring flawless output every time.
+                        </p>
+                    </div>
+                </section>
+
+                {/* Call to Action */}
+                <section className="text-center">
+                    <h2 className="text-4xl font-bold mb-4">Ready to Elevate Quality?</h2>
+                    <p className="mb-8">
+                        Book a demo to see how our AI Quality Inspection transforms your production.
                     </p>
-                    <button className="mt-8 rounded-2xl bg-sky-600 text-white px-10 py-4 text-base font-semibold hover:bg-sky-700">
-                        Book Consultation
-                    </button>
-                </div>
-            </section>
-        </main>
-    );
-}
-
-function Feature({
-    icon,
-    title,
-    description,
-}: {
-    icon: React.ReactNode;
-    title: string;
-    description: string;
-}) {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="rounded-2xl bg-white p-8 shadow-md hover:shadow-lg"
-        >
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-sky-100">
-                {icon}
-            </div>
-            <h3 className="mb-2 text-xl font-medium">{title}</h3>
-            <p className="text-gray-600">{description}</p>
-        </motion.div>
+                    <a
+                        href="/contact"
+                        className="inline-block px-8 py-4 bg-indigo-600 text-white rounded-full font-semibold shadow-lg hover:bg-indigo-700 transition"
+                    >
+                        Request a Demo
+                    </a>
+                </section>
+            </main>
+        </div>
     );
 }
