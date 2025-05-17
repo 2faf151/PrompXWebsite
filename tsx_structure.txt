@@ -1,0 +1,2031 @@
+﻿### FILE: app\(auth)\AboutUs\page.tsx
+export const metadata = {
+  title: "About Us - PrompX",
+  description: "Learn more about Agentic AI Studio and our mission.",
+};
+
+export default function AboutUs() {
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-10">
+      <h1 className="text-4xl font-bold mb-6">About Us</h1>
+      <p className="text-lg leading-7 text-gray-700 mb-4">
+        At PrompX, we're a passionate, dedicated small team driven by a singular vision: to revolutionize the way you interact with data analytics through powerful, agentic AI workflows. Inspired by simplicity and efficiency, our mission is clearâ€”deliver lightning-fast analytics, intuitive visualizations, and unparalleled privacy by harnessing the power of local AI models.
+      </p>
+      <p className="text-lg leading-7 text-gray-700 mb-4">
+        We deeply believe that exceptional analysis shouldn't require massive cloud infrastructure or endless API budgets. That's why our expertise is focused on compact yet powerful local AI models that offer outstanding performance directly on your machine. No waiting, no uploading, just instant insights into millions of rows of data, thousands of images, extensive audio archives, and intricate codebases.
+      </p>
+      <p className="text-lg leading-7 text-gray-700 mb-4">
+        Our goal is ambitious: we aim to become the Visual Studio Code of data analyticsâ€”a universally accessible, elegantly simple, and endlessly extensible environment for analysts, developers, and businesses alike. We are committed to creating an ecosystem where anyone can effortlessly set up sophisticated agentic workflows, run rapid analyses, and build interactive dashboardsâ€”all within a familiar and beautiful workspace.
+      </p>
+      <p className="text-lg leading-7 text-gray-700">
+        Join us in reshaping the future of analytics, one local model at a time.
+      </p>
+    </div>
+  );
+}
+
+
+
+### FILE: app\(auth)\ContactUs\page.tsx
+"use client";
+
+import Head from "next/head";
+import { useState } from "react";
+
+export default function Contact() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSendEmail = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    const form = event.currentTarget;
+    const category = form.category.value;
+    const message = form.message.value;
+    const mailto = `mailto:argon@prompx.com?subject=${encodeURIComponent(
+      category
+    )}&body=${encodeURIComponent(message)}`;
+
+    setTimeout(() => {
+      setIsLoading(false);
+      window.location.href = mailto;
+    }, 5000); // 5 seconds delay
+  };
+
+  return (
+    <>
+      <Head>
+        <title>Contact Us</title>
+        <meta name="description" content="Get in touch with us" />
+      </Head>
+      <div className="mb-10">
+        <h1 className="text-4xl font-bold">Contact Us</h1>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSendEmail}>
+        <div className="space-y-4">
+          <div>
+            <label
+              className="mb-1 block text-sm font-medium text-gray-700"
+              htmlFor="category"
+            >
+              Category
+            </label>
+            <select
+              id="category"
+              name="category"
+              className="form-select w-full py-2"
+              required
+            >
+              <option value="Sales">Sales</option>
+              <option value="Partnership">Partnership</option>
+              <option value="Careers">Careers</option>
+            </select>
+          </div>
+          <div>
+            <label
+              className="mb-1 block text-sm font-medium text-gray-700"
+              htmlFor="message"
+            >
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              className="form-textarea w-full py-2"
+              placeholder="Write your message here..."
+              rows={5}
+              required
+            ></textarea>
+          </div>
+        </div>
+        <div className="mt-6">
+          <button
+            type="submit"
+            className="btn w-full bg-linear-to-t from-blue-600 to-blue-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-sm hover:bg-[length:100%_150%]"
+            disabled={isLoading}
+          >
+            {isLoading ? "Sending..." : "Send"}
+          </button>
+        </div>
+      </form>
+    </>
+  );
+}
+
+
+
+### FILE: app\(auth)\reset-password\page.tsx
+export const metadata = {
+  title: "Reset Password - Simple",
+  description: "Page description",
+};
+
+export default function ResetPassword() {
+  return (
+    <>
+      <div className="mb-10">
+        <h1 className="text-4xl font-bold">Reset password</h1>
+      </div>
+
+      {/* Form */}
+      <form>
+        <div className="space-y-4">
+          <div>
+            <label
+              className="mb-1 block text-sm font-medium text-gray-700"
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              className="form-input w-full py-2"
+              type="email"
+              placeholder="corybarker@email.com"
+              required
+            />
+          </div>
+        </div>
+        <div className="mt-6">
+          <button className="btn w-full bg-linear-to-t from-blue-600 to-blue-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-sm hover:bg-[length:100%_150%]">
+            Reset Password
+          </button>
+        </div>
+      </form>
+    </>
+  );
+}
+
+
+
+### FILE: app\(auth)\layout.tsx
+import Image from "next/image";
+import Logo from "@/components/ui/logo";
+import AuthBg from "@/public/images/auth-bg.svg";
+
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      <header className="absolute z-30 w-full">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="flex h-16 items-center justify-between md:h-20">
+            {/* Site branding */}
+            <div className="mr-4 shrink-0">
+              <Logo />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="relative flex grow">
+        <div
+          className="pointer-events-none absolute bottom-0 left-0 -translate-x-1/3"
+          aria-hidden="true"
+        >
+          <div className="h-80 w-80 rounded-full bg-linear-to-tr from-blue-500 opacity-70 blur-[160px]"></div>
+        </div>
+
+        {/* Content */}
+        <div className="w-full">
+          <div className="flex h-full flex-col justify-center before:min-h-[4rem] before:flex-1 after:flex-1 md:before:min-h-[5rem]">
+            <div className="px-4 sm:px-6">
+              <div className="mx-auto w-full max-w-xl">
+                <div className="py-16 md:py-20">{children}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <>
+          {/* Right side */}
+          <div className="relative my-6 mr-6 hidden w-[572px] shrink-0 overflow-hidden rounded-2xl lg:block">
+            {/* Background */}
+            <div
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -ml-24 -translate-x-1/2 -translate-y-1/2 bg-blue-50"
+              aria-hidden="true"
+            >
+              <Image
+                src={AuthBg}
+                className="max-w-none"
+                width={1285}
+                height={1684}
+                alt="Auth bg"
+              />
+            </div>
+            {/* Illustration */}
+            <div className="absolute left-32 top-1/2 w-[500px] -translate-y-1/2">
+              <div className="aspect-video w-full rounded-2xl bg-gray-900 px-5 py-3 shadow-xl transition duration-300">
+                <div className="relative mb-8 flex items-center justify-between before:block before:h-[9px] before:w-[41px] before:bg-[length:16px_9px] before:[background-image:radial-gradient(circle_at_4.5px_4.5px,var(--color-gray-600)_4.5px,transparent_0)] after:w-[41px]">
+                  <span className="text-[13px] font-medium text-white">
+                    PrompX.com
+                  </span>
+                </div>
+                <div className="font-mono text-sm text-gray-500 transition duration-300 [&_span]:opacity-0">
+                  <span className="animate-[code-1_10s_infinite] text-gray-200">
+                    Analyzing data row-by-row
+                  </span>{" "}
+                  <span className="animate-[code-2_10s_infinite]">
+                    Processing batch inputs...
+                  </span>
+                  <br />
+                  <span className="animate-[code-3_10s_infinite]">
+                    Evaluating images, voice, and code
+                  </span>{" "}
+                  <span className="animate-[code-4_10s_infinite]">
+                    Aggregating insights
+                  </span>
+                  <br />
+                  <br />
+                  <span className="animate-[code-5_10s_infinite] text-gray-200">
+                    Compiling results from big data
+                  </span>
+                  <br />
+                  <span className="animate-[code-6_10s_infinite]">
+                    Analysis complete â€“ insights ready
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      </main>
+    </>
+  );
+}
+
+
+
+### FILE: app\(default)\quality\page.tsx
+// app/(default)/quality/page.tsx
+import { Camera, Cpu, CheckCircle, Zap, Shield, BarChart } from 'lucide-react';
+
+export const metadata = {
+    title: "AI Quality Inspection â€“ PrompX",
+    description: "On-premise AI scanning and CCTV quality checks for mass production lines.",
+};
+
+export default function QualityHome() {
+    return (
+        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 min-h-screen text-white">
+            {/* Hero Section with Animation */}
+            <header className="container mx-auto px-6 py-24 text-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/scanning-pattern.svg')] opacity-10 animate-scan"></div>
+                <h1 className="text-6xl font-extrabold mb-6">Real-Time AI Quality Control</h1>
+                <p className="text-xl max-w-3xl mx-auto mb-8">
+                    Transform your production line with intelligent quality inspection. Our on-premise
+                    AI system scans products in real-time, detecting defects with unprecedented accuracy.
+                </p>
+                <div className="flex justify-center gap-4">
+                    <a href="/contact" className="px-8 py-4 bg-white text-indigo-600 rounded-full font-bold hover:bg-opacity-90 transition">
+                        Start Inspection Demo
+                    </a>
+                    <a href="#features" className="px-8 py-4 bg-indigo-700 text-white rounded-full font-bold hover:bg-indigo-800 transition">
+                        Learn More
+                    </a>
+                </div>
+            </header>
+
+            <main className="container mx-auto px-6 py-16 bg-white rounded-t-3xl -mt-12 text-gray-800">
+                {/* Stats Section */}
+                <section className="grid grid-cols-3 gap-8 mb-20">
+                    <div className="text-center">
+                        <div className="text-4xl font-bold text-indigo-600 mb-2">99.9%</div>
+                        <div className="text-gray-600">Defect Detection Rate</div>
+                    </div>
+                    <div className="text-center">
+                        <div className="text-4xl font-bold text-indigo-600 mb-2">0.5ms</div>
+                        <div className="text-gray-600">Processing Time</div>
+                    </div>
+                    <div className="text-center">
+                        <div className="text-4xl font-bold text-indigo-600 mb-2">24/7</div>
+                        <div className="text-gray-600">Continuous Monitoring</div>
+                    </div>
+                </section>
+
+                {/* How It Works */}
+                <section className="mb-20">
+                    <h2 className="text-4xl font-bold text-center mb-12">How It Works</h2>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="rounded-xl bg-gradient-to-b from-gray-50 to-white p-8 shadow-lg border border-gray-100">
+                            <div className="bg-indigo-100 w-12 h-12 rounded-full flex items-center justify-center mb-6">
+                                <Camera className="w-6 h-6 text-indigo-600" />
+                            </div>
+                            <h3 className="text-xl font-semibold mb-4">1. High-Speed Scanning</h3>
+                            <p className="text-gray-600">Advanced cameras capture every product detail at production speeds.</p>
+                        </div>
+
+                        <div className="rounded-xl bg-gradient-to-b from-gray-50 to-white p-8 shadow-lg border border-gray-100">
+                            <div className="bg-indigo-100 w-12 h-12 rounded-full flex items-center justify-center mb-6">
+                                <Cpu className="w-6 h-6 text-indigo-600" />
+                            </div>
+                            <h3 className="text-xl font-semibold mb-4">2. AI Analysis</h3>
+                            <p className="text-gray-600">Local AI processing ensures instant defect detection without cloud dependency.</p>
+                        </div>
+
+                        <div className="rounded-xl bg-gradient-to-b from-gray-50 to-white p-8 shadow-lg border border-gray-100">
+                            <div className="bg-indigo-100 w-12 h-12 rounded-full flex items-center justify-center mb-6">
+                                <CheckCircle className="w-6 h-6 text-indigo-600" />
+                            </div>
+                            <h3 className="text-xl font-semibold mb-4">3. Instant Response</h3>
+                            <p className="text-gray-600">Real-time alerts and automated quality control actions.</p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Benefits Section */}
+                <section className="mb-20">
+                    <h2 className="text-4xl font-bold text-center mb-12">Why Choose Our System</h2>
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {[
+                            { icon: <Zap className="w-6 h-6" />, title: "Lightning Fast", desc: "Process thousands of items per minute" },
+                            { icon: <Shield className="w-6 h-6" />, title: "Secure & Private", desc: "All processing happens on your premises" },
+                            { icon: <BarChart className="w-6 h-6" />, title: "Detailed Analytics", desc: "Track quality metrics in real-time" },
+                            { icon: <Cpu className="w-6 h-6" />, title: "Custom Training", desc: "AI model tailored to your products" }
+                        ].map((item, i) => (
+                            <div key={i} className="flex items-start p-6 bg-gray-50 rounded-xl">
+                                <div className="bg-indigo-100 p-3 rounded-lg mr-4">{item.icon}</div>
+                                <div>
+                                    <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                                    <p className="text-gray-600">{item.desc}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* CTA Section */}
+                <section className="text-center bg-gradient-to-r from-indigo-600 to-blue-600 rounded-2xl p-12 text-white">
+                    <h2 className="text-4xl font-bold mb-4">Ready to Perfect Your Production Line?</h2>
+                    <p className="mb-8 text-lg">
+                        See our AI Quality Inspection system in action with a personalized demo.
+                    </p>
+                    <a
+                        href="/contact"
+                        className="inline-block px-8 py-4 bg-white text-indigo-600 rounded-full font-bold hover:bg-opacity-90 transition"
+                    >
+                        Schedule a Demo
+                    </a>
+                </section>
+            </main>
+        </div>
+    );
+}
+
+
+
+### FILE: app\(default)\layout.tsx
+"use client";
+
+import { useEffect } from "react";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+import Header from "@/components/ui/header";
+import Footer from "@/components/ui/footer";
+
+export default function DefaultLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      disable: "phone",
+      duration: 700,
+      easing: "ease-out-cubic",
+    });
+  });
+
+  return (
+    <>
+      <Header />
+
+      <main className="grow">{children}</main>
+
+      <Footer border={true} />
+    </>
+  );
+}
+
+
+
+### FILE: app\(default)\page.tsx
+export const metadata = {
+  title: "Home - PrompX",
+  description: "Page description",
+};
+
+import Hero from "@/components/hero-home";
+import BusinessCategories from "@/components/business-categories";
+import { GlowingEffectDemo } from "@/components/GlowingEffectDemo";
+import LargeTestimonial from "@/components/large-testimonial";
+import Cta from "@/components/cta";
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <BusinessCategories />
+      <div className="mx-auto max-w-6xl"> {/* Added a container with max-width */}
+        <GlowingEffectDemo />
+      </div>
+      <LargeTestimonial />
+      <Cta />
+    </>
+  );
+}
+
+
+
+### FILE: app\UseCases\page.tsx
+// app/use-cases/page.tsx
+
+import Header from "@/components/ui/header";
+
+export const metadata = {
+    title: "Use Cases - PrompX",
+    description: "Explore PrompX's powerful use cases across data, audio, image, and code analysis.",
+};
+
+type UseCase = {
+    id: string;
+    title: string;
+    tagline: string;
+    description: string;
+    demo: {
+        inputExample: string;
+        outputExample: string;
+    };
+    tech: {
+        agents: string[];
+    };
+};
+
+type UseCaseMap = Record<'data' | 'audio' | 'image' | 'code', UseCase[]>;
+
+const USE_CASES: UseCaseMap = {
+    /* ========== DATA ========== */
+    data: [
+        {
+            id: 'persona-analysis',
+            title: 'Persona Analysis',
+            tagline: 'Derive crystalâ€‘clear personas from messy data.',
+            description:
+                'Rowâ€‘level enrichment adds columns like painâ€‘points and requests. Batched agents apply hypotheses, merge synonyms, and distill thousands of raw personas into a concise, decisionâ€‘ready set.',
+            demo: {
+                inputExample: '1â€¯Mâ€‘row SaaS user table with freeâ€‘text feedback',
+                outputExample: 'Table with Persona, PainPoints, Requests, FinalPersona (â‰¤8 categories)',
+            },
+            tech: {
+                agents: [
+                    'Rowâ€‘Enricher',
+                    'Batchâ€‘Hypothesisâ€‘Evaluator',
+                    'Synonymâ€‘Merger',
+                    'Personaâ€‘Condenser',
+                ],
+            },
+        },
+        {
+            id: 'diagnostic-analysis',
+            title: 'Diagnostic Analysis',
+            tagline: 'Answer â€œwhat happened?â€ and â€œwhy?â€ in minutes.',
+            description:
+                'Statâ€‘scan detects anomalies, then correlation agents link metrics and surface the drivers behind each deviation.',
+            demo: {
+                inputExample: 'Weekly revenue & marketing spend spreadsheet',
+                outputExample: 'Markdown rootâ€‘cause report with linked charts.',
+            },
+            tech: { agents: ['Anomalyâ€‘Finder', 'Correlationâ€‘Explorer', 'Driverâ€‘Ranker'] },
+        },
+        {
+            id: 'cause-analysis',
+            title: 'Cause Analysis',
+            tagline: 'Map causeâ€‘andâ€‘effect from complex datasets.',
+            description:
+                'Causal inference engine builds DAGs, scores edge confidence, and generates recommended interventions.',
+            demo: {
+                inputExample: 'Healthcare CSV with treatments & outcomes',
+                outputExample: 'Interactive DAG + narrative on probable causes.',
+            },
+            tech: { agents: ['Causalâ€‘Discoverer', 'Effectâ€‘Estimator', 'Interventionâ€‘Advisor'] },
+        },
+    ],
+
+    /* ========== AUDIO ========== */
+    audio: [
+        {
+            id: 'speech-to-text',
+            title: 'Speechâ€‘toâ€‘Text',
+            tagline: 'Fast, accurate, languageâ€‘aware transcription.',
+            description:
+                'Pipeline combines VAD and ASR to output punctuated transcripts with speaker timestamps.',
+            demo: {
+                inputExample: 'Callâ€‘center MP3 (45â€¯min)',
+                outputExample: 'JSONL {start, end, speaker, text}',
+            },
+            tech: { agents: ['VADâ€‘Filter', 'ASRâ€‘Transcriber'] },
+        },
+        {
+            id: 'emotion-recognition',
+            title: 'Emotion Recognition',
+            tagline: 'Detect caller sentiment frameâ€‘byâ€‘frame.',
+            description:
+                'Prosodic and lexical cues classify happiness, anger, neutrality, and frustration, enabling live coaching.',
+            demo: {
+                inputExample: 'Support WAV file',
+                outputExample: 'CSV timeline with emotion probability.',
+            },
+            tech: { agents: ['Prosodyâ€‘Extractor', 'Emotionâ€‘Classifier'] },
+        },
+        {
+            id: 'speaker-profiling',
+            title: 'Speaker Profiling',
+            tagline: 'Whoâ€™s talking and whatâ€™s their profile?',
+            description:
+                'Embeddings cluster speakers and label gender, age group, and accent across multiâ€‘party audio.',
+            demo: {
+                inputExample: 'Podcast FLAC (3 speakers)',
+                outputExample: 'Text transcript with Speakerâ€‘IDs + traits.',
+            },
+            tech: { agents: ['Embeddingâ€‘Cluster', 'Profileâ€‘Annotator'] },
+        },
+    ],
+
+    /* ========== IMAGE ========== */
+    image: [
+        {
+            id: 'object-identification',
+            title: 'Object Identification',
+            tagline: 'Spot any target at scale.',
+            description:
+                'Detects specified objects, draws bounding boxes, and sorts images into YES/NO folders automatically.',
+            demo: {
+                inputExample: '10â€¯k shelf photos, target: â€œmissing itemâ€',
+                outputExample: 'Annotated PNGs + folder split.',
+            },
+            tech: { agents: ['Detector', 'Folderâ€‘Router'] },
+        },
+        {
+            id: 'image-description',
+            title: 'Image Description',
+            tagline: 'Generate crisp altâ€‘text and scene summaries.',
+            description:
+                'Visionâ€‘language agent captions images and outputs structured JSON with key entities and context.',
+            demo: {
+                inputExample: 'Travel photo JPEG',
+                outputExample: '{caption: â€œâ€¦sunset over Dubrovnikâ€¦â€, entities:["sunset","sea"]}',
+            },
+            tech: { agents: ['Captionâ€‘Generator'] },
+        },
+        {
+            id: 'text-in-image',
+            title: 'Text in Image',
+            tagline: 'Extract & search embedded text.',
+            description:
+                'Hybrid OCR finds text regions, recognizes content, and supports keyword queries across archives.',
+            demo: {
+                inputExample: 'Scanned receipts PDF',
+                outputExample: 'CSV with file, line, text, confidence.',
+            },
+            tech: { agents: ['OCRâ€‘Detector', 'Keywordâ€‘Indexer'] },
+        },
+    ],
+
+    /* ========== CODE ========== */
+    code: [
+        {
+            id: 'summary-analysis',
+            title: 'Summary Analysis',
+            tagline: 'Understand every file at a glance.',
+            description:
+                'Fileâ€‘chunker produces concise summaries, key functions, and TODO items for each source file.',
+            demo: {
+                inputExample: 'Monorepo (4000 files)',
+                outputExample: 'CSV {filePath, summary}',
+            },
+            tech: { agents: ['Chunkâ€‘Analyzer', 'Fileâ€‘Summarizer'] },
+        },
+        {
+            id: 'vulnerability-scan',
+            title: 'Vulnerability Analysis',
+            tagline: 'Find security flaws before attackers do.',
+            description:
+                'Static engine scans code, configs, and secrets, mapping findings to CWE IDs with remediation hints.',
+            demo: {
+                inputExample: 'Node.js backend',
+                outputExample: 'Markdown report with severity and fix suggestions.',
+            },
+            tech: { agents: ['SASTâ€‘Scanner', 'Remediationâ€‘Advisor'] },
+        },
+        {
+            id: 'dependency-audit',
+            title: 'Dependency Audit',
+            tagline: 'Tame thirdâ€‘party risk.',
+            description:
+                'Graph builder lists direct and transitive dependencies, flags outdated or vulnerable packages, and suggests safe upgrades.',
+            demo: {
+                inputExample: 'package.json + lockfile',
+                outputExample: 'Chart {package, current, latest, riskLevel}',
+            },
+            tech: { agents: ['Dependencyâ€‘Graph', 'Riskâ€‘Scorer'] },
+        },
+    ],
+};
+
+function UseCaseCard({ useCase }: { useCase: UseCase }) {
+    return (
+        <div className="border rounded-xl p-6 bg-white/95 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+            <h3 className="text-xl font-semibold mb-2 text-gray-900">{useCase.title}</h3>
+            <p className="text-gray-600 mb-3 italic">{useCase.tagline}</p>
+            <p className="text-gray-700 mb-4">{useCase.description}</p>
+            <div className="bg-gray-50/80 p-4 rounded-lg border border-gray-100">
+                <h4 className="font-medium mb-2 text-gray-900">Demo</h4>
+                <p className="text-sm text-gray-600">
+                    <strong>Input:</strong> {useCase.demo.inputExample}
+                </p>
+                <p className="text-sm text-gray-600">
+                    <strong>Output:</strong> {useCase.demo.outputExample}
+                </p>
+            </div>
+            <div className="mt-4">
+                <h4 className="font-medium mb-2 text-gray-900">Tech Stack</h4>
+                <div className="flex flex-wrap gap-2">
+                    {useCase.tech.agents.map((agent) => (
+                        <span
+                            key={agent}
+                            className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-md hover:bg-blue-200 transition-colors"
+                        >
+                            {agent}
+                        </span>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function UseCaseSection({ title, cases }: { title: string; cases: UseCase[] }) {
+    return (
+        <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-gray-900 flex items-center gap-3">
+                <span className="w-8 h-1 bg-blue-500 rounded-full"></span>
+                {title}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {cases.map((useCase) => (
+                    <UseCaseCard key={useCase.id} useCase={useCase} />
+                ))}
+            </div>
+        </section>
+    );
+}
+
+export default function UseCases() {
+    return (
+        <>
+            <Header />
+            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+                <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
+                    <h1 className="text-5xl font-bold mb-6 text-gray-900">Use Cases</h1>
+                    <p className="text-xl text-gray-600 mb-16 max-w-3xl">
+                        Explore how PrompX can transform your workflows across different domains with our powerful AI-driven
+                        solutions.
+                    </p>
+                    <UseCaseSection title="Data Analysis" cases={USE_CASES.data} />
+                    <UseCaseSection title="Audio Processing" cases={USE_CASES.audio} />
+                    <UseCaseSection title="Image Analysis" cases={USE_CASES.image} />
+                    <UseCaseSection title="Code Intelligence" cases={USE_CASES.code} />
+                </div>
+            </div>
+        </>
+    );
+}
+
+
+
+### FILE: app\layout.tsx
+import "./css/style.css";
+
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+export const metadata = {
+  title: "Create Next App",
+  description: "Generated by create next app",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className="scroll-smooth">
+      <body
+        className={`${inter.variable} bg-gray-50 font-inter tracking-tight text-gray-900 antialiased`}
+      >
+        <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
+          {children}
+        </div>
+      </body>
+    </html>
+  );
+}
+
+
+
+### FILE: components\ui\footer.tsx
+import Link from "next/link";
+import Logo from "./logo";
+
+export default function Footer({ border = false }: { border?: boolean }) {
+  return (
+    <footer>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        {/* Top area: Blocks */}
+        <div
+          className={`grid gap-10 py-8 sm:grid-cols-12 md:py-12 ${border ? "border-t [border-image:linear-gradient(to_right,transparent,var(--color-slate-200),transparent)1]" : ""}`}
+        >
+          {/* 1st block */}
+          <div className="space-y-2 sm:col-span-12 lg:col-span-4 lg:col-start-3">
+            <div className="text-center lg:text-left">
+              <Logo />
+            </div>
+            <div className="text-center text-sm text-gray-600 lg:text-left">
+              &copy; PrompX.com - All rights reserved.
+            </div>
+          </div>
+
+          {/* 2nd block */}
+          <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
+            <h3 className="text-center text-sm font-medium lg:text-left">Links</h3>
+            <ul className="space-y-2 text-center text-sm lg:text-left">
+              <li>
+                <Link
+                  className="text-gray-600 transition hover:text-gray-900"
+                  href="#features"
+                  scroll={false}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById('features');
+                    const elementPosition = element?.getBoundingClientRect().top || 0;
+                    const offsetPosition = elementPosition + window.scrollY - (window.innerHeight / 1);
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }}
+                >
+                  Features
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-gray-600 transition hover:text-gray-900"
+                  href="/AboutUs"
+                >
+                  About us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-gray-600 transition hover:text-gray-900"
+                  href="/ContactUs"
+                >
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Social block */}
+          <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
+            <h3 className="text-center text-sm font-medium lg:text-left">Social</h3>
+            <ul className="flex justify-center gap-1 lg:justify-start">
+              <li>
+                <Link
+                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600"
+                  href="https://x.com/withPrompX"
+                  aria-label="Twitter"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    className="h-8 w-8 fill-current"
+                    viewBox="0 0 32 32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="m13.063 9 3.495 4.475L20.601 9h2.454l-5.359 5.931L24 23h-4.938l-3.866-4.893L10.771 23H8.316l5.735-6.342L8 9h5.063Zm-.74 1.347h-1.457l8.875 11.232h1.36l-8.778-11.232Z"></path>
+                  </svg>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600"
+                  href="https://www.youtube.com/@PrompX"
+                  aria-label="YouTube"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    className="h-8 w-8 fill-current"
+                    viewBox="0 0 32 32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M24.325 8.309s-2.655-.334-8.357-.334c-5.517 0-8.294.334-8.294.334A2.675 2.675 0 0 0 5 10.984v10.034a2.675 2.675 0 0 0 2.674 2.676s2.582.332 8.294.332c5.709 0 8.357-.332 8.357-.332A2.673 2.673 0 0 0 27 21.018V10.984a2.673 2.673 0 0 0-2.675-2.675zM13.061 19.975V12.03L20.195 16l-7.134 3.975z" />
+                  </svg>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Big text */}
+      <div className="relative -mt-16 h-60 w-full" aria-hidden="true">
+        <div className="pointer-events-none absolute left-1/2 -z-10 -translate-x-1/2 text-center text-[348px] font-bold leading-none before:bg-linear-to-b before:from-gray-200 before:to-gray-100/30 before:to-80% before:bg-clip-text before:text-transparent before:content-['PrompX'] after:absolute after:inset-0 after:bg-gray-300/70 after:bg-clip-text after:text-transparent after:mix-blend-darken after:content-['PrompX'] after:[text-shadow:0_1px_0_white]"></div>
+        {/* Glow */}
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-2/3"
+          aria-hidden="true"
+        >
+          <div className="h-56 w-56 rounded-full border-[20px] border-blue-700 blur-[80px]"></div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+
+
+### FILE: components\ui\glowing-effect.tsx
+"use client";
+
+import { memo, useCallback, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
+import { animate } from "motion/react";
+
+interface GlowingEffectProps {
+    blur?: number;
+    inactiveZone?: number;
+    proximity?: number;
+    spread?: number;
+    variant?: "default" | "white";
+    glow?: boolean;
+    className?: string;
+    disabled?: boolean;
+    movementDuration?: number;
+    borderWidth?: number;
+}
+const GlowingEffect = memo(
+    ({
+        blur = 0,
+        inactiveZone = 0.7,
+        proximity = 0,
+        spread = 20,
+        variant = "default",
+        glow = false,
+        className,
+        movementDuration = 2,
+        borderWidth = 1,
+        disabled = true,
+    }: GlowingEffectProps) => {
+        const containerRef = useRef<HTMLDivElement>(null);
+        const lastPosition = useRef({ x: 0, y: 0 });
+        const animationFrameRef = useRef<number>(0);
+
+        const handleMove = useCallback(
+            (e?: MouseEvent | { x: number; y: number }) => {
+                if (!containerRef.current) return;
+
+                if (animationFrameRef.current) {
+                    cancelAnimationFrame(animationFrameRef.current);
+                }
+
+                animationFrameRef.current = requestAnimationFrame(() => {
+                    const element = containerRef.current;
+                    if (!element) return;
+
+                    const { left, top, width, height } = element.getBoundingClientRect();
+                    const mouseX = e?.x ?? lastPosition.current.x;
+                    const mouseY = e?.y ?? lastPosition.current.y;
+
+                    if (e) {
+                        lastPosition.current = { x: mouseX, y: mouseY };
+                    }
+
+                    const center = [left + width * 0.5, top + height * 0.5];
+                    const distanceFromCenter = Math.hypot(
+                        mouseX - center[0],
+                        mouseY - center[1]
+                    );
+                    const inactiveRadius = 0.5 * Math.min(width, height) * inactiveZone;
+
+                    if (distanceFromCenter < inactiveRadius) {
+                        element.style.setProperty("--active", "0");
+                        return;
+                    }
+
+                    const isActive =
+                        mouseX > left - proximity &&
+                        mouseX < left + width + proximity &&
+                        mouseY > top - proximity &&
+                        mouseY < top + height + proximity;
+
+                    element.style.setProperty("--active", isActive ? "1" : "0");
+
+                    if (!isActive) return;
+
+                    const currentAngle =
+                        parseFloat(element.style.getPropertyValue("--start")) || 0;
+                    let targetAngle =
+                        (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) /
+                        Math.PI +
+                        90;
+
+                    const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
+                    const newAngle = currentAngle + angleDiff;
+
+                    animate(currentAngle, newAngle, {
+                        duration: movementDuration,
+                        ease: [0.16, 1, 0.3, 1],
+                        onUpdate: (value) => {
+                            element.style.setProperty("--start", String(value));
+                        },
+                    });
+                });
+            },
+            [inactiveZone, proximity, movementDuration]
+        );
+
+        useEffect(() => {
+            if (disabled) return;
+
+            const handleScroll = () => handleMove();
+            const handlePointerMove = (e: PointerEvent) => handleMove(e);
+
+            window.addEventListener("scroll", handleScroll, { passive: true });
+            document.body.addEventListener("pointermove", handlePointerMove, {
+                passive: true,
+            });
+
+            return () => {
+                if (animationFrameRef.current) {
+                    cancelAnimationFrame(animationFrameRef.current);
+                }
+                window.removeEventListener("scroll", handleScroll);
+                document.body.removeEventListener("pointermove", handlePointerMove);
+            };
+        }, [handleMove, disabled]);
+
+        return (
+            <>
+                <div
+                    className={cn(
+                        "pointer-events-none absolute -inset-px hidden rounded-[inherit] border opacity-0 transition-opacity",
+                        glow && "opacity-100",
+                        variant === "white" && "border-white",
+                        disabled && "!block"
+                    )}
+                />
+                <div
+                    ref={containerRef}
+                    style={
+                        {
+                            "--blur": `${blur}px`,
+                            "--spread": spread,
+                            "--start": "0",
+                            "--active": "0",
+                            "--glowingeffect-border-width": `${borderWidth}px`,
+                            "--repeating-conic-gradient-times": "5",
+                            "--gradient":
+                                variant === "white"
+                                    ? `repeating-conic-gradient(
+                  from 236.84deg at 50% 50%,
+                  var(--black),
+                  var(--black) calc(25% / var(--repeating-conic-gradient-times))
+                )`
+                                    : `radial-gradient(circle, #dd7bbb 10%, #dd7bbb00 20%),
+                radial-gradient(circle at 40% 40%, #d79f1e 5%, #d79f1e00 15%),
+                radial-gradient(circle at 60% 60%, #5a922c 10%, #5a922c00 20%), 
+                radial-gradient(circle at 40% 60%, #4c7894 10%, #4c789400 20%),
+                repeating-conic-gradient(
+                  from 236.84deg at 50% 50%,
+                  #dd7bbb 0%,
+                  #d79f1e calc(25% / var(--repeating-conic-gradient-times)),
+                  #5a922c calc(50% / var(--repeating-conic-gradient-times)), 
+                  #4c7894 calc(75% / var(--repeating-conic-gradient-times)),
+                  #dd7bbb calc(100% / var(--repeating-conic-gradient-times))
+                )`,
+                        } as React.CSSProperties
+                    }
+                    className={cn(
+                        "pointer-events-none absolute inset-0 rounded-[inherit] opacity-100 transition-opacity",
+                        glow && "opacity-100",
+                        blur > 0 && "blur-[var(--blur)] ",
+                        className,
+                        disabled && "!hidden"
+                    )}
+                >
+                    <div
+                        className={cn(
+                            "glow",
+                            "rounded-[inherit]",
+                            'after:content-[""] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))]',
+                            "after:[border:var(--glowingeffect-border-width)_solid_transparent]",
+                            "after:[background:var(--gradient)] after:[background-attachment:fixed]",
+                            "after:opacity-[var(--active)] after:transition-opacity after:duration-300",
+                            "after:[mask-clip:padding-box,border-box]",
+                            "after:[mask-composite:intersect]",
+                            "after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]"
+                        )}
+                    />
+                </div>
+            </>
+        );
+    }
+);
+
+GlowingEffect.displayName = "GlowingEffect";
+
+export { GlowingEffect };
+
+
+
+### FILE: components\ui\header.tsx
+import Link from "next/link";
+import Logo from "./logo";
+
+export default function Header() {
+  return (
+    <header className="fixed top-2 z-30 w-full md:top-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative flex h-14 items-center justify-between gap-3 rounded-2xl bg-white/90 px-3 shadow-lg shadow-black/[0.03] backdrop-blur-xs before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(var(--color-gray-100),var(--color-gray-200))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]">
+          {/* Site branding */}
+          <div className="flex flex-1 items-center">
+            <Logo />
+          </div>
+
+          {/* Desktop sign in links */}
+          <ul className="flex flex-1 items-center justify-end gap-3">
+            <li>
+              <Link
+                href="/ContactUs"
+                className="btn-sm bg-white text-gray-800 shadow-sm hover:bg-gray-50"
+              >
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/UseCases"
+                className="btn-sm bg-white text-gray-800 shadow-sm hover:bg-gray-50"
+              >
+                Use Cases
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/AboutUs"
+                className="btn-sm bg-gray-800 text-gray-200 shadow-sm hover:bg-gray-900"
+              >
+                About Us
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+
+
+### FILE: components\ui\logo.tsx
+import Link from 'next/link'
+
+interface LogoProps {
+  trace?: boolean;
+  className?: string;
+}
+
+export default function Logo({ trace = false }: LogoProps) {
+  const boomerangPoints = "-50,-20 0,-10 30,0 0,10 -50,20 -40,0";
+  const radius = 55;
+  const circumference = 2 * Math.PI * radius;
+
+  return (
+    <Link href="/" className="inline-flex" aria-label="Boomerang Logo">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="28"
+        height="28"
+        viewBox="-60 -60 120 120"
+      >
+        {/* Multiple traces that follow the boomerang */}
+        {trace && (
+          <>
+            {[...Array(8)].map((_, i) => (
+              <polygon
+                key={i}
+                points={boomerangPoints}
+                fill="none"
+                stroke="black"
+                strokeWidth={2}
+                opacity={0.1}
+                strokeDasharray={circumference}
+              >
+                <animateTransform
+                  attributeName="transform"
+                  type="rotate"
+                  from="0 0 0"
+                  to="360 0 0"
+                  dur="2s"
+                  repeatCount="indefinite"
+                  begin={`${-(i * 0.25)}s`}
+                />
+                <animate
+                  attributeName="opacity"
+                  from="0.3"
+                  to="0"
+                  dur="0.5s"
+                  repeatCount="indefinite"
+                  begin={`${-(i * 0.25)}s`}
+                />
+              </polygon>
+            ))}
+          </>
+        )}
+        {/* Main boomerang */}
+        {[...Array(20)].map((_, i) => (
+          <polygon
+            key={i}
+            points={boomerangPoints}
+            fill="none"
+            stroke="black"
+            strokeWidth={2}
+            opacity={0.5}
+          >
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from={`${i * 18} 0 0`}
+              to={`${i * 18 + 360} 0 0`}
+              dur="2s"
+              repeatCount="indefinite"
+            />
+          </polygon>
+        ))}
+      </svg>
+    </Link>
+  );
+}
+
+
+### FILE: components\accordion.tsx
+"use client";
+
+import { useState } from "react";
+
+type AccordionpProps = {
+  children: React.ReactNode;
+  title: string;
+  id: string;
+  active?: boolean;
+};
+
+export default function Accordion({
+  children,
+  title,
+  id,
+  active = false,
+}: AccordionpProps) {
+  const [accordionOpen, setAccordionOpen] = useState<boolean>(active);
+
+  return (
+    <div className="relative rounded-lg bg-white/70 shadow-sm shadow-black/[0.03] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(var(--color-gray-100),var(--color-gray-200))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]">
+      <h2>
+        <button
+          className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold"
+          onClick={(e) => {
+            e.preventDefault();
+            setAccordionOpen((prevState) => !prevState);
+          }}
+          aria-expanded={accordionOpen}
+          aria-controls={`accordion-text-${id}`}
+        >
+          <span>{title}</span>
+          <span className="ml-8 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white shadow-xs">
+            <svg
+              className={`origin-center transform fill-gray-400 transition duration-200 ease-out ${accordionOpen && "rotate-180!"}`}
+              xmlns="http://www.w3.org/2000/svg"
+              width={10}
+              height={6}
+              fill="none"
+            >
+              <path
+                d="m2 .586 3 3 3-3L9.414 2 5.707 5.707a1 1 0 0 1-1.414 0L.586 2 2 .586Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </h2>
+      <div
+        id={`accordion-text-${id}`}
+        role="region"
+        aria-labelledby={`accordion-title-${id}`}
+        className={`grid overflow-hidden text-sm text-gray-600 transition-all duration-300 ease-in-out ${accordionOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+      >
+        <div className="overflow-hidden">
+          <p className="px-4 pb-3">{children}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+### FILE: components\banner.tsx
+"use client";
+
+import { useState } from "react";
+
+export default function Banner() {
+  const [bannerOpen, setBannerOpen] = useState<boolean>(true);
+
+  return (
+    <>
+      {bannerOpen && (
+        <div className="fixed bottom-0 right-0 z-50 w-full md:bottom-8 md:right-12 md:w-auto">
+          <div className="flex justify-between bg-slate-800 p-3 text-sm text-slate-50 shadow-lg md:rounded-sm">
+            <div className="inline-flex text-slate-500">
+              <a
+                className="font-medium text-slate-50 hover:underline"
+                href="https://github.com/cruip/tailwind-landing-page-template"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Download<span className="hidden sm:inline"> on GitHub</span>
+              </a>{" "}
+              <span className="px-1.5 italic">or</span>{" "}
+              <a
+                className="font-medium text-emerald-400 hover:underline"
+                href="https://cruip.com/simple/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Check Premium Version
+              </a>
+            </div>
+            <button
+              className="ml-3 border-l border-gray-700 pl-2 text-slate-500 hover:text-slate-400"
+              onClick={() => setBannerOpen(false)}
+            >
+              <span className="sr-only">Close</span>
+              <svg
+                className="h-4 w-4 shrink-0 fill-current"
+                viewBox="0 0 16 16"
+              >
+                <path d="M12.72 3.293a1 1 0 00-1.415 0L8.012 6.586 4.72 3.293a1 1 0 00-1.414 1.414L6.598 8l-3.293 3.293a1 1 0 101.414 1.414l3.293-3.293 3.293 3.293a1 1 0 001.414-1.414L9.426 8l3.293-3.293a1 1 0 000-1.414z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+
+
+### FILE: components\business-categories.tsx
+import Image from "next/image";
+import Logo01 from "@/public/images/logo-01.png";
+import Logo02 from "@/public/images/logo-02.svg";
+import Logo03 from "@/public/images/logo-03.svg";
+import Logo04 from "@/public/images/logo-04.svg";
+import Logo05 from "@/public/images/logo-05.svg";
+import Logo06 from "@/public/images/logo-06.svg";
+import Logo07 from "@/public/images/logo-07.svg";
+import Logo08 from "@/public/images/logo-08.svg";
+import Logo09 from "@/public/images/logo-09.svg";
+
+export default function BusinessCategories() {
+  return (
+    <section>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="pb-12 md:pb-20">
+          {/* Tab panels */}
+          <div className="relative flex h-[324px] items-center justify-center">
+            {/* Small blue dots */}
+            <div className="absolute -z-10">
+              <svg
+                className="fill-amber-600"
+                xmlns="http://www.w3.org/2000/svg"
+                width={164}
+                height={41}
+                viewBox="0 0 164 41"
+                fill="none"
+              >
+                <circle cx={1} cy={8} r={1} fillOpacity="0.24" />
+                <circle cx={1} cy={1} r={1} fillOpacity="0.16" />
+                <circle cx={1} cy={15} r={1} />
+                <circle cx={1} cy={26} r={1} fillOpacity="0.64" />
+                <circle cx={1} cy={33} r={1} fillOpacity="0.24" />
+                <circle cx={8} cy={8} r={1} />
+                <circle cx={8} cy={15} r={1} />
+                <circle cx={8} cy={26} r={1} fillOpacity="0.24" />
+                <circle cx={15} cy={15} r={1} fillOpacity="0.64" />
+                <circle cx={15} cy={26} r={1} fillOpacity="0.16" />
+                <circle cx={8} cy={33} r={1} />
+                <circle cx={1} cy={40} r={1} />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 164 7)"
+                  fillOpacity="0.24"
+                />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 164 0)"
+                  fillOpacity="0.16"
+                />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 164 14)"
+                />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 164 25)"
+                  fillOpacity="0.64"
+                />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 164 32)"
+                  fillOpacity="0.24"
+                />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 157 7)"
+                />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 157 14)"
+                />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 157 25)"
+                  fillOpacity="0.24"
+                />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 150 14)"
+                  fillOpacity="0.64"
+                />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 150 25)"
+                  fillOpacity="0.16"
+                />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 157 32)"
+                />
+                <circle
+                  cx={1}
+                  cy={1}
+                  r={1}
+                  transform="matrix(-1 0 0 1 164 39)"
+                />
+              </svg>
+            </div>
+            {/* Blue glow */}
+            <div className="absolute -z-10">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={432}
+                height={160}
+                viewBox="0 0 432 160"
+                fill="none"
+              >
+                <g opacity="0.6" filter="url(#filter0_f_2044_9)">
+                  <path
+                    className="fill-blue-500"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M80 112C62.3269 112 48 97.6731 48 80C48 62.3269 62.3269 48 80 48C97.6731 48 171 62.3269 171 80C171 97.6731 97.6731 112 80 112ZM352 112C369.673 112 384 97.6731 384 80C384 62.3269 369.673 48 352 48C334.327 48 261 62.3269 261 80C261 97.6731 334.327 112 352 112Z"
+                  />
+                </g>
+                <defs>
+                  <filter
+                    id="filter0_f_2044_9"
+                    x={0}
+                    y={0}
+                    width={432}
+                    height={160}
+                    filterUnits="userSpaceOnUse"
+                    colorInterpolationFilters="sRGB"
+                  >
+                    <feFlood floodOpacity={0} result="BackgroundImageFix" />
+                    <feBlend
+                      mode="normal"
+                      in="SourceGraphic"
+                      in2="BackgroundImageFix"
+                      result="shape"
+                    />
+                    <feGaussianBlur
+                      stdDeviation={32}
+                      result="effect1_foregroundBlur_2044_9"
+                    />
+                  </filter>
+                </defs>
+              </svg>
+            </div>
+            {/* Horizontal lines */}
+            <div className="absolute inset-x-0 top-0 -z-10 h-px bg-linear-to-r from-transparent via-gray-200 to-transparent mix-blend-multiply"></div>
+            <div className="absolute inset-x-0 bottom-0 -z-10 h-px bg-linear-to-r from-transparent via-gray-200 to-transparent mix-blend-multiply"></div>
+            <div className="absolute inset-x-[200px] top-1/2 -z-10 h-px bg-linear-to-r from-transparent via-blue-500/60 to-transparent mix-blend-multiply"></div>
+            <div className="absolute inset-x-0 top-1/2 -z-10 h-px -translate-y-[82px] bg-linear-to-r from-transparent via-gray-200 to-transparent mix-blend-multiply before:absolute before:inset-y-0 before:w-24 before:animate-[line_10s_ease-in-out_infinite_both] before:bg-linear-to-r before:via-blue-500"></div>
+            <div className="absolute inset-x-0 top-1/2 -z-10 h-px translate-y-[82px] bg-linear-to-r from-transparent via-gray-200 to-transparent mix-blend-multiply before:absolute before:inset-y-0 before:w-24 before:animate-[line_10s_ease-in-out_infinite_5s_both] before:bg-linear-to-r before:via-blue-500"></div>
+            {/* Diagonal lines */}
+            <div className="absolute inset-x-[300px] top-1/2 -z-10 h-px rotate-[20deg] bg-linear-to-r from-transparent via-gray-200 to-transparent mix-blend-multiply"></div>
+            <div className="absolute inset-x-[300px] top-1/2 -z-10 h-px -rotate-[20deg] bg-linear-to-r from-transparent via-gray-200 to-transparent mix-blend-multiply"></div>
+            {/* Vertical lines */}
+            <div className="absolute inset-y-0 left-1/2 -z-10 w-px -translate-x-[216px] bg-linear-to-b from-gray-200 to-transparent mix-blend-multiply"></div>
+            <div className="absolute inset-y-0 left-1/2 -z-10 w-px translate-x-[216px] bg-linear-to-t from-gray-200 to-transparent mix-blend-multiply"></div>
+            {/* Logos */}
+            <div className="absolute before:absolute before:-inset-3 before:animate-[spin_3s_linear_infinite] before:rounded-full before:border before:border-transparent before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)] before:[background:conic-gradient(from_180deg,transparent,var(--color-blue-500))_border-box]">
+              <div className="animate-[breath_8s_ease-in-out_infinite_both]">
+                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-lg shadow-black/[0.03] before:absolute before:inset-0 before:m-[8.334%] before:rounded-[inherit] before:border before:border-gray-700/5 before:bg-gray-200/60 before:[mask-image:linear-gradient(to_bottom,black,transparent)]">
+                  <Image
+                    className="relative"
+                    src={Logo01}
+                    width={32}
+                    height={32}
+                    alt="Logo 01"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="relative flex flex-col">
+              <article className="flex h-full w-full items-center justify-center focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-indigo-300">
+                <div className="absolute -translate-x-[136px]">
+                  <div className="animate-[breath_7s_ease-in-out_3s_infinite_both]">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg shadow-black/[0.03] before:absolute before:inset-0 before:m-[8.334%] before:rounded-[inherit] before:border before:border-gray-700/5 before:bg-gray-200/60 before:[mask-image:linear-gradient(to_bottom,black,transparent)]">
+                      <Image
+                        className="relative"
+                        src={Logo02}
+                        width={23}
+                        height={22}
+                        alt="Logo 02"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute translate-x-[136px]">
+                  <div className="animate-[breath_7s_ease-in-out_3.5s_infinite_both]">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg shadow-black/[0.03] before:absolute before:inset-0 before:m-[8.334%] before:rounded-[inherit] before:border before:border-gray-700/5 before:bg-gray-200/60 before:[mask-image:linear-gradient(to_bottom,black,transparent)]">
+                      <Image
+                        className="relative"
+                        src={Logo03}
+                        width={22}
+                        height={22}
+                        alt="Logo 03"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute -translate-x-[216px] -translate-y-[82px]">
+                  <div className="animate-[breath_6s_ease-in-out_3.5s_infinite_both]">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-lg shadow-black/[0.03] before:absolute before:inset-0 before:m-[8.334%] before:rounded-[inherit] before:border before:border-gray-700/5 before:bg-gray-200/60 before:[mask-image:linear-gradient(to_bottom,black,transparent)]">
+                      <Image
+                        className="relative"
+                        src={Logo04}
+                        width={24}
+                        height={22}
+                        alt="Logo 04"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute -translate-y-[82px] translate-x-[216px]">
+                  <div className="animate-[breath_6s_ease-in-out_1.5s_infinite_both]">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-lg shadow-black/[0.03] before:absolute before:inset-0 before:m-[8.334%] before:rounded-[inherit] before:border before:border-gray-700/5 before:bg-gray-200/60 before:[mask-image:linear-gradient(to_bottom,black,transparent)]">
+                      <Image
+                        className="relative"
+                        src={Logo05}
+                        width={25}
+                        height={25}
+                        alt="Logo 05"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute translate-x-[216px] translate-y-[82px]">
+                  <div className="animate-[breath_6s_ease-in-out_2s_infinite_both]">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-lg shadow-black/[0.03] before:absolute before:inset-0 before:m-[8.334%] before:rounded-[inherit] before:border before:border-gray-700/5 before:bg-gray-200/60 before:[mask-image:linear-gradient(to_bottom,black,transparent)]">
+                      <Image
+                        className="relative"
+                        src={Logo06}
+                        width={20}
+                        height={18}
+                        alt="Logo 06"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute -translate-x-[216px] translate-y-[82px]">
+                  <div className="animate-[breath_6s_ease-in-out_2.5s_infinite_both]">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-lg shadow-black/[0.03] before:absolute before:inset-0 before:m-[8.334%] before:rounded-[inherit] before:border before:border-gray-700/5 before:bg-gray-200/60 before:[mask-image:linear-gradient(to_bottom,black,transparent)]">
+                      <Image
+                        className="relative"
+                        src={Logo07}
+                        width={25}
+                        height={25}
+                        alt="Logo 07"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute -translate-x-[292px] opacity-40">
+                  <div className="animate-[breath_6s_ease-in-out_2s_infinite_both]">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200/60 bg-white shadow-lg">
+                      <Image
+                        className="relative"
+                        src={Logo08}
+                        width={20}
+                        height={20}
+                        alt="Logo 08"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute translate-x-[292px] opacity-40">
+                  <div className="animate-[breath_6s_ease-in-out_4s_infinite_both]">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200/60 bg-white shadow-lg">
+                      <Image
+                        className="relative"
+                        src={Logo09}
+                        width={21}
+                        height={13}
+                        alt="Logo 09"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
+### FILE: components\cta.tsx
+"use client";
+
+import Image from "next/image";
+import Stripes from "@/public/images/stripes-dark.svg";
+
+export default function Cta() {
+  return (
+    <section>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div
+          className="relative overflow-hidden rounded-2xl text-center shadow-xl before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-2xl before:bg-gray-900"
+          data-aos="zoom-y-out"
+        >
+          {/* Glow */}
+          <div
+            className="absolute bottom-0 left-1/2 -z-10 -translate-x-1/2 translate-y-1/2"
+            aria-hidden="true"
+          >
+            <div className="h-56 w-[480px] rounded-full border-[20px] border-blue-500 blur-3xl" />
+          </div>
+          {/* Stripes illustration */}
+          <div
+            className="pointer-events-none absolute left-1/2 top-0 -z-10 -translate-x-1/2 transform"
+            aria-hidden="true"
+          >
+            <Image
+              className="max-w-none"
+              src={Stripes}
+              width={768}
+              height={432}
+              alt="Stripes"
+            />
+          </div>
+          <div className="px-4 py-12 md:px-12 md:py-20">
+            <h2 className="mb-6 border-y text-3xl font-bold text-gray-200 [border-image:linear-gradient(to_right,transparent,--theme(--color-slate-700/.7),transparent)1] md:mb-12 md:text-4xl">
+              Start using the most advanced Agentic AI Studio today!
+            </h2>
+            <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
+              <a
+                className="btn group mb-4 w-full bg-linear-to-t from-blue-600 to-blue-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-sm hover:bg-[length:100%_150%] sm:mb-0 sm:w-auto"
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                <span className="relative inline-flex items-center">
+                  Downlaod Now{" "}
+                  <span className="ml-1 tracking-normal text-blue-300 transition-transform group-hover:translate-x-0.5">
+                    -&gt;
+                  </span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
+### FILE: components\email-popup.tsx
+import { useState } from 'react';
+import Logo from './ui/logo';
+
+interface EmailPopupProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onSubmit: (email: string) => void;
+}
+
+export default function EmailPopup({ isOpen, onClose, onSubmit }: EmailPopupProps) {
+    const [email, setEmail] = useState('');
+    const [error, setError] = useState('');
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!email.includes('@')) {
+            setError('Please enter a valid email address');
+            return;
+        }
+        onSubmit(email);
+        setEmail('');
+        setError('');
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 backdrop-blur-md bg-black/60 flex items-center justify-center z-50 animate-fadeIn p-4">
+            <div className="bg-white/95 backdrop-blur-md rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all animate-slideUp relative">
+                <div className="text-center mb-8">
+                    <div className="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-4 shadow-inner">
+                        <Logo trace={true} className="w-12 h-12 text-blue-500" />
+                    </div>
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-2">Download PrompX</h2>
+                    <p className="text-gray-600">Enter your email to start the download:</p>
+                </div>
+
+                <p className="mb-8 text-sm text-gray-500 italic text-center px-4">
+                    We value authentic communication - all emails are personally written by our team, never automated or AI-generated.
+                </p>
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="relative">
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all outline-none bg-white shadow-sm"
+                            placeholder="your@email.com"
+                            required
+                        />
+                        {error && (
+                            <p className="absolute -bottom-6 left-0 text-red-500 text-sm transition-all">
+                                {error}
+                            </p>
+                        )}
+                    </div>
+                    <div className="flex justify-end gap-4 pt-4">
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="px-6 py-3 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-50 transition-all font-medium"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            className="px-6 py-3 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-medium"
+                        >
+                            Download
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+}
+
+
+
+### FILE: components\GlowingEffectDemo.tsx
+"use client";
+
+import { Database, ImageIcon, Lock, Mic, FileSearch } from "lucide-react";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+
+export function GlowingEffectDemo() {
+  return (
+    <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-3 lg:gap-4 xl:max-h-[34rem] xl:grid-rows-2">
+      <GridItem
+        area="md:[grid-area:1/1/2/7] xl:[grid-area:1/1/2/5]"
+        icon={<Database className="h-4 w-4 text-black dark:text-neutral-400" />}
+        title="Data"
+        description="Agentic analysis that iterate row, batch or full set for summaries, labels, clustering."
+      />
+
+      <GridItem
+        area="md:[grid-area:1/7/2/13] xl:[grid-area:2/1/3/5]"
+        icon={<ImageIcon className="h-4 w-4 text-black dark:text-neutral-400" />}
+        title="Images"
+        description="Detect objects, actions or auto-caption at scale."
+      />
+
+      <GridItem
+        area="md:[grid-area:2/1/3/7] xl:[grid-area:1/5/3/8]"
+        icon={<Lock className="h-4 w-4 text-black dark:text-neutral-400" />}
+        title="Local AI"
+        description="Running AI models locally means your data stays private, analysis happens instantly, and you're always in controlâ€”no clouds, no delays, just immediate insights."
+      />
+
+      <GridItem
+        area="md:[grid-area:2/7/3/13] xl:[grid-area:1/8/2/13]"
+        icon={<FileSearch className="h-4 w-4 text-black dark:text-neutral-400" />}
+        title="Images"
+        description="Audit whole repos: dependency maps, vulnerability checks, plain--English explanations."
+      />
+
+      <GridItem
+        area="md:[grid-area:3/1/4/13] xl:[grid-area:2/8/3/13]"
+        icon={<Mic className="h-4 w-4 text-black dark:text-neutral-400" />}
+        title="Audio"
+        description="Batch speech-to-text and emotion scoring; export per-file or merged reports."
+      />
+    </ul>
+  );
+}
+
+interface GridItemProps {
+  area: string;
+  icon: React.ReactNode;
+  title: string;
+  description: React.ReactNode;
+}
+
+const GridItem = ({ area, icon, title, description }: GridItemProps) => {
+  return (
+    <li className={`min-h-[14rem] list-none ${area}`}>
+      <div className="relative h-full rounded-2xl border p-2 md:rounded-3xl md:p-3">
+        <GlowingEffect
+          spread={40}
+          glow={true}
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+        />
+        <div className="border-0.75 relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl p-6 md:p-6 bg-white">
+          <div className="relative flex flex-1 flex-col justify-between gap-3">
+            <div className="w-fit rounded-lg border border-gray-600 p-2">
+              {icon}
+            </div>
+            <div className="space-y-3">
+              <h3 className="-tracking-4 pt-0.5 font-sans text-xl/[1.375rem] font-semibold text-balance text-black md:text-2xl/[1.875rem] dark:text-black">
+                {title}
+              </h3>
+              <h2 className="font-sans text-sm/[1.125rem] text-black md:text-base/[1.375rem] dark:text-neutral-400 [&_b]:md:font-semibold [&_strong]:md:font-semibold">
+                {description}
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+};
+
+
+
+### FILE: components\hero-home.tsx
+"use client";
+import { FaWindows, FaApple, FaLinux } from "react-icons/fa";
+import { useState } from "react";
+import EmailPopup from './email-popup';
+
+export default function HeroHome() {
+  const [showPopup, setShowPopup] = useState(false);
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownload = async (email: string) => {
+    try {
+      setDownloading(true);
+      const response = await fetch('/api/downloads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to record download');
+      }
+
+      // Trigger the actual download
+      window.location.href = '/PrompX Setup 0.0.1.exe';
+      setShowPopup(false);
+    } catch (error) {
+      console.error('Error handling download:', error);
+      alert('Failed to start download. Please try again.');
+    } finally {
+      setDownloading(false);
+    }
+  };
+
+  return (
+    <section className="relative">
+      <EmailPopup
+        isOpen={showPopup}
+        onClose={() => setShowPopup(false)}
+        onSubmit={handleDownload}
+      />
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="pb-12 pt-32 md:pb-20 md:pt-40">
+          {/* Section header */}
+          <div className="pb-12 text-center md:pb-16">
+            <div
+              className="mb-6 border-y [border-image:linear-gradient(to_right,transparent,--theme(--color-slate-300/.8),transparent)1]"
+              data-aos="zoom-y-out"
+            >
+            </div>
+            <h1
+              className="mb-6 border-y text-5xl font-bold [border-image:linear-gradient(to_right,transparent,--theme(--color-slate-300/.8),transparent)1] md:text-6xl"
+              data-aos="zoom-y-out"
+              data-aos-delay={150}
+            >
+              Agentic AI Studio for Big-Data Insight <br className="max-lg:hidden" />
+            </h1>
+            <div className="mx-auto max-w-3xl">
+              <p
+                className="mb-8 text-lg text-gray-700"
+                data-aos="zoom-y-out"
+                data-aos-delay={300}
+              >
+                Analyze millions of rows, images, audio files & codebases â€” offline, privately, visually.
+              </p>
+              <div className="relative before:absolute before:inset-0 before:border-y before:[border-image:linear-gradient(to_right,transparent,--theme(--color-slate-300/.8),transparent)1]">
+                <div
+                  className="mx-auto flex max-w-xs flex-col gap-4 sm:max-w-none sm:flex-row sm:justify-center"
+                  data-aos="zoom-y-out"
+                  data-aos-delay={450}
+                >
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowPopup(true);
+                    }}
+                    className="btn group w-full bg-linear-to-t from-blue-600 to-blue-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-sm hover:bg-[length:100%_150%] sm:w-auto flex items-center justify-center"
+                  >
+                    <FaWindows className="mr-2" />
+                    Download for Windows
+                  </a>
+                  <div className="group relative">
+                    <button
+                      className="btn w-full bg-white text-gray-800 shadow-sm hover:bg-gray-50 sm:w-auto flex items-center justify-center"
+                      disabled
+                    >
+                      <FaApple className="mr-2" />
+                      Download for macOS
+                    </button>
+                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 hidden group-hover:block bg-gray-800 text-white text-sm px-2 py-1 rounded">
+                      Unavailable
+                    </div>
+                  </div>
+                  <div className="group relative">
+                    <button
+                      className="btn w-full bg-white text-gray-800 shadow-sm hover:bg-gray-50 sm:w-auto flex items-center justify-center"
+                      disabled
+                    >
+                      <FaLinux className="mr-2" />
+                      Download for Linux
+                    </button>
+                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 hidden group-hover:block bg-gray-800 text-white text-sm px-2 py-1 rounded">
+                      Unavailable
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Hero video */}
+          <div
+            className="mx-auto max-w-3xl"
+            data-aos="zoom-y-out"
+            data-aos-delay={600}
+          >
+            <video
+              className="w-full rounded-2xl shadow-xl"
+              controls
+              src="/PrompX Video.mp4"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
+### FILE: components\large-testimonial.tsx
+import Image from "next/image";
+
+
+export default function LargeTestimonial() {
+  return (
+    <section>
+      <div className="mx-auto max-w-2xl px-4 sm:px-6">
+        <div className="py-12 md:py-20">
+          <div className="space-y-3 text-center">
+            <div className="relative inline-flex">
+              <svg
+                className="absolute -left-6 -top-2 -z-10"
+                width={40}
+                height={49}
+                viewBox="0 0 40 49"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M22.7976 -0.000136375L39.9352 23.4746L33.4178 31.7234L13.7686 11.4275L22.7976 -0.000136375ZM9.34947 17.0206L26.4871 40.4953L19.9697 48.7441L0.320491 28.4482L9.34947 17.0206Z"
+                  fill="#D1D5DB"
+                />
+              </svg>
+
+            </div>
+            <p className="text-2xl font-bold text-gray-900">
+              â€œ   Explore massive data, images, audio, and codebases instantlyâ€”with privacy, speed, and zero cloud.
+            </p>
+            <div className="text-sm font-medium text-gray-500">
+              <span className="text-gray-700">PrompX</span>{" "}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
