@@ -395,7 +395,7 @@ export default function QualityHome() {
             <main className="bg-gradient-to-b from-white to-blue-50 text-slate-900 rounded-t-3xl -mt-8 relative z-10">
                 <div className="container mx-auto px-6 py-20">
                     {/* Stats Section */}
-                    <section className="grid grid-cols-3 gap-8 mb-20">
+                    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
                         {[
                             { value: "99.9%", label: "Detection Accuracy", color: "text-blue-600" },
                             { value: "0.5ms", label: "Processing Speed", color: "text-purple-600" },
