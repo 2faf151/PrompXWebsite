@@ -133,7 +133,7 @@ export default function QualityHome() {
             } catch (err: any) {
                 attempt++;
                 if (attempt === maxRetries) {
-                    setError(`Failed to analyze image: ${err.message}. Please check your API key, image, or description and try again.`);
+                    setError(`Failed to analyze image: ${err.message}. Try again later.`);
                     console.error('API Error:', err);
                     setLoading(false); // Set loading to false on final error
                 }
