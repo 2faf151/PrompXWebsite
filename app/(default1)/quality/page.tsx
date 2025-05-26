@@ -87,7 +87,7 @@ export default function QualityHome() {
             setError('Image encoding failed. Please try another image.');
             return;
         }
-        if (process.env.NEXT_PUBLIC_MOONDREAM_API_KEY === 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlfaWQiOiI5NTgxMWVhZi00OTAzLTQ2NDMtOWQ2Ni01ZjZiNDhhMjg1NmQiLCJvcmdfaWQiOiJ6N1N0Z2ZVUjZDeGJqSlY1RWFzYTNXSVNzeGZkRDlZUCIsImlhdCI6MTc0ODI1MjAyNiwidmVyIjoxfQ.rxeffDR6-G9A-fwFDYKz8UkyVfD4X5HjHz5zZ2PRg5M') {
+        if (process.env.NEXT_PUBLIC_MOONDREAM_API_KEY === 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlfaWQiOiI5YTdkNDJlOS0wNmZlLTRmMzAtOGU3YS02YTZiMTk3OTMxODIiLCJvcmdfaWQiOiJ6N1N0Z2ZVUjZDeGJqSlY1RWFzYTNXSVNzeGZkRDlZUCIsImlhdCI6MTc0ODI5Mjc3NywidmVyIjoxfQ.GCDRSRefrBUi0EURzhZtAoYnWk0zTMtE7hf08oAQecU') {
             setError('Invalid API key. Please configure a valid Moondream API key.');
             return;
         }
