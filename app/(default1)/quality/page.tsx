@@ -87,10 +87,12 @@ export default function QualityHome() {
             setError('Image encoding failed. Please try another image.');
             return;
         }
-        if (process.env.NEXT_PUBLIC_MOONDREAM_API_KEY === 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlfaWQiOiI5YTdkNDJlOS0wNmZlLTRmMzAtOGU3YS02YTZiMTk3OTMxODIiLCJvcmdfaWQiOiJ6N1N0Z2ZVUjZDeGJqSlY1RWFzYTNXSVNzeGZkRDlZUCIsImlhdCI6MTc0ODI5Mjc3NywidmVyIjoxfQ.GCDRSRefrBUi0EURzhZtAoYnWk0zTMtE7hf08oAQecU') {
+        if (!process.env.NEXT_PUBLIC_MOONDREAM_API_KEY) {
             setError('Invalid API key. Please configure a valid Moondream API key.');
             return;
         }
+
+        const apiKey = process.env.NEXT_PUBLIC_MOONDREAM_API_KEY;
 
         setLoading(true);
         setError(null);
@@ -103,7 +105,7 @@ export default function QualityHome() {
                 const response = await fetch('https://api.moondream.ai/v1/point', {
                     method: 'POST',
                     headers: {
-                        'X-Moondream-Auth': process.env.NEXT_PUBLIC_MOONDREAM_API_KEY || 'your-api-key',
+                        'X-Moondream-Auth': apiKey,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
