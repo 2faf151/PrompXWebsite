@@ -1,166 +1,491 @@
-// app/(default)/quality/page.tsx
-import { Camera, Cpu, CheckCircle, Zap, Shield, BarChart } from 'lucide-react';
+"use client";
 
-export const metadata = {
-    title: "Quality Inspection with AI – PrompX",
-    description: "On-premise AI scanning and CCTV quality checks for mass production lines.",
-};
+import { useState, useEffect } from 'react';
+import { Camera, Cpu, CheckCircle, Zap, Shield, BarChart, Upload, Eye, Scan, Monitor } from 'lucide-react';
+
+// Extend File interface to include base64 property
+interface ExtendedFile extends File {
+    base64?: string;
+}
 
 export default function QualityHome() {
+    // State for image upload and API interaction
+    const [selectedImage, setSelectedImage] = useState<ExtendedFile | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [damageDescription, setDamageDescription] = useState<string>('');
+    const [points, setPoints] = useState<{ x: number; y: number }[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+    const [imageDimensions, setImageDimensions] = useState<{
+        natural: { width: number; height: number };
+        display: { width: number; height: number };
+    }>({
+        natural: { width: 0, height: 0 },
+        display: { width: 0, height: 0 }
+    });
+
+    const [containerDimensions, setContainerDimensions] = useState<{
+        width: number;
+        height: number;
+    }>({
+        width: 0,
+        height: 0
+    });
+
+    // Handle file selection and Base64 encoding
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            // Validate file type and size (max 10MB for safety)
+            const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif'];
+            if (!validTypes.includes(file.type)) {
+                setError('Please upload a valid image (JPG, PNG, WEBP, GIF, or AVIF).');
+                return;
+            }
+            if (file.size > 10 * 1024 * 1024) {
+                setError('Image size exceeds 10MB. Please upload a smaller image.');
+                return;
+            }
+
+            const extendedFile: ExtendedFile = file;
+            setSelectedImage(extendedFile);
+            const url = URL.createObjectURL(file);
+            setPreviewUrl(url);
+            setPoints([]); // Reset points when a new image is selected
+            setError(null);
+
+            // Convert image to Base64
+            const reader = new FileReader();
+            reader.onload = () => {
+                const base64String = reader.result?.toString();
+                if (base64String) {
+                    extendedFile.base64 = base64String;
+                    setSelectedImage({ ...extendedFile });
+                } else {
+                    setError('Failed to encode image. Please try another image.');
+                }
+            };
+            reader.onerror = () => {
+                setError('Failed to read image. Please try another image.');
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    // Handle description change
+    const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setDamageDescription(event.target.value);
+    };
+
+    // Handle API call to Moondream API with retry logic
+    const handleAnalyze = async () => {
+        if (!selectedImage || !damageDescription) {
+            setError('Please select an image and enter a description.');
+            return;
+        }
+        if (!selectedImage.base64) {
+            setError('Image encoding failed. Please try another image.');
+            return;
+        }
+        if (process.env.NEXT_PUBLIC_MOONDREAM_API_KEY === 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlfaWQiOiI5NTgxMWVhZi00OTAzLTQ2NDMtOWQ2Ni01ZjZiNDhhMjg1NmQiLCJvcmdfaWQiOiJ6N1N0Z2ZVUjZDeGJqSlY1RWFzYTNXSVNzeGZkRDlZUCIsImlhdCI6MTc0ODI1MjAyNiwidmVyIjoxfQ.rxeffDR6-G9A-fwFDYKz8UkyVfD4X5HjHz5zZ2PRg5M') {
+            setError('Invalid API key. Please configure a valid Moondream API key.');
+            return;
+        }
+
+        setLoading(true);
+        setError(null);
+
+        const maxRetries = 2;
+        let attempt = 0;
+
+        while (attempt < maxRetries) {
+            try {
+                const response = await fetch('https://api.moondream.ai/v1/point', {
+                    method: 'POST',
+                    headers: {
+                        'X-Moondream-Auth': process.env.NEXT_PUBLIC_MOONDREAM_API_KEY || 'your-api-key',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        image_url: selectedImage.base64,
+                        object: damageDescription,
+                        stream: false,
+                    }),
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`API request failed with status ${response.status}: ${errorText}`);
+                }
+
+                const data = await response.json();
+                console.log('API Response:', data);
+
+                if (!data.points || !Array.isArray(data.points) || data.points.length === 0) {
+                    setPoints([]);
+                    setError('No quality issues found in the specified area.');
+                    setLoading(false);
+                    break;
+                }
+                setPoints(data.points);
+                setLoading(false);
+                break; // Exit retry loop on success
+            } catch (err: any) {
+                attempt++;
+                if (attempt === maxRetries) {
+                    setError(`Failed to analyze image: ${err.message}. Please check your API key, image, or description and try again.`);
+                    console.error('API Error:', err);
+                    setLoading(false); // Set loading to false on final error
+                }
+                // Wait before retrying
+                if (attempt < maxRetries) {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+            }
+        }
+    };
+
+    // Update the handleImageLoad function
+    const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
+        const img = event.currentTarget;
+        const container = img.parentElement;
+        if (!container) return;
+
+        const containerWidth = container.clientWidth;
+        const containerHeight = container.clientHeight;
+        setContainerDimensions({ width: containerWidth, height: containerHeight });
+
+        // Calculate display dimensions maintaining aspect ratio
+        const aspectRatio = img.naturalWidth / img.naturalHeight;
+        let displayWidth = containerWidth;
+        let displayHeight = containerWidth / aspectRatio;
+
+        if (displayHeight > containerHeight) {
+            displayHeight = containerHeight;
+            displayWidth = containerHeight * aspectRatio;
+        }
+
+        setImageDimensions({
+            natural: {
+                width: img.naturalWidth,
+                height: img.naturalHeight
+            },
+            display: {
+                width: displayWidth,
+                height: displayHeight
+            }
+        });
+    };
+
+    // Clean up object URL
+    useEffect(() => {
+        return () => {
+            if (previewUrl) {
+                URL.revokeObjectURL(previewUrl);
+            }
+        };
+    }, [previewUrl]);
+
     return (
-        <div className="bg-black min-h-screen text-white">
+        <div className="bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 min-h-screen text-white">
             {/* Hero Section */}
-            <header className="container mx-auto px-6 py-24 text-center">
-                <h1 className="text-6xl font-extrabold mb-6">Quality Inspection with AI</h1>
-                <p className="text-xl max-w-3xl mx-auto mb-8">
-                    Transform your quality control process with AI-powered inspection systems.
-                </p>
-
-                {/* GIF Showcase Section */}
-                <div className="grid md:grid-cols-3 gap-8 mt-12">
-                    <div className="relative group">
-                        <div className="overflow-hidden rounded-xl">
-                            <img src="/phone.gif" alt="Phone Lidar Scanning" className="w-full h-64 object-cover" />
-                        </div>
-                        <div className="mt-4">
-                            <h3 className="text-xl font-bold">Mobile Lidar Scanning</h3>
-                            <p className="text-gray-400">Advanced phone-based quality inspection using AI and Lidar technology</p>
-                        </div>
-                    </div>
-
-                    <div className="relative group">
-                        <div className="overflow-hidden rounded-xl">
-                            <img src="/stream.gif" alt="Production Line Scanning" className="w-full h-64 object-cover" />
-                        </div>
-                        <div className="mt-4">
-                            <h3 className="text-xl font-bold">Production Line Integration</h3>
-                            <p className="text-gray-400">Real-time scanning and quality checks during manufacturing</p>
-                        </div>
-                    </div>
-
-                    <div className="relative group">
-                        <div className="overflow-hidden rounded-xl">
-                            <img src="/cctv.gif" alt="CCTV Monitoring" className="w-full h-64 object-cover" />
-                        </div>
-                        <div className="mt-4">
-                            <h3 className="text-xl font-bold">CCTV Monitoring</h3>
-                            <p className="text-gray-400">24/7 automated quality surveillance with AI-enhanced CCTV</p>
-                        </div>
-                    </div>
+            <header className="container mx-auto px-6 pt-28 pb-8">
+                <div className="text-center mb-16">
+                    <h1 className="text-7xl font-black mb-6 bg-gradient-to-r from-blue-400 via-white to-blue-300 bg-clip-text text-transparent">
+                        AI Quality Inspection
+                    </h1>
+                    <p className="text-xl max-w-3xl mx-auto text-blue-200/80 leading-relaxed">
+                        Transform your quality control with cutting-edge AI vision technology
+                    </p>
                 </div>
 
-                <div className="flex justify-center gap-4 mt-12">
-                    <a href="/ContactQuality" className="px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-all hover:scale-105">
-                        Schedule a Demo
-                    </a>
+                {/* Main Analysis Dashboard */}
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+                        {/* Upload Section - Left Column */}
+                        <div className="xl:col-span-2 space-y-6">
+                            {/* Image Upload Card */}
+                            <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 shadow-2xl">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <Upload className="w-6 h-6 text-blue-400" />
+                                    <h2 className="text-2xl font-bold text-white">Experience AI Quality Inspection</h2>
+                                </div>
+
+                                {/* Image Preview Area */}
+                                <div className="relative w-full h-80 mb-6 bg-gradient-to-br from-slate-900/50 to-blue-900/20 rounded-xl border-2 border-dashed border-blue-400/30 overflow-hidden group hover:border-blue-400/60 transition-all duration-300">
+                                    {previewUrl ? (
+                                        <>
+                                            <img
+                                                src={previewUrl}
+                                                alt="Uploaded preview"
+                                                className="w-full h-full object-contain"
+                                                onLoad={handleImageLoad}
+                                            />
+                                            {/* Overlay for new upload */}
+                                            <label className="absolute inset-0 bg-black/60 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer">
+                                                <div className="text-center">
+                                                    <Upload className="w-8 h-8 mx-auto mb-2 text-blue-400" />
+                                                    <span className="text-blue-200">Change Image</span>
+                                                </div>
+                                                <input
+                                                    type="file"
+                                                    accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+                                                    onChange={handleFileChange}
+                                                    className="hidden"
+                                                />
+                                            </label>
+                                        </>
+                                    ) : (
+                                        <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer group-hover:bg-blue-900/10 transition-colors">
+                                            <div className="p-6 rounded-full bg-blue-500/20 mb-4 group-hover:bg-blue-500/30 transition-colors">
+                                                <Upload className="w-12 h-12 text-blue-400" />
+                                            </div>
+                                            <span className="text-lg font-semibold text-blue-200 mb-2">Upload Image</span>
+                                            <span className="text-sm text-blue-300/70">Drag & drop or click to browse</span>
+                                            <input
+                                                type="file"
+                                                accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+                                                onChange={handleFileChange}
+                                                className="hidden"
+                                            />
+                                        </label>
+                                    )}
+
+                                    {/* Quality Issue Points */}
+                                    {points.map((point, index) => (
+                                        <div
+                                            key={index}
+                                            className="absolute w-6 h-6 transform -translate-x-1/2 -translate-y-1/2"
+                                            style={{
+                                                left: `${(point.x * imageDimensions.display.width) +
+                                                    ((containerDimensions.width - imageDimensions.display.width) / 2)}px`,
+                                                top: `${(point.y * imageDimensions.display.height) +
+                                                    ((containerDimensions.height - imageDimensions.display.height) / 2)}px`,
+                                            }}
+                                        >
+                                            <div className="w-6 h-6 bg-red-500 rounded-full animate-ping opacity-75"></div>
+                                            <div className="absolute inset-0 w-6 h-6 bg-red-400 rounded-full border-2 border-white shadow-lg"></div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Input and Analyze Section */}
+                                <div className="space-y-4">
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            value={damageDescription}
+                                            onChange={handleDescriptionChange}
+                                            placeholder="Describe the defect or quality issue to detect..."
+                                            className="w-full p-4 bg-slate-800/50 text-white rounded-xl border border-blue-500/30 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/20 placeholder-blue-300/50 transition-all"
+                                        />
+                                        <Scan className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-blue-400/60" />
+                                    </div>
+
+                                    <button
+                                        onClick={handleAnalyze}
+                                        disabled={loading}
+                                        className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl font-bold hover:from-blue-500 hover:to-blue-400 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-blue-500/25 hover:shadow-xl transform hover:-translate-y-0.5"
+                                    >
+                                        {loading ? (
+                                            <div className="flex items-center justify-center gap-2">
+                                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                                Analyzing...
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-center justify-center gap-2">
+                                                <Eye className="w-5 h-5" />
+                                                Detect Quality Issues
+                                            </div>
+                                        )}
+                                    </button>
+
+                                    {error && (
+                                        <div className="p-4 bg-red-500/20 border border-red-500/30 rounded-xl text-red-200">
+                                            {error}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right Sidebar */}
+                        <div className="space-y-6">
+                            {/* Live Monitoring Card */}
+                            <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-6 shadow-2xl">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <Monitor className="w-6 h-6 text-blue-400" />
+                                    <h3 className="text-xl font-bold text-white">Live Stream</h3>
+                                </div>
+
+                                <div className="relative h-48 rounded-xl overflow-hidden mb-4">
+                                    <img
+                                        src="/cctv.gif"
+                                        alt="CCTV Monitoring"
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                                        <div>
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                                <span className="text-green-400 text-sm font-semibold">LIVE</span>
+                                            </div>
+                                            <p className="text-white text-sm">Real-time Quality Monitoring</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p className="text-blue-200/80 text-sm">
+                                    Watch AI-powered inspection systems analyzing products in real-time
+                                </p>
+                            </div>
+
+                            {/* Feature Cards */}
+                            <div className="space-y-3">
+                                {[
+                                    {
+                                        icon: <Camera className="w-5 h-5" />,
+                                        title: "Mobile Lidar",
+                                        desc: "Phone-based scanning",
+                                        color: "from-blue-500/20 to-cyan-500/20 border-blue-400/30"
+                                    },
+                                    {
+                                        icon: <Zap className="w-5 h-5" />,
+                                        title: "Production Line",
+                                        desc: "Real-time manufacturing",
+                                        color: "from-purple-500/20 to-blue-500/20 border-purple-400/30"
+                                    },
+                                    {
+                                        icon: <Shield className="w-5 h-5" />,
+                                        title: "CCTV Monitoring",
+                                        desc: "24/7 surveillance",
+                                        color: "from-green-500/20 to-blue-500/20 border-green-400/30"
+                                    }
+                                ].map((item, i) => (
+                                    <div key={i} className={`bg-gradient-to-r ${item.color} backdrop-blur-sm border rounded-xl p-4 hover:scale-105 transition-all duration-300 group`}>
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2 bg-white/10 rounded-lg group-hover:bg-white/20 transition-colors">
+                                                {item.icon}
+                                            </div>
+                                            <div>
+                                                <h4 className="font-semibold text-white text-sm">{item.title}</h4>
+                                                <p className="text-blue-200/70 text-xs">{item.desc}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* CTA Section */}
+                    <div className="text-center mt-16 mb-10">
+                        <a
+                            href="/ContactQuality"
+                            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-white to-blue-50 text-slate-900 rounded-xl font-bold hover:from-blue-50 hover:to-white transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transform hover:-translate-y-1"
+                        >
+
+                            Schedule Demo
+                        </a>
+                    </div>
                 </div>
             </header>
 
-            <main className="container mx-auto px-6 py-16 bg-white rounded-t-3xl -mt-12 text-black">
-                {/* Stats Section */}
-                <section className="grid grid-cols-3 gap-8 mb-20">
-                    <div className="text-center">
-                        <div className="text-4xl font-bold text-gray-800 mb-2">99.9%</div>
-                        <div className="text-gray-600">Defect Detection Rate</div>
-                    </div>
-                    <div className="text-center">
-                        <div className="text-4xl font-bold text-gray-800 mb-2">0.5ms</div>
-                        <div className="text-gray-600">Processing Time</div>
-                    </div>
-                    <div className="text-center">
-                        <div className="text-4xl font-bold text-gray-800 mb-2">24/7</div>
-                        <div className="text-gray-600">Continuous Monitoring</div>
-                    </div>
-                </section>
+            {/* Stats and Content Section */}
+            <main className="bg-gradient-to-b from-white to-blue-50 text-slate-900 rounded-t-3xl -mt-8 relative z-10">
+                <div className="container mx-auto px-6 py-20">
+                    {/* Stats Section */}
+                    <section className="grid grid-cols-3 gap-8 mb-20">
+                        {[
+                            { value: "99.9%", label: "Detection Accuracy", color: "text-blue-600" },
+                            { value: "0.5ms", label: "Processing Speed", color: "text-purple-600" },
+                            { value: "24/7", label: "Uptime Monitoring", color: "text-green-600" }
+                        ].map((stat, i) => (
+                            <div key={i} className="text-center bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                                <div className={`text-5xl font-black mb-3 ${stat.color}`}>{stat.value}</div>
+                                <div className="text-slate-600 font-medium">{stat.label}</div>
+                            </div>
+                        ))}
+                    </section>
 
-                {/* How It Works */}
-                <section className="mb-20 max-w-3xl mx-auto">
-                    <h2 className="text-4xl font-bold text-center mb-16">How It Works</h2>
+                    {/* How It Works */}
+                    <section className="mb-20 max-w-4xl mx-auto">
+                        <h2 className="text-5xl font-black text-center mb-16 text-slate-900">How It Works</h2>
+                        <div className="relative">
+                            {/* Gradient line */}
+                            <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-green-500 rounded-full opacity-30"></div>
 
-                    <div className="relative">
-                        {/* Vertical line */}
-                        <div className="absolute left-8 top-0 bottom-0 w-[2px] bg-gradient-to-b from-black to-gray-300"></div>
-
-                        {/* Timeline steps */}
-                        <div className="space-y-12">
-                            {[
-                                {
-                                    icon: <Cpu className="w-6 h-6" />,
-                                    title: "Base Model Selection",
-                                    desc: "500M+ parameter AI models"
-                                },
-                                {
-                                    icon: <CheckCircle className="w-6 h-6" />,
-                                    title: "Requirements Analysis",
-                                    desc: "Tailored to your needs"
-                                },
-                                {
-                                    icon: <BarChart className="w-6 h-6" />,
-                                    title: "Model Fine-tuning",
-                                    desc: "Customized for your products"
-                                },
-                                {
-                                    icon: <Zap className="w-6 h-6" />,
-                                    title: "Development",
-                                    desc: "Cross-platform deployment"
-                                },
-                                {
-                                    icon: <Shield className="w-6 h-6" />,
-                                    title: "Deployment",
-                                    desc: "Plug & play installation"
-                                }
-                            ].map((step, i) => (
-                                <div key={i} className="flex items-start group">
-                                    <div className="w-16 flex justify-center relative">
-                                        <div className="w-4 h-4 rounded-full bg-black group-hover:scale-125 transition-transform duration-300"></div>
-                                        <div className="absolute top-0 left-0 w-16 h-16 -mt-6 -ml-5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            {step.icon}
+                            <div className="space-y-8">
+                                {[
+                                    { icon: <Cpu className="w-6 h-6" />, title: "AI Model Selection", desc: "500M+ parameter foundation models", color: "bg-blue-500" },
+                                    { icon: <CheckCircle className="w-6 h-6" />, title: "Requirements Analysis", desc: "Custom specifications for your industry", color: "bg-purple-500" },
+                                    { icon: <BarChart className="w-6 h-6" />, title: "Model Fine-tuning", desc: "Specialized training on your products", color: "bg-indigo-500" },
+                                    { icon: <Zap className="w-6 h-6" />, title: "System Development", desc: "Cross-platform deployment ready", color: "bg-cyan-500" },
+                                    { icon: <Shield className="w-6 h-6" />, title: "Production Deployment", desc: "Seamless integration & monitoring", color: "bg-green-500" }
+                                ].map((step, i) => (
+                                    <div key={i} className="flex items-start group">
+                                        <div className="w-16 flex justify-center relative">
+                                            <div className={`w-4 h-4 rounded-full ${step.color} group-hover:scale-125 transition-transform duration-300 shadow-lg`}></div>
+                                        </div>
+                                        <div className="flex-1 ml-6 bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-slate-100">
+                                            <div className="flex items-start gap-4">
+                                                <div className={`p-3 ${step.color} text-white rounded-lg`}>
+                                                    {step.icon}
+                                                </div>
+                                                <div>
+                                                    <h3 className="font-bold text-xl text-slate-900 mb-2">{step.title}</h3>
+                                                    <p className="text-slate-600">{step.desc}</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="flex-1 ml-4 bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                                        <h3 className="font-bold text-lg">{step.title}</h3>
-                                        <p className="text-gray-600">{step.desc}</p>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Benefits Section */}
+                    <section className="mb-20">
+                        <h2 className="text-5xl font-black text-center mb-12 text-slate-900">Why Choose Our System</h2>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            {[
+                                { icon: <Zap className="w-6 h-6" />, title: "Lightning Fast", desc: "Process thousands of items per minute with real-time analysis", gradient: "from-yellow-400 to-orange-500" },
+                                { icon: <Shield className="w-6 h-6" />, title: "Secure & Private", desc: "All processing happens on your premises with full data control", gradient: "from-green-400 to-blue-500" },
+                                { icon: <BarChart className="w-6 h-6" />, title: "Advanced Analytics", desc: "Comprehensive quality metrics and trend analysis", gradient: "from-purple-400 to-pink-500" },
+                                { icon: <Cpu className="w-6 h-6" />, title: "Custom AI Training", desc: "Tailored models specific to your products and requirements", gradient: "from-blue-400 to-cyan-500" }
+                            ].map((item, i) => (
+                                <div key={i} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-100 group hover:-translate-y-1">
+                                    <div className="flex items-start gap-4">
+                                        <div className={`p-4 bg-gradient-to-r ${item.gradient} text-white rounded-xl group-hover:scale-110 transition-transform duration-300`}>
+                                            {item.icon}
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-slate-900">{item.title}</h3>
+                                            <p className="text-slate-600 leading-relaxed">{item.desc}</p>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
                         </div>
-                    </div>
-                </section>
+                    </section>
 
-                {/* Benefits Section */}
-                <section className="mb-20">
-                    <h2 className="text-4xl font-bold text-center mb-12">Why Choose Our System</h2>
-                    <div className="grid md:grid-cols-2 gap-8">
-                        {[
-                            { icon: <Zap className="w-6 h-6" />, title: "Lightning Fast", desc: "Process thousands of items per minute" },
-                            { icon: <Shield className="w-6 h-6" />, title: "Secure & Private", desc: "All processing happens on your premises" },
-                            { icon: <BarChart className="w-6 h-6" />, title: "Detailed Analytics", desc: "Track quality metrics in real-time" },
-                            { icon: <Cpu className="w-6 h-6" />, title: "Custom Training", desc: "AI model tailored to your products" }
-                        ].map((item, i) => (
-                            <div key={i} className="flex items-start p-6 bg-gray-50 rounded-xl">
-                                <div className="bg-gray-200 p-3 rounded-lg mr-4">{item.icon}</div>
-                                <div>
-                                    <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                                    <p className="text-gray-600">{item.desc}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </section>
+                    {/* Final CTA Section */}
+                    <section className="text-center bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 rounded-3xl p-16 text-white shadow-2xl">
+                        <h2 className="text-5xl font-black mb-6 bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">
+                            Ready to Transform Your Production?
+                        </h2>
+                        <p className="mb-10 text-xl text-blue-200/90 max-w-2xl mx-auto leading-relaxed">
+                            Experience the future of quality control with our personalized AI inspection demo
+                        </p>
+                        <a
+                            href="/ContactQuality"
+                            className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-blue-500 to-cyan-400 text-white rounded-full font-bold hover:from-blue-400 hover:to-cyan-300 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-blue-500/30 transform hover:-translate-y-1"
+                        >
 
-                {/* CTA Section */}
-                <section className="text-center bg-black rounded-2xl p-12 text-white">
-                    <h2 className="text-4xl font-bold mb-4">Ready to Perfect Your Production Line?</h2>
-                    <p className="mb-8 text-lg">
-                        See our AI Quality Inspection system in action with a personalized demo.
-                    </p>
-                    <a
-                        href="/ContactQuality"
-                        className="inline-block px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition"
-                    >
-                        Schedule a Demo
-                    </a>
-                </section>
+                            Schedule Demo
+                        </a>
+                    </section>
+                </div>
             </main>
         </div>
     );
