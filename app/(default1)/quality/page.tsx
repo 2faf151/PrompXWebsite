@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { Camera, Cpu, CheckCircle, Zap, Shield, BarChart, Upload, Eye, Scan, Monitor } from 'lucide-react';
+import { MdSpeakerPhone, MdOutlineCameraRear } from 'react-icons/md';
+import { GiCctvCamera } from 'react-icons/gi';
+
 
 // Extend File interface to include base64 property
 interface ExtendedFile extends File {
@@ -346,23 +349,26 @@ export default function QualityHome() {
                             <div className="space-y-3">
                                 {[
                                     {
-                                        icon: <Camera className="w-5 h-5" />,
-                                        title: "Mobile Lidar",
-                                        desc: "Phone-based scanning",
+                                        icon: <MdSpeakerPhone className="w-5 h-5" />,
+                                        title: "Mobile ",
+                                        desc: "AI scan via phone camera & lidar",
                                         color: "from-blue-500/20 to-cyan-500/20 border-blue-400/30"
                                     },
                                     {
-                                        icon: <Zap className="w-5 h-5" />,
-                                        title: "Production Line",
-                                        desc: "Real-time manufacturing",
+                                        icon: <MdOutlineCameraRear className="w-5 h-5" />,
+                                        title: "Inline Camera",
+                                        desc: "AI check via inline scanner",
                                         color: "from-purple-500/20 to-blue-500/20 border-purple-400/30"
                                     },
                                     {
-                                        icon: <Shield className="w-5 h-5" />,
-                                        title: "CCTV Monitoring",
-                                        desc: "24/7 surveillance",
+                                        icon: <GiCctvCamera className="w-5 h-5" />,
+                                        title: "CCTV ",
+                                        desc: "AI detects issues via CCTV",
                                         color: "from-green-500/20 to-blue-500/20 border-green-400/30"
                                     }
+
+
+
                                 ].map((item, i) => (
                                     <div key={i} className={`bg-gradient-to-r ${item.color} backdrop-blur-sm border rounded-xl p-4 hover:scale-105 transition-all duration-300 group`}>
                                         <div className="flex items-center gap-3">

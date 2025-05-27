@@ -9,6 +9,7 @@ export default function Header() {
           {/* Site branding */}
           <div className="flex flex-1 items-center">
             <Logo />
+            <span className="ml-2 font-semibold">PrompX</span>
           </div>
 
           {/* Desktop sign in links */}
