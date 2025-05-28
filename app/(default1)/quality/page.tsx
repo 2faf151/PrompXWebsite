@@ -196,11 +196,15 @@ export default function QualityHome() {
             {/* Hero Section */}
             <header className="container mx-auto px-6 pt-28 pb-8">
                 <div className="text-center mb-16">
-                    <h1 className="text-7xl font-black mb-6 bg-gradient-to-r from-blue-400 via-white to-blue-300 bg-clip-text text-transparent">
-                        AI Quality Inspection
-                    </h1>
+                    <div className="flex flex-col items-center">
+                        <h1 className="text-7xl font-black mb-2 bg-gradient-to-r from-blue-400 via-white to-blue-300 bg-clip-text text-transparent">
+                            <span className="text-2xl block mb-1">Vision-Language Models</span>
+                            AI Quality Inspection
+
+                        </h1>
+                    </div>
                     <p className="text-xl max-w-3xl mx-auto text-blue-200/80 leading-relaxed">
-                        Transform your quality control with cutting-edge AI vision technology
+                        Revolutionizing quality inspection with Vision-Language Models (VLMs) combining visual and textual comunication.
                     </p>
                 </div>
 
@@ -418,31 +422,72 @@ export default function QualityHome() {
 
                     {/* How It Works */}
                     <section className="mb-20 max-w-4xl mx-auto">
-                        <h2 className="text-5xl font-black text-center mb-16 text-slate-900">How It Works</h2>
+                        <h2 className="text-5xl font-black text-center mb-16 text-slate-900">
+                            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                Journey to Excellence
+                            </span>
+                        </h2>
                         <div className="relative">
-                            {/* Gradient line */}
-                            <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-green-500 rounded-full opacity-30"></div>
+                            {/* Enhanced gradient line with glow effect */}
+                            <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-green-500 rounded-full opacity-30 shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
 
-                            <div className="space-y-8">
+                            <div className="space-y-12">
                                 {[
-                                    { icon: <Cpu className="w-6 h-6" />, title: "AI Model Selection", desc: "500M+ parameter foundation models", color: "bg-blue-500" },
-                                    { icon: <CheckCircle className="w-6 h-6" />, title: "Requirements Analysis", desc: "Custom specifications for your industry", color: "bg-purple-500" },
-                                    { icon: <BarChart className="w-6 h-6" />, title: "Model Fine-tuning", desc: "Specialized training on your products", color: "bg-indigo-500" },
-                                    { icon: <Zap className="w-6 h-6" />, title: "System Development", desc: "Cross-platform deployment ready", color: "bg-cyan-500" },
-                                    { icon: <Shield className="w-6 h-6" />, title: "Production Deployment", desc: "Seamless integration & monitoring", color: "bg-green-500" }
+                                    {
+                                        icon: <CheckCircle className="w-6 h-6" />,
+                                        title: "Requirements Analysis",
+                                        desc: "Audit cameras, network, and quality KPIs",
+                                        color: "bg-blue-500",
+                                        gradient: "from-blue-500 to-cyan-400"
+                                    },
+                                    {
+                                        icon: <Scan className="w-6 h-6" />,
+                                        title: "Discovery",
+                                        desc: "Audit cameras, network, and quality KPIs",
+                                        color: "bg-purple-500",
+                                        gradient: "from-purple-500 to-pink-400"
+                                    },
+                                    {
+                                        icon: <Cpu className="w-6 h-6" />,
+                                        title: "AI Model Selection",
+                                        desc: "Choose from our suite of specialized vision models",
+                                        color: "bg-indigo-500",
+                                        gradient: "from-indigo-500 to-blue-400"
+                                    },
+                                    {
+                                        icon: <BarChart className="w-6 h-6" />,
+                                        title: "Model Fine-tuning",
+                                        desc: "Custom training with your product specifications",
+                                        color: "bg-cyan-500",
+                                        gradient: "from-cyan-500 to-teal-400"
+                                    },
+                                    {
+                                        icon: <Monitor className="w-6 h-6" />,
+                                        title: "System Deployment",
+                                        desc: "Cross-platform integration: Admin, CCTV, Mobile & Inline",
+                                        color: "bg-teal-500",
+                                        gradient: "from-teal-500 to-green-400"
+                                    },
+                                    {
+                                        icon: <Zap className="w-6 h-6" />,
+                                        title: "Go Live",
+                                        desc: "Seamless integration and 24/7 monitoring",
+                                        color: "bg-green-500",
+                                        gradient: "from-green-500 to-emerald-400"
+                                    }
                                 ].map((step, i) => (
                                     <div key={i} className="flex items-start group">
                                         <div className="w-16 flex justify-center relative">
-                                            <div className={`w-4 h-4 rounded-full ${step.color} group-hover:scale-125 transition-transform duration-300 shadow-lg`}></div>
+                                            <div className={`w-4 h-4 rounded-full ${step.color} group-hover:scale-150 transition-all duration-500 shadow-lg shadow-${step.color}/50`}></div>
                                         </div>
-                                        <div className="flex-1 ml-6 bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-slate-100">
+                                        <div className="flex-1 ml-6 bg-white rounded-xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 group-hover:border-blue-100">
                                             <div className="flex items-start gap-4">
-                                                <div className={`p-3 ${step.color} text-white rounded-lg`}>
+                                                <div className={`p-3 bg-gradient-to-r ${step.gradient} text-white rounded-lg transform group-hover:scale-110 transition-all duration-300`}>
                                                     {step.icon}
                                                 </div>
                                                 <div>
                                                     <h3 className="font-bold text-xl text-slate-900 mb-2">{step.title}</h3>
-                                                    <p className="text-slate-600">{step.desc}</p>
+                                                    <p className="text-slate-600 leading-relaxed">{step.desc}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -454,26 +499,83 @@ export default function QualityHome() {
 
                     {/* Benefits Section */}
                     <section className="mb-20">
-                        <h2 className="text-5xl font-black text-center mb-12 text-slate-900">Why Choose Our System</h2>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            {[
-                                { icon: <Zap className="w-6 h-6" />, title: "Lightning Fast", desc: "Process thousands of items per minute with real-time analysis", gradient: "from-yellow-400 to-orange-500" },
-                                { icon: <Shield className="w-6 h-6" />, title: "Secure & Private", desc: "All processing happens on your premises with full data control", gradient: "from-green-400 to-blue-500" },
-                                { icon: <BarChart className="w-6 h-6" />, title: "Advanced Analytics", desc: "Comprehensive quality metrics and trend analysis", gradient: "from-purple-400 to-pink-500" },
-                                { icon: <Cpu className="w-6 h-6" />, title: "Custom AI Training", desc: "Tailored models specific to your products and requirements", gradient: "from-blue-400 to-cyan-500" }
-                            ].map((item, i) => (
-                                <div key={i} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-100 group hover:-translate-y-1">
-                                    <div className="flex items-start gap-4">
-                                        <div className={`p-4 bg-gradient-to-r ${item.gradient} text-white rounded-xl group-hover:scale-110 transition-transform duration-300`}>
-                                            {item.icon}
-                                        </div>
-                                        <div>
-                                            <h3 className="text-xl font-bold mb-3 text-slate-900">{item.title}</h3>
-                                            <p className="text-slate-600 leading-relaxed">{item.desc}</p>
-                                        </div>
+                        <h2 className="text-5xl font-black text-center mb-16">
+                            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                The Future of Quality Control
+                            </span>
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div className="relative group">
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl blur opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                                <div className="relative bg-slate-900 p-8 rounded-2xl border border-blue-500/30">
+                                    <div className="mb-6 inline-block p-3 bg-blue-500/10 rounded-xl">
+                                        <Eye className="w-8 h-8 text-blue-400" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-white mb-4">Smart Vision Technology</h3>
+                                    <p className="text-blue-200 leading-relaxed mb-6">
+                                        Our system sees what humans can't, processing visual data with unprecedented accuracy
+                                        right where production happens - no cloud required.
+                                    </p>
+                                    <div className="flex items-center text-blue-300 text-sm">
+                                        <Shield className="w-4 h-4 mr-2" />
+                                        <span>100% On-Premise Processing</span>
                                     </div>
                                 </div>
-                            ))}
+                            </div>
+
+                            <div className="relative group">
+                                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl blur opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                                <div className="relative bg-slate-900 p-8 rounded-2xl border border-purple-500/30">
+                                    <div className="mb-6 inline-block p-3 bg-purple-500/10 rounded-xl">
+                                        <Cpu className="w-8 h-8 text-purple-400" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-white mb-4">Natural Communication</h3>
+                                    <p className="text-blue-200 leading-relaxed mb-6">
+                                        Communicate with our AI in plain language. It understands your quality requirements
+                                        and translates them into precise visual inspections.
+                                    </p>
+                                    <div className="flex items-center text-purple-300 text-sm">
+                                        <Zap className="w-4 h-4 mr-2" />
+                                        <span>Real-time Language Processing</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="relative group">
+                                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl blur opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                                <div className="relative bg-slate-900 p-8 rounded-2xl border border-cyan-500/30">
+                                    <div className="mb-6 inline-block p-3 bg-cyan-500/10 rounded-xl">
+                                        <BarChart className="w-8 h-8 text-cyan-400" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-white mb-4">Factory-Scale Performance</h3>
+                                    <p className="text-blue-200 leading-relaxed mb-6">
+                                        Built for industrial scale, our system handles high-volume production lines while
+                                        maintaining millisecond-level response times.
+                                    </p>
+                                    <div className="flex items-center text-cyan-300 text-sm">
+                                        <Monitor className="w-4 h-4 mr-2" />
+                                        <span>Enterprise-grade Architecture</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="relative group">
+                                <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl blur opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                                <div className="relative bg-slate-900 p-8 rounded-2xl border border-green-500/30">
+                                    <div className="mb-6 inline-block p-3 bg-green-500/10 rounded-xl">
+                                        <CheckCircle className="w-8 h-8 text-green-400" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-white mb-4">Seamless Integration</h3>
+                                    <p className="text-blue-200 leading-relaxed mb-6">
+                                        From mobile devices to CCTV cameras, our system integrates with your existing
+                                        infrastructure for a complete quality control solution.
+                                    </p>
+                                    <div className="flex items-center text-green-300 text-sm">
+                                        <Scan className="w-4 h-4 mr-2" />
+                                        <span>Multi-platform Support</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
 
