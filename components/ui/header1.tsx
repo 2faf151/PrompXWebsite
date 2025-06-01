@@ -1,6 +1,11 @@
 import Link from "next/link";
 import Logo1 from "./logo1";
 import { useState, useEffect } from "react";
+import { IoCarSportOutline } from "react-icons/io5";
+import { IoFastFoodOutline, IoHardwareChipOutline, IoShirtOutline } from "react-icons/io5";
+import { MdOutlineBiotech, MdLocalPrintshop, MdOutlineAirplanemodeActive } from "react-icons/md";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { GiComputerFan } from "react-icons/gi";
 
 export default function Header() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -32,7 +37,7 @@ export default function Header() {
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                 className="btn-sm bg-white text-gray-800 shadow-sm hover:bg-gray-50 flex items-center gap-1"
                             >
-                                Use Cases
+                                Industries
                                 <svg
                                     className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
                                     fill="none"
@@ -43,37 +48,70 @@ export default function Header() {
                                 </svg>
                             </button>
                             {isDropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-64 rounded-lg bg-white/95 shadow-xl backdrop-blur-sm transition-all duration-200 ease-in-out border border-gray-100">
-                                    <div className="py-2">
-                                        <Link
-                                            href="/QualityTextile"
-                                            className="block px-6 py-2.5 hover:bg-gray-50 transition duration-150 text-gray-700 hover:text-gray-900"
-                                        >
-                                            Textile
-                                        </Link>
-                                        <Link
-                                            href="/QualityElectronics"
-                                            className="block px-6 py-2.5 hover:bg-gray-50 transition duration-150 text-gray-700 hover:text-gray-900"
-                                        >
-                                            Electronics
-                                        </Link>
+                                <div className="absolute right-0 mt-2 w-[700px] rounded-lg bg-white/95 shadow-xl backdrop-blur-sm transition-all duration-200 ease-in-out border border-gray-100">
+                                    <div className="grid grid-cols-3 gap-2 p-3">
                                         <Link
                                             href="/QualityAutomotive"
-                                            className="block px-6 py-2.5 hover:bg-gray-50 transition duration-150 text-gray-700 hover:text-gray-900"
+                                            className="flex items-center gap-3 rounded-lg px-4 py-3.5 hover:bg-gray-50 transition duration-150"
                                         >
-                                            Automotive
+                                            <IoCarSportOutline className="w-6 h-6 text-gray-600 shrink-0" />
+                                            <div className="text-sm font-medium text-gray-900">Automotive</div>
                                         </Link>
                                         <Link
                                             href="/QualityBeverage"
-                                            className="block px-6 py-2.5 hover:bg-gray-50 transition duration-150 text-gray-700 hover:text-gray-900"
+                                            className="flex items-center gap-3 rounded-lg px-4 py-3.5 hover:bg-gray-50 transition duration-150"
                                         >
-                                            Beverage
+                                            <IoFastFoodOutline className="w-6 h-6 text-gray-600 shrink-0" />
+                                            <div className="text-sm font-medium text-gray-900">Food & Beverage</div>
+                                        </Link>
+                                        <Link
+                                            href="/QualityElectronics"
+                                            className="flex items-center gap-3 rounded-lg px-4 py-3.5 hover:bg-gray-50 transition duration-150"
+                                        >
+                                            <GiComputerFan className="w-6 h-6 text-gray-600 shrink-0" />
+                                            <div className="text-sm font-medium text-gray-900">Electronics Parts</div>
+                                        </Link>
+                                        <Link
+                                            href="/QualityTextile"
+                                            className="flex items-center gap-3 rounded-lg px-4 py-3.5 hover:bg-gray-50 transition duration-150"
+                                        >
+                                            <IoShirtOutline className="w-6 h-6 text-gray-600 shrink-0" />
+                                            <div className="text-sm font-medium text-gray-900">Textile</div>
+                                        </Link>
+                                        <Link
+                                            href="/QualitySemiconductors"
+                                            className="flex items-center gap-3 rounded-lg px-4 py-3.5 hover:bg-gray-50 transition duration-150"
+                                        >
+                                            <IoHardwareChipOutline className="w-6 h-6 text-gray-600 shrink-0" />
+                                            <div className="text-sm font-medium text-gray-900">Semiconductors</div>
+                                        </Link>
+                                        <Link
+                                            href="/QualityPharma"
+                                            className="flex items-center gap-3 rounded-lg px-4 py-3.5 hover:bg-gray-50 transition duration-150"
+                                        >
+                                            <MdOutlineBiotech className="w-6 h-6 text-gray-600 shrink-0" />
+                                            <div className="text-sm font-medium text-gray-900">Pharmaceuticals</div>
+                                        </Link>
+                                        <Link
+                                            href="/QualityPrinting"
+                                            className="flex items-center gap-3 rounded-lg px-4 py-3.5 hover:bg-gray-50 transition duration-150"
+                                        >
+                                            <MdLocalPrintshop className="w-6 h-6 text-gray-600 shrink-0" />
+                                            <div className="text-sm font-medium text-gray-900">Printing & Packaging</div>
+                                        </Link>
+                                        <Link
+                                            href="/QualityAirspace"
+                                            className="flex items-center gap-3 rounded-lg px-4 py-3.5 hover:bg-gray-50 transition duration-150"
+                                        >
+                                            <MdOutlineAirplanemodeActive className="w-6 h-6 text-gray-600 shrink-0" />
+                                            <div className="text-sm font-medium text-gray-900">Airspace</div>
                                         </Link>
                                         <Link
                                             href="/Other"
-                                            className="block px-6 py-2.5 hover:bg-gray-50 transition duration-150 text-gray-700 hover:text-gray-900"
+                                            className="flex items-center gap-3 rounded-lg px-4 py-3.5 hover:bg-gray-50 transition duration-150"
                                         >
-                                            Other
+                                            <HiOutlineDotsHorizontal className="w-6 h-6 text-gray-600 shrink-0" />
+                                            <div className="text-sm font-medium text-gray-900">Other</div>
                                         </Link>
                                     </div>
                                 </div>
@@ -87,14 +125,7 @@ export default function Header() {
                                 About Us
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                href="/News"
-                                className="btn-sm bg-white text-gray-800 shadow-sm hover:bg-gray-50"
-                            >
-                                News
-                            </Link>
-                        </li>
+
                         <li>
                             <Link
                                 href="/ContactQuality"

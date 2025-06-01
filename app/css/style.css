@@ -1,5 +1,10 @@
 @import 'tailwindcss';
 
+/* Scale the entire site to approximately 80% */
+:root {
+  font-size: 90%;
+}
+
 /* Additional styles */
 @import './additional-styles/utility-patterns.css' layer(components);
 @import './additional-styles/theme.css';

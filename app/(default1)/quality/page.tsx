@@ -35,6 +35,9 @@ export default function QualityHome() {
         height: 0
     });
 
+    // Add state for caption
+    const [caption, setCaption] = useState<string | null>(null);
+
     // Handle file selection and Base64 encoding
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -100,53 +103,54 @@ export default function QualityHome() {
         setLoading(true);
         setError(null);
 
-        const maxRetries = 2;
-        let attempt = 0;
+        try {
+            // Call the point API
+            const pointResponse = await fetch('https://api.moondream.ai/v1/point', {
+                method: 'POST',
+                headers: {
+                    'X-Moondream-Auth': apiKey,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    image_url: selectedImage.base64,
+                    object: damageDescription,
+                    stream: false,
+                }),
+            });
 
-        while (attempt < maxRetries) {
-            try {
-                const response = await fetch('https://api.moondream.ai/v1/point', {
-                    method: 'POST',
-                    headers: {
-                        'X-Moondream-Auth': apiKey,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        image_url: selectedImage.base64,
-                        object: damageDescription,
-                        stream: false,
-                    }),
-                });
-
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`API request failed with status ${response.status}: ${errorText}`);
-                }
-
-                const data = await response.json();
-                console.log('API Response:', data);
-
-                if (!data.points || !Array.isArray(data.points) || data.points.length === 0) {
-                    setPoints([]);
-                    setError('No quality issues found in the specified area.');
-                    setLoading(false);
-                    break;
-                }
-                setPoints(data.points);
-                setLoading(false);
-                break; // Exit retry loop on success
-            } catch (err: any) {
-                attempt++;
-                if (attempt === maxRetries) {
-                    setError(`Failed to analyze image: ${err.message}. Try again later.`);
-                    console.error('API Error:', err);
-                    setLoading(false); // Set loading to false on final error
-                }
-                // Wait before retrying
-                if (attempt < maxRetries) {
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                }
+            if (!pointResponse.ok) {
+                const errorText = await pointResponse.text();
+                throw new Error(`Point API request failed with status ${pointResponse.status}: ${errorText}`);
             }
+
+            const pointData = await pointResponse.json();
+            setPoints(pointData.points || []);
+
+            // Call the caption API
+            const captionResponse = await fetch('https://api.moondream.ai/v1/caption', {
+                method: 'POST',
+                headers: {
+                    'X-Moondream-Auth': apiKey,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    image_url: selectedImage.base64,
+                }),
+            });
+
+            if (!captionResponse.ok) {
+                const errorText = await captionResponse.text();
+                throw new Error(`Caption API request failed with status ${captionResponse.status}: ${errorText}`);
+            }
+
+            const captionData = await captionResponse.json();
+            setCaption(captionData.caption || null);
+
+        } catch (err: any) {
+            setError(`Failed to analyze image: ${err.message}. Try again later.`);
+            console.error('API Error:', err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -194,17 +198,17 @@ export default function QualityHome() {
     return (
         <div className="bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 min-h-screen text-white">
             {/* Hero Section */}
-            <header className="container mx-auto px-6 pt-28 pb-8">
-                <div className="text-center mb-16">
+            <header className="container mx-auto px-6 pt-24 pb-8">
+                <div className="text-center mb-8">
                     <div className="flex flex-col items-center">
                         <h1 className="text-7xl font-black mb-2 bg-gradient-to-r from-blue-400 via-white to-blue-300 bg-clip-text text-transparent">
-                            <span className="text-2xl block mb-1">Vision-Language Models</span>
+                            <span className="text-2xl block ">Vision-Language Models</span>
                             AI Quality Inspection
 
                         </h1>
                     </div>
                     <p className="text-xl max-w-3xl mx-auto text-blue-200/80 leading-relaxed">
-                        Revolutionizing quality inspection with Vision-Language Models (VLMs) combining visual and textual comunication.
+                        VLMs redefine inspection — vision and language, perfectly aligned.
                     </p>
                 </div>
 
@@ -312,6 +316,14 @@ export default function QualityHome() {
                                     {error && (
                                         <div className="p-4 bg-red-500/20 border border-red-500/30 rounded-xl text-red-200">
                                             {error}
+                                        </div>
+                                    )}
+
+                                    {/* Add caption display under the "Detect Quality Issues" button */}
+                                    {caption && (
+                                        <div className="mt-4 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl text-blue-200">
+                                            <h3 className="text-lg font-semibold mb-2">Generated Caption:</h3>
+                                            <p>{caption}</p>
                                         </div>
                                     )}
                                 </div>
@@ -436,7 +448,7 @@ export default function QualityHome() {
                                     {
                                         icon: <CheckCircle className="w-6 h-6" />,
                                         title: "Requirements Analysis",
-                                        desc: "Audit cameras, network, and quality KPIs",
+                                        desc: "Custom specifications for your industry",
                                         color: "bg-blue-500",
                                         gradient: "from-blue-500 to-cyan-400"
                                     },

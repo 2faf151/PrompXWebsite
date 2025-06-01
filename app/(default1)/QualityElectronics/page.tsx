@@ -1,316 +1,260 @@
 import React from 'react';
+import Link from 'next/link';
+import {
+    CheckCircle,
+    ArrowRight,
+    Zap,
+    Shield,
+    Cpu,
+    Activity,
+    Layers
+} from 'lucide-react';
 
-/**
- * White-paper page for PrompX’s
- * Visual-Language-Model (VLM) Quality-Inspection platform
- * focused on **electronics-parts manufacturing**.
- *
- * • ≥500 M-parameter VLMs run on-prem for IP security
- * • Detects solder-joint voids, tombstones, bridging, missing parts,
- *   PCB trace burns, BGA mis-alignment, component counterfeit
- * • Works with AOI/AXI machines, microscopes, CCTV, mobile & LiDAR
- * • CAD/Gerber mapping + AR overlays + conversational search
- */
-const VLMElectronicsQualityInspectionWhitePaper: React.FC = () => {
+const IndustryPage = () => {
+    /* -------------- Electronics-Parts manufacturing pain points -------------- */
+    const challenges = [
+        '2-D AOI misses hidden BGA voids and micro-cracks in solder joints',
+        'Manual microscope checks slow down high-mix SMT lines',
+        'X-ray and SPI data live in silos—no single source of defect truth',
+        'False positives trigger costly board rework and yield loss',
+        'IPC-A-610 paperwork and traceability consume engineering hours',
+        'New board revisions overwhelm rule-based vision libraries'
+    ];
+
+    /* ---------------- How PrompX solves them for PCB / EMS ------------------ */
+    const solutions = [
+        'Multimodal vision (RGB, X-ray, 3-D SPI) fused for 99.97 % true-positive rate',
+        'Real-time AI inference keeps pace with your line speed, delivering instant defect alerts without slowing production',
+        'Natural-language analytics pinpoints top five defect modes per SKU in seconds',
+        'Edge deployment inside ESD-safe racks—no cloud, no IP leakage',
+        'Auto-generated IPC-A-610 Class 2/3 conformance reports',
+        'Few-shot learning adapts models to a new BOM in under 30 minutes'
+    ];
+
+    /* --------------------------- Full use-case cards ------------------------- */
+    const useCases = [
+        {
+            title: 'Solder Paste & Pad Inspection',
+            description:
+                'PrompX ingests 3-D SPI height maps to flag insufficient or excessive paste, bridging, and pad offset before placement. Real-time feedback loops adjust stencil pressure, cutting solder-related defects by 45 %.'
+        },
+        {
+            title: 'Post-Reflow AOI & X-ray Analysis',
+            description:
+                'Fuses top-side RGB, side-view, and X-ray to detect tombstones, head-in-pillow, BGA voiding, open vias-in-pad, and hidden copper exposure. Visual heat-maps guide rework only where needed—no blanket reflow.'
+        },
+        {
+            title: 'Component Presence, Polarity & OCR',
+            description:
+                'High-resolution cameras verify every 0201, check polarity marks on tantalum caps and IC pin 1, and OCR laser-etched date/lot codes. PrompX halts the pick-and-place if a wrong reel is loaded, preventing batch-wide recalls.'
+        },
+        {
+            title: 'Traceability & IPC Compliance',
+            description:
+                'Each defect image, AOI coordinate, feeder ID, and batch lot is cryptographically tied to the board’s unique UID. One-click export produces Class 3 acceptance reports for aerospace & medical customers in seconds.'
+        }
+    ];
+
+    /* ------------------------- Competitive advantages ----------------------- */
+    const differentiators = [
+        {
+            icon: <Zap className="w-6 h-6" />,
+            title: 'Placement-Line Speed',
+            description: 'Inspects 15 Mpix frames in <60 ms—no conveyor pause'
+        },
+        {
+            icon: <Cpu className="w-6 h-6" />,
+            title: 'Chip-Level Detail',
+            description: 'Detects voids and lifted leads down to 10 µm'
+        },
+        {
+            icon: <Shield className="w-6 h-6" />,
+            title: 'IP Safe',
+            description: 'Runs on-prem under NDA; Gerber and CAD never leave site'
+        },
+        {
+            icon: <Layers className="w-6 h-6" />,
+            title: 'BOM Agility',
+            description: 'Few-shot learning handles rev changes with no rule rewrite'
+        }
+    ];
+
     return (
-        <div className="bg-white font-sans py-16">
-            <div className="container mx-auto px-6 max-w-4xl">
+        <div className="min-h-screen bg-white">
+            {/* ------------------------------ Hero ------------------------------ */}
+            <section
+                className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+                style={{
+                    backgroundImage:
+                        'linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)), url(/Industry/electronic.jpg)'
+                }}
+            >
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="max-w-3xl mx-auto text-center">
+                        <div className="text-white">
+                            <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                                Zero-Defect{' '}
+                                <span className="text-blue-400">Electronics Manufacturing</span>{' '}
+                                with AI Vision
+                            </h1>
+                            <p className="text-xl mb-8 text-gray-200 leading-relaxed">
+                                PrompX unifies SPI, AOI, and X-ray into one brain—catching every
+                                solder defect and trace anomaly before the board ships.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <Link href="/ContactQuality">
+                                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center">
+                                        Get Started Today
+                                        <ArrowRight className="ml-2 w-5 h-5" />
+                                    </button>
+                                </Link>
+                                <Link href="/quality">
+                                    <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg font-semibold transition-all duration-200">
+                                        Watch Demo
+                                    </button>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                {/* ───────── Title ───────── */}
-                <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center animate-fade-in">
-                    Visual-Language-Model&nbsp;AI-Quality&nbsp;Inspection<br />
-                    for <span className="whitespace-nowrap">Electronics&nbsp;Parts&nbsp;Manufacturing</span>
-                </h1>
-                <p className="text-lg text-gray-600 text-center mb-12">
-                    Spot every solder fault and PCB anomaly in milliseconds —
-                    privately — with on-prem VLMs that
-                    <em>see&nbsp;and&nbsp;understand</em> your entire SMT line.
-                </p>
+            {/* --------------------------- Challenges --------------------------- */}
+            <section className="py-20 bg-gray-50">
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                            Electronics QA Challenges We Solve
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            High-density boards and shrinking tolerances demand more than rule-based
+                            AOI. PrompX delivers.
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {challenges.map((c, i) => (
+                            <div
+                                key={i}
+                                className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200"
+                            >
+                                <div className="flex items-start">
+                                    <div className="bg-red-100 p-2 rounded-lg mr-4 mt-1">
+                                        <div className="w-4 h-4 bg-red-500 rounded-full" />
+                                    </div>
+                                    <p className="text-gray-700 font-medium">{c}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
-                {/* ───── Executive Summary ───── */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">
-                        Executive Summary
+            {/* ---------------------------- Solutions --------------------------- */}
+            <section className="py-20 bg-white">
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                            How Our AI Solves These Challenges
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            Vision-Language AI sees every solder joint and explains every trend—in
+                            real words your engineers understand.
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {solutions.map((s, i) => (
+                            <div
+                                key={i}
+                                className="bg-blue-50 p-6 rounded-xl border border-blue-100 hover:bg-blue-100 transition-colors duration-200"
+                            >
+                                <div className="flex items-start">
+                                    <CheckCircle className="w-6 h-6 text-blue-600 mr-4 mt-1 flex-shrink-0" />
+                                    <p className="text-gray-800 font-medium">{s}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --------------------------- Use Cases --------------------------- */}
+            <section className="py-20 bg-gray-50">
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                            Electronics Use Cases
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            EMS, OEM, and semiconductor back-end fabs rely on PrompX to boost first-
+                            pass yield and slash RMA.
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {useCases.map((u, i) => (
+                            <div
+                                key={i}
+                                className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-lg transition-shadow duration-200"
+                            >
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                                    {u.title}
+                                </h3>
+                                <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+                                    {u.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ------------------------ Differentiators ------------------------ */}
+            <section className="py-20 bg-white">
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                            Why Choose PrompX
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            Built by SMT veterans for zero-defect electronics production.
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {differentiators.map((d, i) => (
+                            <div key={i} className="text-center p-6">
+                                <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-600">
+                                    {d.icon}
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                                    {d.title}
+                                </h3>
+                                <p className="text-gray-600 leading-relaxed">{d.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ------------------------------ CTA ------------------------------ */}
+            <section className="py-20 bg-blue-600">
+                <div className="container mx-auto px-6 lg:px-8 text-center">
+                    <h2 className="text-4xl font-bold text-white mb-6">
+                        Ready to Boost First-Pass Yield?
                     </h2>
-                    <p className="text-gray-700 leading-relaxed">
-                        Electronics manufacturing tolerances shrink while
-                        component variety explodes. PrompX deploys ≥500 M-parameter
-                        <strong>Visual-Language Models</strong> (VLMs)
-                        entirely on-site. AOI cameras, X-ray imagers, HD microscopes,
-                        CCTV or smartphones become intelligent inspectors that
-                        flag tombstones, voids, bridging, scorch marks, missing or
-                        counterfeit parts in real-time. Operators receive push
-                        notifications and <strong>chat</strong> with the VLM —
-                        “Show all boards with open solder on pad A2” —
-                        while an interactive factory map (built from CAD/Gerber files)
-                        pins each event.
+                    <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                        Join the SMT lines worldwide that trust PrompX for bulletproof quality and
+                        faster NPI.
                     </p>
-                    <div className="mt-8 flex justify-center">
-                        <img
-                            src="/placeholder-electronics-exec.jpg"
-                            alt="VLM inspecting SMT line"
-                            className="rounded-lg shadow-lg max-w-full h-auto"
-                        />
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link href="/ContactQuality">
+                            <button className="border-2 bg-white border-white text-black  hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-semibold transition-all duration-200">
+                                Schedule Demo
+                            </button>
+                        </Link>
                     </div>
-                </section>
-
-                {/* ───── Industry Challenges ───── */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">
-                        Industry Challenges
-                    </h2>
-                    <p className="text-gray-700 mb-4">
-                        PCB and component makers confront nano-scale precision,
-                        rapid cycle times and strict traceability:
-                    </p>
-                    <ul className="list-disc list-inside text-gray-700 space-y-2">
-                        <li><strong>Fine-pitch defects</strong> (≤ 0.2 mm) invisible to the naked eye.</li>
-                        <li><strong>High-mix SMT lines</strong> changing setups multiple times daily.</li>
-                        <li><strong>Counterfeit & ESD damage</strong> threatening reliability.</li>
-                        <li><strong>Regulatory compliance</strong> (IPC-A-610, ISO 9001, J-STD-001) demanding complete image archives.</li>
-                        <li><strong>IP confidentiality</strong> for proprietary board layouts and firmware.</li>
-                    </ul>
-                    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <img
-                            src="/placeholder-electronics1.jpg"
-                            alt="Micro-solder inspection"
-                            className="rounded-lg shadow-md"
-                        />
-                        <img
-                            src="/placeholder-electronics2.jpg"
-                            alt="SMT line high speed"
-                            className="rounded-lg shadow-md"
-                        />
-                    </div>
-                </section>
-
-                {/* ───── Technical Solution ───── */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">
-                        Our Technical Solution
-                    </h2>
-                    <p className="text-gray-700 mb-4">
-                        PrompX fuses large VLMs, edge compute and intuitive UIs
-                        into one quality brain for every board and component.
-                    </p>
-
-                    <h3 className="text-2xl font-semibold text-gray-800 mb-4">
-                        Core Components
-                    </h3>
-                    <div className="space-y-6">
-
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">
-                                1&nbsp;&nbsp;Large Visual-Language Models
-                            </h4>
-                            <p className="text-gray-700">
-                                Foundation models (≥ 500 M params) interpret images
-                                and text together. Fine-tuned on solder-joint libraries,
-                                X-ray datasets and CAD/Gerber geometry, they detect
-                                defects and answer free-form queries.
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">
-                                2&nbsp;&nbsp;Multi-Sensor Ingestion
-                            </h4>
-                            <p className="text-gray-700">
-                                Integrates with AOI, AXI, UV inspection, microscopes,
-                                CCTV and mobile/LiDAR for field-return checks.
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">
-                                3&nbsp;&nbsp;Secure On-Prem Deployment
-                            </h4>
-                            <p className="text-gray-700">
-                                GPUs on your factory LAN ensure zero data leaves
-                                your secure enclave, satisfying OEM & military contracts.
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">
-                                4&nbsp;&nbsp;Gerber-Driven Map & AR
-                            </h4>
-                            <p className="text-gray-700">
-                                Upload assembly CAD and Gerber; a live map highlights
-                                reflow ovens, pick-and-place, AOI stations and reels
-                                where issues arise. AR glasses show defect pads in situ.
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">
-                                5&nbsp;&nbsp;Conversational Control
-                            </h4>
-                            <p className="text-gray-700">
-                                Ask&nbsp;“Trace this lot through solder-paste and reflow”
-                                and receive visual lineage, yield stats and images.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="mt-8 flex justify-center">
-                        <img
-                            src="/placeholder-electronics-solution.jpg"
-                            alt="Electronics defect dashboard"
-                            className="rounded-lg shadow-lg max-w-full h-auto"
-                        />
-                    </div>
-                </section>
-
-                {/* ───── Implementation Process ───── */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">
-                        Implementation Process
-                    </h2>
-                    <p className="text-gray-700 mb-4">
-                        Four steps to turn every station into an AI inspector.
-                    </p>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="p-6 bg-gray-50 rounded-lg shadow-md">
-                            <img src="/placeholder-step1.jpg" alt="Discovery" className="mb-4 rounded-md" />
-                            <h4 className="text-xl font-semibold text-blue-600 mb-2">
-                                1&nbsp;&nbsp;Audit & Sampling
-                            </h4>
-                            <p className="text-gray-700">
-                                Gather AOI images, X-ray scans, process KPIs, Gerber files.
-                            </p>
-                        </div>
-                        <div className="p-6 bg-gray-50 rounded-lg shadow-md">
-                            <img src="/placeholder-step2.jpg" alt="Adaptation" className="mb-4 rounded-md" />
-                            <h4 className="text-xl font-semibold text-blue-600 mb-2">
-                                2&nbsp;&nbsp;Model Adaptation
-                            </h4>
-                            <p className="text-gray-700">
-                                Fine-tune VLMs on defect taxonomy (IPC class II/III) and
-                                component SKUs unique to your facility.
-                            </p>
-                        </div>
-                        <div className="p-6 bg-gray-50 rounded-lg shadow-md">
-                            <img src="/placeholder-step3.jpg" alt="Deployment" className="mb-4 rounded-md" />
-                            <h4 className="text-xl font-semibold text-blue-600 mb-2">
-                                3&nbsp;&nbsp;Edge Deployment
-                            </h4>
-                            <p className="text-gray-700">
-                                Install GPU nodes near SMT lines; secure feeds via VLAN
-                                or isolated fibre.
-                            </p>
-                        </div>
-                        <div className="p-6 bg-gray-50 rounded-lg shadow-md">
-                            <img src="/placeholder-step4.jpg" alt="Training" className="mb-4 rounded-md" />
-                            <h4 className="text-xl font-semibold text-blue-600 mb-2">
-                                4&nbsp;&nbsp;Operator Training
-                            </h4>
-                            <p className="text-gray-700">
-                                AR viewers & dashboards deployed; we monitor drift and
-                                broaden to final assembly or field returns.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ───── Advanced Features ───── */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">
-                        Advanced Features
-                    </h2>
-                    <div className="space-y-6">
-
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">
-                                X-Ray Defect Analysis
-                            </h4>
-                            <p className="text-gray-700">
-                                Inspect hidden solder voids and BGA alignment without
-                                extra programming.
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">
-                                AR Rework Guidance
-                            </h4>
-                            <p className="text-gray-700">
-                                Overlay hotspots on boards showing pads needing touch-up.
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">
-                                Counterfeit Detection
-                            </h4>
-                            <p className="text-gray-700">
-                                VLM compares marking, lead frame and X-ray signature
-                                against golden parts.
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">
-                                Supplier Portal
-                            </h4>
-                            <p className="text-gray-700">
-                                PCB fabs and EMS partners run a lightweight agent so
-                                you can vet lots before shipment.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="mt-8 flex justify-center">
-                        <img
-                            src="/placeholder-electronics-advanced.jpg"
-                            alt="X-ray analysis overlay"
-                            className="rounded-lg shadow-lg max-w-full h-auto"
-                        />
-                    </div>
-                </section>
-
-                {/* ───── Conclusion ───── */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">
-                        Conclusion
-                    </h2>
-                    <p className="text-gray-700">
-                        PrompX brings camera-agnostic, conversational VLMs to the
-                        electronics floor — eliminating hidden defects, boosting
-                        first-pass yield and securing your IP, all without the cloud.
-                    </p>
-                </section>
-
-                {/* ───── Call to Action ───── */}
-                <section className="bg-gradient-to-r from-blue-700 to-blue-900 text-white p-8 rounded-lg shadow-lg text-center">
-                    <h2 className="text-3xl font-bold mb-4">
-                        Build flawless boards, every run.
-                    </h2>
-                    <p className="text-lg mb-6">
-                        See PrompX on your own SMT footage — book a live demo.
-                    </p>
-                    <a
-                        href="/contact"
-                        className="bg-white text-blue-700 px-8 py-4 rounded-full font-semibold hover:bg-blue-100 transition duration-300 shadow-md"
-                    >
-                        Schedule a Demo
-                    </a>
-                </section>
-            </div>
-
-            {/* ───── Inline Animation CSS ───── */}
-            <style>
-                {`
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0);   }
-          }
-          .animate-fade-in { animation: fadeIn 1s ease-in-out; }
-        `}
-            </style>
+                </div>
+            </section>
         </div>
     );
 };
 
-export default VLMElectronicsQualityInspectionWhitePaper;
+export default IndustryPage;

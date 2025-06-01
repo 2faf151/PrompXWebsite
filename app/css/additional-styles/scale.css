@@ -1,0 +1,11 @@
+/* Scale adjustment for the entire site */
+:root {
+    font-size: 80%;
+}
+
+/* Ensure text remains readable on mobile devices */
+@media screen and (max-width: 768px) {
+    :root {
+        font-size: 90%;
+    }
+}

@@ -1,221 +1,258 @@
 import React from 'react';
+import Link from 'next/link';
+import {
+    CheckCircle,
+    ArrowRight,
+    Zap,
+    Shield,
+    Droplet,
+    FlaskConical,
+    Repeat2
+} from 'lucide-react';
 
-const BeverageQualityInspectionWhitePaper: React.FC = () => {
+const IndustryPage = () => {
+    /* ------------------ Food & Beverage pain points ------------------ */
+    const challenges = [
+        'Human inspectors miss hairline cracks, dents, or pinholes in bottles & cans',
+        'Pathogen and foreign-object contamination triggers costly recalls',
+        'Manual date-code & allergen checks slow high-speed packaging lines',
+        'Color and bake inconsistency harms brand quality perception',
+        'FSMA / HACCP paperwork steals valuable engineer time',
+        'Limited lot-level traceability complicates root-cause during outbreaks'
+    ];
+
+    /* ------------ How PrompX solves them for F&B processors ----------- */
+    const solutions = [
+        'Foreign-object & micro-defect detection down to 0.2 mm at 99.9 % accuracy',
+        'Real-time AI inference keeps pace with your line speed, delivering instant defect alerts without slowing production',
+        'Real-time OCR verifies date codes, allergens & nutrition facts',
+        'Edge inference in wash-down enclosures—no cloud, full data control',
+        'Auto-generated HACCP / FSMA reports cut compliance effort by 80 %',
+        'Digital “batch twin” ties every image to ERP/MES lot records'
+    ];
+
+    /* ---------------- Full write-up use-cases (no links) -------------- */
+    const useCases = [
+        {
+            title: 'Fill-Level & Closure Inspection',
+            description:
+                'High-speed line cameras measure liquid level to ±1 mm, confirm cap torque, and check tamper-evident band integrity at 60 k bottles per hour. Reject signals fire to the diverter within 25 ms—stopping under-fill giveaways and consumer complaints.'
+        },
+        {
+            title: 'Foreign Object & Contaminant Detection',
+            description:
+                'PrompX fuses RGB, X-ray, and hyperspectral images to spot metal shards, glass fragments, and rubber gaskets in viscous or opaque products. Heat-mapped anomalies trigger automatic line stoppage and quarantined hold pallets for QA review.'
+        },
+        {
+            title: 'Label Accuracy & Allergen Verification',
+            description:
+                'OCR reads every barcode, best-by date, and ingredient list while NLP cross-checks against the batch recipe. If “peanut” appears on a label for a nut-free SKU, PrompX halts the printer before a single case reaches the palletizer.'
+        },
+        {
+            title: 'Bake/Color Uniformity Monitoring',
+            description:
+                'Vision analyses the L*a*b* color profile of bread crusts and snacks every five seconds. Deviations auto-adjust oven temp or conveyor speed, reducing over-bake waste by 35 % and ensuring golden-brown consistency consumers expect.'
+        }
+    ];
+
+    /* ---------------------- Competitive edges ------------------------ */
+    const differentiators = [
+        {
+            icon: <Zap className="w-6 h-6" />,
+            title: 'Line-Rate Speed',
+            description: 'Inspect 1 000+ items per second without buffering'
+        },
+        {
+            icon: <Droplet className="w-6 h-6" />,
+            title: 'Wash-Down Ready',
+            description: 'IP69K stainless enclosures survive daily caustic cleaning'
+        },
+        {
+            icon: <Shield className="w-6 h-6" />,
+            title: 'Food-Safety Compliance',
+            description: 'Built for FSMA, BRCGS & 21 CFR Part 11 audits'
+        },
+        {
+            icon: <Repeat2 className="w-6 h-6" />,
+            title: 'Rapid SKU Swap',
+            description: 'Few-shot learning adapts to new packaging in <1 hour'
+        }
+    ];
+
     return (
-        <div className="bg-white font-sans py-16">
-            <div className="container mx-auto px-6 max-w-4xl">
-                {/* Title Section */}
-                <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center animate-fade-in">
-                    AI-Powered Quality Inspection for Beverage Manufacturing
-                </h1>
-                <p className="text-lg text-gray-600 text-center mb-12">
-                    Ensuring Safety, Consistency, and Compliance with Advanced Computer Vision and Machine Learning
-                </p>
+        <div className="min-h-screen bg-white">
+            {/* ------------------------ Hero ------------------------ */}
+            <section
+                className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+                style={{
+                    backgroundImage:
+                        'linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)), url(/Industry/food.jpg)'
+                }}
+            >
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="text-center max-w-3xl mx-auto">
+                        <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+                            Perfect Your{' '}
+                            <span className="text-blue-400">Food & Beverage</span> Line with
+                            AI Vision
+                        </h1>
+                        <p className="text-xl mb-8 text-gray-200 leading-relaxed">
+                            PrompX spots every contaminant, label error, and fill anomaly—before
+                            it leaves your plant—while auto-filling your HACCP logs.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Link href="/ContactQuality">
+                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center">
+                                    Get Started Today
+                                    <ArrowRight className="ml-2 w-5 h-5" />
+                                </button>
+                            </Link>
+                            <Link href="/quality">
+                                <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg font-semibold transition-all duration-200">
+                                    Watch Demo
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                {/* Executive Summary */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">Executive Summary</h2>
-                    <p className="text-gray-700 leading-relaxed">
-                        Beverage manufacturing demands uncompromising quality to ensure product safety, consistency, and compliance with stringent regulatory standards. Defects such as bottle cracks, improper fill levels, or labeling errors can lead to health risks, costly recalls, and brand damage. Prompx’s AI-powered quality inspection system leverages advanced computer vision, machine learning, and IoT integration to deliver unparalleled defect detection with 99.9% accuracy, 0.5ms processing speeds, and scalable architecture. Tailored for beverage production, our solution provides real-time monitoring, actionable insights, and compliance with standards like FDA and HACCP, empowering manufacturers to optimize quality and efficiency.
+            {/* --------------------- Challenges --------------------- */}
+            <section className="py-20 bg-gray-50">
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                            Food & Beverage Challenges We Solve
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            High-speed, high-hygiene production demands flawless quality. PrompX
+                            makes it possible.
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {challenges.map((c, i) => (
+                            <div
+                                key={i}
+                                className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200"
+                            >
+                                <div className="flex items-start">
+                                    <div className="bg-red-100 p-2 rounded-lg mr-4 mt-1">
+                                        <div className="w-4 h-4 bg-red-500 rounded-full" />
+                                    </div>
+                                    <p className="text-gray-700 font-medium">{c}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ---------------------- Solutions --------------------- */}
+            <section className="py-20 bg-white">
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                            How Our AI Solves These Challenges
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            Multimodal vision paired with natural language lets your QA team work
+                            faster, smarter, and safer.
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {solutions.map((s, i) => (
+                            <div
+                                key={i}
+                                className="bg-blue-50 p-6 rounded-xl border border-blue-100 hover:bg-blue-100 transition-colors duration-200"
+                            >
+                                <div className="flex items-start">
+                                    <CheckCircle className="w-6 h-6 text-blue-600 mr-4 mt-1 flex-shrink-0" />
+                                    <p className="text-gray-800 font-medium">{s}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --------------------- Use-Cases ---------------------- */}
+            <section className="py-20 bg-gray-50">
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                            Food & Beverage Use Cases
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            Global brands use PrompX to guard consumer safety and protect margins.
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {useCases.map((u, i) => (
+                            <div
+                                key={i}
+                                className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-lg transition-shadow duration-200"
+                            >
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                                    {u.title}
+                                </h3>
+                                <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+                                    {u.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ------------------ Differentiators ------------------- */}
+            <section className="py-20 bg-white">
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                            Why Choose PrompX
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            Purpose-built for hygienic, high-volume production—and the audits that
+                            follow.
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {differentiators.map((d, i) => (
+                            <div key={i} className="text-center p-6">
+                                <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-600">
+                                    {d.icon}
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                                    {d.title}
+                                </h3>
+                                <p className="text-gray-600 leading-relaxed">{d.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ------------------------- CTA ------------------------ */}
+            <section className="py-20 bg-blue-600">
+                <div className="container mx-auto px-6 lg:px-8 text-center">
+                    <h2 className="text-4xl font-bold text-white mb-6">
+                        Ready to Serve Quality Without Compromise?
+                    </h2>
+                    <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                        Join the processors already using PrompX to cut waste and protect their
+                        brand.
                     </p>
-                    <div className="mt-8 flex justify-center">
-                        <img src="/placeholder-intro.jpg" alt="Beverage Production Line" className="rounded-lg shadow-lg max-w-full h-auto" />
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link href="/ContactQuality">
+                            <button className="border-2 bg-white border-white text-black  hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-semibold transition-all duration-200">
+                                Schedule Demo
+                            </button>
+                        </Link>
                     </div>
-                </section>
-
-                {/* Industry Challenges */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">Industry Challenges</h2>
-                    <p className="text-gray-700 mb-4">
-                        Beverage manufacturers face unique challenges in maintaining quality across high-speed production lines:
-                    </p>
-                    <ul className="list-disc list-inside text-gray-700 space-y-2">
-                        <li><strong>Contamination Risks</strong>: Foreign objects, microbial contamination, or packaging defects pose significant health and safety risks.</li>
-                        <li><strong>High-Throughput Production</strong>: Bottling lines processing thousands of units per hour require rapid, accurate inspections to maintain efficiency.</li>
-                        <li><strong>Regulatory Compliance</strong>: Strict adherence to FDA, HACCP, and EU food safety regulations demands robust documentation and traceability.</li>
-                        <li><strong>Packaging Variability</strong>: Variations in bottle shapes, sizes, or labeling materials complicate consistent quality control across diverse product lines.</li>
-                    </ul>
-                    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <img src="/placeholder-challenge1.jpg" alt="Bottle Defect" className="rounded-lg shadow-md" />
-                        <img src="/placeholder-challenge2.jpg" alt="Beverage Bottling Line" className="rounded-lg shadow-md" />
-                    </div>
-                </section>
-
-                {/* Technical Solution */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">Our Technical Solution</h2>
-                    <p className="text-gray-700 mb-4">
-                        Prompx’s quality inspection platform integrates advanced AI technologies to address beverage manufacturing challenges, delivering a robust, scalable, and secure solution.
-                    </p>
-
-                    <h3 className="text-2xl font-semibold text-gray-800 mb-4">Core Components</h3>
-                    <div className="space-y-6">
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">1. Computer Vision Models</h4>
-                            <p className="text-gray-700">
-                                Our system employs deep convolutional neural networks (CNNs) with over 500 million parameters, pre-trained on diverse beverage packaging datasets. These models achieve 99.9% accuracy in detecting defects like bottle cracks, improper fill levels, or misaligned labels. Transfer learning enables fine-tuning for specific products, such as glass bottles or aluminum cans, using high-resolution imaging and CAD data for precise validation.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">2. Real-Time Processing</h4>
-                            <p className="text-gray-700">
-                                Optimized inference engines process high-resolution images at 0.5ms per frame, enabling inspection of thousands of bottles per minute. Edge computing ensures low-latency analysis, with on-premises processing for data security and compliance with GDPR and FDA regulations.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">3. IoT Integration</h4>
-                            <p className="text-gray-700">
-                                IoT sensors monitor environmental factors like temperature, pressure, or liquid viscosity, which impact product quality. Real-time data fusion with visual inspections identifies defect root causes, enhancing traceability across the supply chain.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">4. Cross-Platform Application</h4>
-                            <p className="text-gray-700">
-                                A React-based application, deployable on desktop and mobile (iOS, Android), delivers real-time visualizations of production lines, defect alerts, and analytics dashboards. WebSocket integration ensures live updates, with offline capabilities for robust operation in variable production environments.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="mt-8 flex justify-center">
-                        <img src="/placeholder-solution.jpg" alt="AI Inspection System" className="rounded-lg shadow-lg max-w-full h-auto" />
-                    </div>
-                </section>
-
-                {/* Implementation Process */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">Implementation Process</h2>
-                    <p className="text-gray-700 mb-4">
-                        Our streamlined process ensures rapid deployment and seamless integration into beverage production environments.
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="p-6 bg-gray-50 rounded-lg shadow-md">
-                            <img src="/placeholder-step1.jpg" alt="Step 1" className="mb-4 rounded-md" />
-                            <h4 className="text-xl font-semibold text-blue-600 mb-2">1. Requirements Analysis</h4>
-                            <p className="text-gray-700">
-                                We collaborate with your team to map production workflows, identify critical quality metrics, and assess hardware needs like high-resolution cameras or streamline inspection systems.
-                            </p>
-                        </div>
-                        <div className="p-6 bg-gray-50 rounded-lg shadow-md">
-                            <img src="/placeholder-step2.jpg" alt="Step 2" className="mb-4 rounded-md" />
-                            <h4 className="text-xl font-semibold text-blue-600 mb-2">2. Model Customization</h4>
-                            <p className="text-gray-700">
-                                AI models are fine-tuned using sample product data and defect patterns, optimizing performance for specific beverages like carbonated drinks or juices.
-                            </p>
-                        </div>
-                        <div className="p-6 bg-gray-50 rounded-lg shadow-md">
-                            <img src="/placeholder-step3.jpg" alt="Step 3" className="mb-4 rounded-md" />
-                            <h4 className="text-xl font-semibold text-blue-600 mb-2">3. Hardware Integration</h4>
-                            <p className="text-gray-700">
-                                Flexible hardware options (CCTV, streamline cameras, mobile devices) are supported, with plug-and-play software for easy installation in bottling lines.
-                            </p>
-                        </div>
-                        <div className="p-6 bg-gray-50 rounded-lg shadow-md">
-                            <img src="/placeholder-step4.jpg" alt="Step 4" className="mb-4 rounded-md" />
-                            <h4 className="text-xl font-semibold text-blue-600 mb-2">4. Deployment & Support</h4>
-                            <p className="text-gray-700">
-                                The system is deployed with a custom app, continuous monitoring, and 24/7 support, ensuring 99.9% uptime and ongoing model optimization.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Advanced Features */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">Advanced Features</h2>
-                    <div className="space-y-6">
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">Predictive Analytics</h4>
-                            <p className="text-gray-700">
-                                Machine learning models analyze historical defect data to predict issues like contamination risks or equipment failures, reducing scrap rates by up to 30%.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">Augmented Reality (AR) Visualization</h4>
-                            <p className="text-gray-700">
-                                AR overlays highlight defect locations on bottles or packaging, enabling operators to address issues in real-time, improving inspection efficiency.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">Blockchain Traceability</h4>
-                            <p className="text-gray-700">
-                                Immutable quality records ensure compliance with FDA and HACCP standards, providing auditable transparency for raw material sourcing and production.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 className="text-xl font-semibold text-blue-600">Sustainability Metrics</h4>
-                            <p className="text-gray-700">
-                                IoT-driven analytics track water usage, energy consumption, and packaging waste, supporting eco-friendly production and compliance with sustainability goals.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="mt-8 flex justify-center">
-                        <img src="/placeholder-advanced.jpg" alt="Advanced Features" className="rounded-lg shadow-lg max-w-full h-auto" />
-                    </div>
-                </section>
-
-                {/* Cat Inspectors Section */}
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">Our Precision Inspectors</h2>
-                    <p className="text-gray-700 mb-4">
-                        Our feline team embodies our commitment to perfection. Meet the cats who inspire our pursuit of flawless beverage quality!
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <img src="/placeholder-cat1.jpg" alt="Cat Inspector 1" className="rounded-lg shadow-md hover:scale-105 transition duration-300" />
-                        <img src="/placeholder-cat2.jpg" alt="Cat Inspector 2" className="rounded-lg shadow-md hover:scale-105 transition duration-300" />
-                        <img src="/placeholder-cat3.jpg" alt="Cat Inspector 3" className="rounded-lg shadow-md hover:scale-105 transition duration-300" />
-                    </div>
-                </section>
-
-        /* Case Study */
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">Case Study: PureFlow Beverages</h2>
-                    <p className="text-gray-700">
-                        PureFlow Beverages, a leading producer of bottled water and soft drinks, integrated Prompx’s AI system to address issues with bottle integrity and labeling errors. Using high-resolution streamline cameras and custom-trained CNNs, they achieved:
-                        <ul className="list-disc list-inside mt-4 space-y-2">
-                            <li>50% reduction in defective bottles within two months.</li>
-                            <li>20% increase in production throughput due to faster inspections.</li>
-                            <li>Full compliance with FDA and HACCP audit requirements.</li>
-                            <li>Real-time defect alerts via a mobile app, reducing response time by 40%.</li>
-                        </ul>
-                    </p>
-                    <div className="mt-8 flex justify-center">
-                        <img src="/placeholder-casestudy.jpg" alt="Case Study Result" className="rounded-lg shadow-lg max-w-full h-auto" />
-                    </div>
-                </section>
-
-        /* Conclusion */
-                <section className="mb-16">
-                    <h2 className="text-3xl font-semibold text-blue-700 mb-6">Conclusion</h2>
-                    <p className="text-gray-700">
-                        Prompx’s AI-powered quality inspection system redefines quality control for beverage manufacturers. By integrating high-accuracy computer vision, real-time processing, and advanced features like predictive analytics and blockchain traceability, we empower manufacturers to ensure product safety, reduce waste, and maintain compliance. Our tailored approach delivers seamless integration, scalability, and ongoing support, making Prompx the ideal partner for driving innovation in beverage manufacturing.
-                    </p>
-                </section>
-
-        /* Call to Action */
-                <section className="bg-gradient-to-r from-blue-700 to-blue-900 text-white p-8 rounded-lg shadow-lg text-center">
-                    <h2 className="text-3xl font-bold mb-4">Transform Your Beverage Quality Today</h2>
-                    <p className="text-lg mb-6">
-                        Discover how Prompx can elevate your beverage manufacturing process with a personalized demo.
-                    </p>
-                    <a href="/contact" className="bg-white text-blue-700 px-8 py-4 rounded-full font-semibold hover:bg-blue-100 transition duration-300 shadow-md">
-                        Schedule a Demo
-                    </a>
-                </section>
-            </div>
-
-      /* Inline CSS for Animations */
-            <style>
-                {`
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          .animate-fade-in {
-            animation: fadeIn 1s ease-in-out;
-          }
-        `}
-            </style>
+                </div>
+            </section>
         </div>
     );
 };
 
-export default BeverageQualityInspectionWhitePaper;
+export default IndustryPage;
