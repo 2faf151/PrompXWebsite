@@ -105,7 +105,7 @@ export default function AboutUs() {
                             <div className="absolute inset-0 bg-gradient-to-r from-gray-500/20 to-purple-500/20 rounded-3xl blur-xl"></div>
                             <div className="relative bg-slate-900/50 backdrop-blur-sm rounded-3xl p-8 border border-gray-500/20">
                                 <img
-                                    src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop"
+                                    src="/Industry/other.jpg"
                                     alt="Advanced Manufacturing"
                                     className="w-full h-64 object-cover rounded-2xl mb-6"
                                 />
