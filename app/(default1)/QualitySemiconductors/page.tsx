@@ -80,7 +80,7 @@ const IndustryPage = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-black">
             {/* ----------------------------- Hero ----------------------------- */}
             <section
                 className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
