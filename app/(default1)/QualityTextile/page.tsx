@@ -100,15 +100,15 @@ const IndustryPage = () => {
                                 PrompX guards every metre—from loom to garment—spotting defects,
                                 locking colour, and automating compliance paperwork.
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <Link href="/ContactQuality">
-                                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center">
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                                <Link href="/ContactQuality" className="w-full sm:w-auto">
+                                    <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center">
                                         Get Started Today
                                         <ArrowRight className="ml-2 w-5 h-5" />
                                     </button>
                                 </Link>
-                                <Link href="/quality">
-                                    <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg font-semibold transition-all duration-200">
+                                <Link href="/quality" className="w-full sm:w-auto">
+                                    <button className="w-full border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg font-semibold transition-all duration-200">
                                         Watch Demo
                                     </button>
                                 </Link>

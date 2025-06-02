@@ -99,16 +99,15 @@ const IndustryPage = () => {
                         <p className="text-xl mb-8 text-gray-200 leading-relaxed">
                             PrompX spots every contaminant, label error, and fill anomaly—before
                             it leaves your plant—while auto-filling your HACCP logs.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link href="/ContactQuality">
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center">
+                        </p>                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                            <Link href="/ContactQuality" className="w-full sm:w-auto">
+                                <button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center">
                                     Get Started Today
                                     <ArrowRight className="ml-2 w-5 h-5" />
                                 </button>
                             </Link>
-                            <Link href="/quality">
-                                <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg font-semibold transition-all duration-200">
+                            <Link href="/quality" className="w-full sm:w-auto">
+                                <button className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg font-semibold transition-all duration-200">
                                     Watch Demo
                                 </button>
                             </Link>
@@ -241,10 +240,9 @@ const IndustryPage = () => {
                     <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
                         Join the processors already using PrompX to cut waste and protect their
                         brand.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/ContactQuality">
-                            <button className="border-2 bg-white border-white text-black  hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-semibold transition-all duration-200">
+                    </p>                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <Link href="/ContactQuality" className="w-full sm:w-auto">
+                            <button className="w-full sm:w-auto border-2 bg-white border-white text-black hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-semibold transition-all duration-200">
                                 Schedule Demo
                             </button>
                         </Link>

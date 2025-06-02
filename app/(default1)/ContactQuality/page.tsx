@@ -88,7 +88,7 @@ export default function ContactQuality() {
         <header className={`container mx-auto px-6 py-20 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
 
 
-          <h1 className="text-7xl font-black mb-6 bg-gradient-to-r from-gray-900 via-black to-blue-900 text-transparent bg-clip-text leading-tight">
+          <h1 className="text-6xl font-black mb-6 bg-gradient-to-r from-gray-900 via-black to-blue-900 text-transparent bg-clip-text leading-tight">
             Let's Build Something
             <br />
             <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-transparent bg-clip-text">

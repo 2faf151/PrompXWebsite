@@ -4,16 +4,26 @@ import { useState, useEffect } from "react";
 import { IoCarSportOutline } from "react-icons/io5";
 import { IoFastFoodOutline, IoHardwareChipOutline, IoShirtOutline } from "react-icons/io5";
 import { MdOutlineBiotech, MdLocalPrintshop, MdOutlineAirplanemodeActive } from "react-icons/md";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { HiOutlineDotsHorizontal, HiMenu, HiX } from "react-icons/hi";
 import { GiComputerFan } from "react-icons/gi";
 
 export default function Header() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
         setIsVisible(true);
     }, []);
+
+    const closeDropdown = () => {
+        setIsDropdownOpen(false);
+    };
+
+    const closeMobileMenu = () => {
+        setIsMobileMenuOpen(false);
+        setIsDropdownOpen(false);
+    };
 
     return (
         <header className="fixed top-2 z-30 w-full md:top-6">
@@ -29,8 +39,20 @@ export default function Header() {
                         </div>
                     </div>
 
-                    {/* Desktop sign in links */}
-                    <ul className="flex flex-1 items-center justify-end gap-3">
+                    {/* Mobile menu button */}
+                    <button
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        className="md:hidden rounded-lg p-2 text-gray-600 hover:bg-gray-100"
+                    >
+                        {isMobileMenuOpen ? (
+                            <HiX className="h-6 w-6" />
+                        ) : (
+                            <HiMenu className="h-6 w-6" />
+                        )}
+                    </button>
+
+                    {/* Desktop navigation */}
+                    <ul className="hidden md:flex flex-1 items-center justify-end gap-3">
                         {/* Use Cases Dropdown */}
                         <li className="relative">
                             <button
@@ -135,6 +157,103 @@ export default function Header() {
                             </Link>
                         </li>
                     </ul>
+
+                    {/* Mobile menu */}
+                    {isMobileMenuOpen && (
+                        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-100 md:hidden">
+                            <div className="p-4 space-y-4">
+                                <button
+                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                    className="w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-50 rounded-lg flex items-center justify-between"
+                                >
+                                    Industries
+                                    <svg
+                                        className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+
+                                {isDropdownOpen && (
+                                    <div className="mt-2 space-y-2">
+                                        <Link href="/QualityAutomotive" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" onClick={closeMobileMenu}>
+                                            <div className="flex items-center gap-3">
+                                                <IoCarSportOutline className="w-5 h-5" />
+                                                Automotive
+                                            </div>
+                                        </Link>
+                                        <Link href="/QualityBeverage" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" onClick={closeMobileMenu}>
+                                            <div className="flex items-center gap-3">
+                                                <IoFastFoodOutline className="w-5 h-5" />
+                                                Food & Beverage
+                                            </div>
+                                        </Link>
+                                        <Link href="/QualityElectronics" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" onClick={closeMobileMenu}>
+                                            <div className="flex items-center gap-3">
+                                                <GiComputerFan className="w-5 h-5" />
+                                                Electronics Parts
+                                            </div>
+                                        </Link>
+                                        <Link href="/QualityTextile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" onClick={closeMobileMenu}>
+                                            <div className="flex items-center gap-3">
+                                                <IoShirtOutline className="w-5 h-5" />
+                                                Textile
+                                            </div>
+                                        </Link>
+                                        <Link href="/QualitySemiconductors" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" onClick={closeMobileMenu}>
+                                            <div className="flex items-center gap-3">
+                                                <IoHardwareChipOutline className="w-5 h-5" />
+                                                Semiconductors
+                                            </div>
+                                        </Link>
+                                        <Link href="/QualityPharma" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" onClick={closeMobileMenu}>
+                                            <div className="flex items-center gap-3">
+                                                <MdOutlineBiotech className="w-5 h-5" />
+                                                Pharmaceuticals
+                                            </div>
+                                        </Link>
+                                        <Link href="/QualityPrinting" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" onClick={closeMobileMenu}>
+                                            <div className="flex items-center gap-3">
+                                                <MdLocalPrintshop className="w-5 h-5" />
+                                                Printing & Packaging
+                                            </div>
+                                        </Link>
+                                        <Link href="/QualityAirspace" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" onClick={closeMobileMenu}>
+                                            <div className="flex items-center gap-3">
+                                                <MdOutlineAirplanemodeActive className="w-5 h-5" />
+                                                Airspace
+                                            </div>
+                                        </Link>
+                                        <Link href="/Other" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg" onClick={closeMobileMenu}>
+                                            <div className="flex items-center gap-3">
+                                                <HiOutlineDotsHorizontal className="w-5 h-5" />
+                                                Other
+                                            </div>
+                                        </Link>
+                                    </div>
+                                )}
+
+                                <Link
+                                    href="/AboutUsQuality"
+                                    className="block px-4 py-2 text-gray-800 hover:bg-gray-50 rounded-lg"
+                                    onClick={closeMobileMenu}
+                                >
+                                    About Us
+                                </Link>
+
+                                <Link
+                                    href="/ContactQuality"
+                                    className="block px-4 py-2 text-gray-800 hover:bg-gray-50 rounded-lg"
+                                    onClick={closeMobileMenu}
+                                >
+                                    Contact
+                                </Link>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </header>
