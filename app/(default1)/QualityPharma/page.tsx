@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
     CheckCircle,
     ArrowRight,
@@ -82,14 +83,22 @@ const IndustryPage = () => {
     return (
         <div className="min-h-screen bg-black">
             {/* ------------------------------ Hero ------------------------------ */}
-            <section
-                className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
-                style={{
-                    backgroundImage:
-                        'linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)), url(/Industry/pharma.jpg)'
-                }}
-            >
-                <div className="container mx-auto px-6 lg:px-8">
+            <section className="relative min-h-screen flex items-center justify-center">
+                <div className="absolute inset-0 z-0">
+                    <Image
+                        src="/Industry/pharma.jpg"
+                        alt="Pharmaceutical Manufacturing"
+                        fill
+                        priority
+                        quality={85}
+                        sizes="100vw"
+                        style={{
+                            objectFit: 'cover',
+                        }}
+                        className="brightness-50"
+                    />
+                </div>
+                <div className="container mx-auto px-6 lg:px-8 relative z-10">
                     <div className="max-w-3xl mx-auto text-center">
                         <div className="text-white">
                             <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
