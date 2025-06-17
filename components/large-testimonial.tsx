@@ -24,7 +24,7 @@ export default function LargeTestimonial() {
 
             </div>
             <p className="text-2xl font-bold text-gray-900">
-              “   Explore massive data, images, audio, and codebases instantly—with privacy, speed, and zero cloud.
+              Explore massive data, images, audio, and codebases instantly—with privacy, speed, and zero cloud.
             </p>
             <div className="text-sm font-medium text-gray-500">
               <span className="text-gray-700">PrompX</span>{" "}
