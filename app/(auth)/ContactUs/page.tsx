@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import { useState } from "react";
-
+import CalendlyBadgeWidget from '@/components/CalendlyBadgeWidget';
 export default function Contact() {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,6 +34,14 @@ export default function Contact() {
         />
       </Head>
       <div className="mb-10">
+
+        <CalendlyBadgeWidget
+          url="https://calendly.com/withprompx/30min"
+          text=""
+          color="000000"  // Changed to match dark theme
+          textColor="000000"
+          hideOnMobile={true}
+        />
         <h1 className="text-4xl font-bold">Contact Us</h1>
         <h2 className="text-xl text-gray-700">
           Reach out for secure, efficient AI data insights

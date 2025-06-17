@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Mail, Users, Briefcase, Star, CheckCircle, ArrowRight, Sparkles } from "lucide-react";
-
+import CalendlyBadgeWidget from '@/components/CalendlyBadgeWidget';
 export default function ContactQuality() {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -56,6 +56,14 @@ export default function ContactQuality() {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-blue-50">
+
+      <CalendlyBadgeWidget
+        url="https://calendly.com/withprompx/30min"
+        text=""
+        color="000000"  // Changed to match dark theme
+        textColor="000000"
+        hideOnMobile={true}
+      />
       {/* Animated Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:24px_24px]"></div>

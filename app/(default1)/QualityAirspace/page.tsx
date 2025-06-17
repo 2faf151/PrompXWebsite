@@ -9,7 +9,7 @@ import {
     Link2,
     Rocket
 } from 'lucide-react';
-
+import CalendlyBadgeWidget from '@/components/CalendlyBadgeWidget';
 export const metadata = {
     title: "Aerospace Quality - PrompX",
     description: "Elevate aerospace manufacturing with local LLM-based AI vision for sub-50 µm precision.",
@@ -87,6 +87,15 @@ const IndustryPage = () => {
 
     return (
         <div className="min-h-screen bg-black">
+
+            <CalendlyBadgeWidget
+                url="https://calendly.com/withprompx/30min"
+                text="Schedule Your Demo"
+                color="#0f172a"  // Changed to match dark theme
+                textColor="#ffffff"
+                hideOnMobile={true}
+            />
+
             {/* Hero */}
             <section
                 className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"

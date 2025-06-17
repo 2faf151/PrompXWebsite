@@ -10,7 +10,7 @@ import {
     RefreshCcw,
     ClipboardCheck
 } from 'lucide-react';
-
+import CalendlyBadgeWidget from '@/components/CalendlyBadgeWidget';
 export const metadata = {
     title: "Pharmaceutical Quality - PrompX",
     description: "Boost pharma manufacturing efficiency with local LLM-based AI vision for error-free compliance.",
@@ -88,6 +88,13 @@ const IndustryPage = () => {
 
     return (
         <div className="min-h-screen bg-black">
+            <CalendlyBadgeWidget
+                url="https://calendly.com/withprompx/30min"
+                text="Schedule Your Demo"
+                color="#0f172a"  // Changed to match dark theme
+                textColor="#ffffff"
+                hideOnMobile={true}
+            />
             {/* ------------------------------ Hero ------------------------------ */}
             <section className="relative min-h-screen flex items-center justify-center">
                 <div className="absolute inset-0 z-0">

@@ -9,7 +9,7 @@ import {
     FlaskConical,
     Repeat2
 } from 'lucide-react';
-
+import CalendlyBadgeWidget from '@/components/CalendlyBadgeWidget';
 const IndustryPage = () => {
     /* ------------------ Food & Beverage pain points ------------------ */
     const challenges = [
@@ -81,6 +81,13 @@ const IndustryPage = () => {
 
     return (
         <div className="min-h-screen bg-black">
+            <CalendlyBadgeWidget
+                url="https://calendly.com/withprompx/30min"
+                text="Schedule Your Demo"
+                color="#0f172a"  // Changed to match dark theme
+                textColor="#ffffff"
+                hideOnMobile={true}
+            />
             {/* ------------------------ Hero ------------------------ */}
             <section
                 className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"

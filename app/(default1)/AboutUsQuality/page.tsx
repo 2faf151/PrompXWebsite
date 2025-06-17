@@ -3,6 +3,7 @@ export const metadata = {
     description: "Learn how our vision-language models redefine defect inspection with local LLM tech.",
     keywords: "about us, PrompX, vision-language AI, local LLM, manufacturing quality",
 };
+import CalendlyBadgeWidget from '@/components/CalendlyBadgeWidget';
 import {
     Users,
     Target,
@@ -54,6 +55,14 @@ export default function AboutUs() {
 
     return (
         <div className="bg-gradient-to-br from-black via-gray-900 to-black min-h-screen text-white">
+
+            <CalendlyBadgeWidget
+                url="https://calendly.com/withprompx/30min"
+                text="Schedule Your Demo"
+                color="#0f172a"  // Changed to match dark theme
+                textColor="#ffffff"
+                hideOnMobile={true}
+            />
             {/* Hero Section */}
             <header className="container mx-auto px-6 pt-24 pb-16">
                 <div className="text-center mb-16">

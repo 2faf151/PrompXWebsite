@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { CheckCircle, ArrowRight, Zap, Shield, Users, BarChart3, Wrench } from 'lucide-react';
-
+import CalendlyBadgeWidget from '@/components/CalendlyBadgeWidget';
 export const metadata = {
     title: "Automotive Quality - PrompX",
     description: "Maximize automotive production accuracy with local LLM-based, real-time defect detection.",
@@ -79,6 +79,13 @@ const IndustryPage = () => {
 
     return (
         <div className="min-h-screen bg-black">
+            <CalendlyBadgeWidget
+                url="https://calendly.com/withprompx/30min"
+                text="Schedule Your Demo"
+                color="#0f172a"  // Changed to match dark theme
+                textColor="#ffffff"
+                hideOnMobile={true}
+            />
             {/* Hero Section */}
             <section
                 className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"

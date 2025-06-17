@@ -9,7 +9,7 @@ import {
     Globe,
     ArrowUpRight
 } from 'lucide-react';
-
+import CalendlyBadgeWidget from '@/components/CalendlyBadgeWidget';
 export const metadata = {
     title: "Other Manufacturing - PrompX",
     description: "Local LLM-based AI for diverse factory settings, from casting to assembly lines.",
@@ -87,6 +87,14 @@ const IndustryPage = () => {
 
     return (
         <div className="min-h-screen bg-white">
+
+            <CalendlyBadgeWidget
+                url="https://calendly.com/withprompx/30min"
+                text="Schedule Your Demo"
+                color="#0f172a"  // Changed to match dark theme
+                textColor="#ffffff"
+                hideOnMobile={true}
+            />
             {/* -------------------------------- Hero -------------------------------- */}
             <section
                 className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"

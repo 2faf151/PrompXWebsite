@@ -2,10 +2,19 @@ export const metadata = {
   title: "About Us - PrompX",
   description: "Learn more about Agentic AI Studio and our mission.",
 };
+import CalendlyBadgeWidget from '@/components/CalendlyBadgeWidget';
+
 
 export default function AboutUs() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
+      <CalendlyBadgeWidget
+        url="https://calendly.com/withprompx/30min"
+        text="Schedule Your Demo"
+        color="#0f172a"  // Changed to match dark theme
+        textColor="#ffffff"
+        hideOnMobile={true}
+      />
       <h1 className="text-4xl font-bold mb-6">About Us</h1>
       <p className="text-lg leading-7 text-gray-700 mb-4">
         At PrompX, we're a passionate, dedicated small team driven by a singular vision: to revolutionize the way you interact with data analytics through powerful, agentic AI workflows. Inspired by simplicity and efficiency, our mission is clear—deliver lightning-fast analytics, intuitive visualizations, and unparalleled privacy by harnessing the power of local AI models.

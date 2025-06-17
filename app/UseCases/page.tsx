@@ -1,7 +1,7 @@
 // app/use-cases/page.tsx
 
 import Header from "@/components/ui/header";
-
+import CalendlyBadgeWidget from '@/components/CalendlyBadgeWidget';
 export const metadata = {
     title: "Use Cases - PrompX",
     description: "Explore PrompX's powerful use cases across data, audio, image, and code analysis.",
@@ -247,10 +247,16 @@ export default function UseCases() {
         <>
             <Header />
             <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+
+                <CalendlyBadgeWidget
+                    url="https://calendly.com/withprompx/30min"
+                    text="Schedule Your Demo"
+                    color="#0f172a"  // Changed to match dark theme
+                    textColor="#ffffff"
+                    hideOnMobile={true}
+                />
                 <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
-                    <p className="text-lg text-gray-700 mb-4">
-                        Discover how our cross-platform AI app harnesses local LLMs for secure, cost-effective data insights.
-                    </p>
+
                     <h1 className="text-5xl font-bold mb-6 text-gray-900">Use Cases</h1>
                     <p className="text-xl text-gray-600 mb-16 max-w-3xl">
                         Explore how PrompX can transform your workflows across different domains with our powerful AI-driven
