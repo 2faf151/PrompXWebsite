@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://prompx.com/sitemap.xml
+Sitemap: https://quality.prompx.com/sitemap.xml
