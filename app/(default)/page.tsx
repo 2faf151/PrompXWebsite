@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Home - PrompX",
-  description: "Page description",
+  description: "PrompX",
 };
 
 import Hero from "@/components/hero-home";

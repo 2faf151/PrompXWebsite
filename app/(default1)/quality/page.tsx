@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Camera, Cpu, CheckCircle, Zap, Shield, BarChart, Upload, Eye, Scan, Monitor } from 'lucide-react';
+import { Camera, Cpu, CheckCircle, Zap, Shield, BarChart, Upload, Eye, Scan, Monitor, CalendarDays } from 'lucide-react';
 import { MdSpeakerPhone, MdOutlineCameraRear } from 'react-icons/md';
 import { GiCctvCamera } from 'react-icons/gi';
-
+import CalendlyBadgeWidget from '@/components/CalendlyBadgeWidget';
 
 // Extend File interface to include base64 property
 interface ExtendedFile extends File {
@@ -197,6 +197,15 @@ export default function QualityHome() {
 
     return (
         <div className="bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 min-h-screen text-white">
+            {/* Calendly Badge Widget - Hide on mobile */}
+            <CalendlyBadgeWidget
+                url="https://calendly.com/withprompx/30min"
+                text="Schedule Your Demo"
+                color="#0069ff"
+                textColor="#ffffff"
+                hideOnMobile={true}
+            />
+
             {/* Hero Section */}
             <header className="container mx-auto px-6 pt-24 pb-8">
                 <div className="text-center mb-8">

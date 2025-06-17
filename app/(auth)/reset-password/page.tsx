@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Reset Password - Simple",
-  description: "Page description",
+  description: "PrompX",
 };
 
 export default function ResetPassword() {
