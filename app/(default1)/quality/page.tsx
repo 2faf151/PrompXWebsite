@@ -201,7 +201,7 @@ export default function QualityHome() {
             <CalendlyBadgeWidget
                 url="https://calendly.com/withprompx/30min"
                 text="Schedule Your Demo"
-                color="#0069ff"
+                color="#0f172a"  // Changed to match dark theme
                 textColor="#ffffff"
                 hideOnMobile={true}
             />
