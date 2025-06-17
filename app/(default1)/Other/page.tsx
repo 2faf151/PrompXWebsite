@@ -10,6 +10,12 @@ import {
     ArrowUpRight
 } from 'lucide-react';
 
+export const metadata = {
+    title: "Other Manufacturing - PrompX",
+    description: "Local LLM-based AI for diverse factory settings, from casting to assembly lines.",
+    keywords: "manufacturing AI, local LLM, multi-process inspection, defect detection",
+};
+
 const IndustryPage = () => {
     /* ---------------- Generic / “Other” manufacturing pain points ---------------- */
     const challenges = [

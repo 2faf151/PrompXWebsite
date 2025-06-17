@@ -2,6 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 import { CheckCircle, ArrowRight, Zap, Shield, Users, BarChart3, Wrench } from 'lucide-react';
 
+export const metadata = {
+    title: "Automotive Quality - PrompX",
+    description: "Maximize automotive production accuracy with local LLM-based, real-time defect detection.",
+    keywords: "automotive quality, AI inspection, local LLM, car manufacturing, defect detection",
+};
+
 const IndustryPage = () => {
     // Automotive-specific pain points on the factory floor
     const challenges = [

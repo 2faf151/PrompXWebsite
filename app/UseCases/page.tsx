@@ -5,6 +5,8 @@ import Header from "@/components/ui/header";
 export const metadata = {
     title: "Use Cases - PrompX",
     description: "Explore PrompX's powerful use cases across data, audio, image, and code analysis.",
+    keywords:
+        "PrompX, AI use cases, local LLMs, data analytics, RAG, audio processing, image analysis, code intelligence",
 };
 
 type UseCase = {
@@ -246,6 +248,9 @@ export default function UseCases() {
             <Header />
             <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
                 <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
+                    <p className="text-lg text-gray-700 mb-4">
+                        Discover how our cross-platform AI app harnesses local LLMs for secure, cost-effective data insights.
+                    </p>
                     <h1 className="text-5xl font-bold mb-6 text-gray-900">Use Cases</h1>
                     <p className="text-xl text-gray-600 mb-16 max-w-3xl">
                         Explore how PrompX can transform your workflows across different domains with our powerful AI-driven

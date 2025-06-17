@@ -10,6 +10,12 @@ import {
     Palette
 } from 'lucide-react';
 
+export const metadata = {
+    title: "Printing & Packaging Quality - PrompX",
+    description: "Ensure perfect prints and packaging with AI-driven, local LLM-based defect detection.",
+    keywords: "printing quality, packaging inspection, AI vision, local LLM, manufacturing",
+};
+
 const IndustryPage = () => {
     /* ------------------ Printing & Packaging pain points ------------------ */
     const challenges = [

@@ -253,4 +253,10 @@ const IndustryPage = () => {
     );
 };
 
+export const metadata = {
+    title: "Food & Beverage Quality - PrompX",
+    description: "Improve beverage and food lines with local LLM-based AI for real-time inspection.",
+    keywords: "food beverage quality, AI inspection, local LLM, manufacturing, defect detection",
+};
+
 export default IndustryPage;

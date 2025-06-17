@@ -10,6 +10,12 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
+export const metadata = {
+    title: "Semiconductor Quality - PrompX",
+    description: "Elevate semiconductor manufacturing with local LLM-based AI for defect-free wafer inspection.",
+    keywords: "semiconductor quality, AI inspection, local LLM, wafer defects, manufacturing",
+};
+
 const IndustryPage = () => {
     /* ----------------- Semiconductor-fab pain points ----------------- */
     const challenges = [
@@ -257,3 +263,4 @@ const IndustryPage = () => {
 };
 
 export default IndustryPage;
+

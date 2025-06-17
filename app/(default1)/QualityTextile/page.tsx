@@ -9,6 +9,14 @@ import {
     Layers
 } from 'lucide-react';
 
+export const metadata = {
+    title: 'Textile Quality Inspection - PrompX',
+    description:
+        'Enhance textile production with PrompX local LLM-based vision for flawless fabrics.',
+    keywords:
+        'textile quality, AI inspection, local LLM, manufacturing, defect detection'
+};
+
 const IndustryPage = () => {
     /* -------------------- Textile-manufacturing pain points -------------------- */
     const challenges = [

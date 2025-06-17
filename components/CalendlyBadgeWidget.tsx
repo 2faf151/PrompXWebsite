@@ -15,9 +15,9 @@ interface CalendlyBadgeWidgetProps {
 export default function CalendlyBadgeWidget({
     url = "https://calendly.com/withprompx/30min",
     text = "Schedule Your Demo",
-    color = "#1e293b", // Changed to match slate-800
+    color = "#1e293b",
     textColor = "#ffffff",
-    hideOnMobile = true,
+    hideOnMobile = false, // Changed default to false
 }: Partial<CalendlyBadgeWidgetProps>) {
     const [isMobile, setIsMobile] = useState(false);
     const [isScriptLoaded, setIsScriptLoaded] = useState(false);
@@ -38,25 +38,48 @@ export default function CalendlyBadgeWidget({
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
-    // Add custom style to hide Calendly widget on mobile
+    // Remove the hideOnMobile effect and replace with mobile styling
     useEffect(() => {
-        if (hideOnMobile) {
-            // Add custom style to hide the widget on mobile
-            const style = document.createElement("style");
-            style.textContent = `
-        @media (max-width: 767px) {
-          .calendly-badge-widget {
-            display: none !important;
-          }
-        }
-      `;
-            document.head.appendChild(style);
+        const style = document.createElement("style");
+        style.textContent = `
+            @media (max-width: 767px) {
+                .calendly-badge-widget .calendly-badge-content {
+                    width: 48px !important;
+                    height: 48px !important;
+                    padding: 0 !important;
+                    border-radius: 50% !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    position: fixed !important;
+                    right: 20px !important;
+                    bottom: 20px !important;
+                    background: #0f172a !important;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+                    transition: transform 0.2s ease !important;
+                }
+                .calendly-badge-widget .calendly-badge-content > div {
+                    margin: 0 !important;
+                }
+                .calendly-badge-widget .calendly-badge-content span {
+                    display: none !important;
+                }
+                .calendly-badge-widget .calendly-badge-content svg {
+                    width: 24px !important;
+                    height: 24px !important;
+                    margin: 0 !important;
+                }
+                .calendly-badge-widget .calendly-badge-content:hover {
+                    transform: scale(1.1) !important;
+                }
+            }
+        `;
+        document.head.appendChild(style);
 
-            return () => {
-                document.head.removeChild(style);
-            };
-        }
-    }, [hideOnMobile]);
+        return () => {
+            document.head.removeChild(style);
+        };
+    }, []);
 
     // Initialize Calendly widget after scripts are loaded
     useEffect(() => {
@@ -64,28 +87,26 @@ export default function CalendlyBadgeWidget({
         if (isScriptLoaded && window.Calendly) {
             window.Calendly.initBadgeWidget({
                 url,
-                text: `<div style="display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; padding: 2px 4px;">
+                text: `<div style="display: flex; align-items: center; gap: 8px;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
                         <line x1="16" y1="2" x2="16" y2="6"></line>
                         <line x1="8" y1="2" x2="8" y2="6"></line>
                         <line x1="3" y1="10" x2="21" y2="10"></line>
                     </svg>
-                    ${text}
+                    <span>${text}</span>
                 </div>`,
                 color,
                 textColor,
                 branding: false,
+                position: "bottom-right", // Added to place the badge at the bottom-right
                 styles: {
                     body: {
-                        background:
-                            "linear-gradient(135deg, rgb(15, 23, 42), rgb(30, 41, 59))", // Changed to slate-900 to slate-800
-                        padding: "12px 24px",
-                        borderRadius: "50px",
-                        boxShadow:
-                            "0 10px 25px -5px rgba(15, 23, 42, 0.3)",
+                        background: "#0f172a",
+                        padding: "12px 20px",
+                        borderRadius: "12px",
+                        boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                         border: "1px solid rgba(255, 255, 255, 0.1)",
-                        transform: "scale(1)",
                         transition: "all 0.2s ease",
                     },
                 },
@@ -93,21 +114,18 @@ export default function CalendlyBadgeWidget({
         }
     }, [url, text, color, textColor, isScriptLoaded]);
 
-    // Update hover effect colors
+    // Simpler hover effect
     useEffect(() => {
         const style = document.createElement("style");
         style.textContent = `
             .calendly-badge-widget {
-                transition: all 0.2s ease !important;
+                transition: transform 0.2s ease !important;
             }
             .calendly-badge-widget:hover {
-                transform: translateY(-2px) scale(1.02) !important;
-                box-shadow: 0 15px 30px -5px rgba(15, 23, 42, 0.4) !important;
-                background: linear-gradient(135deg, rgb(30, 41, 59), rgb(51, 65, 85)) !important;
+                transform: translateY(-2px) !important;
             }
             .calendly-badge-widget .calendly-badge-content {
                 font-weight: 600 !important;
-                letter-spacing: 0.3px !important;
             }
         `;
         document.head.appendChild(style);
@@ -131,14 +149,14 @@ export default function CalendlyBadgeWidget({
                     if (window.Calendly) {
                         window.Calendly.initBadgeWidget({
                             url,
-                            text: `<div style="display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; padding: 2px 4px;">
+                            text: `<div style="display: flex; align-items: center; gap: 8px;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
                         <line x1="16" y1="2" x2="16" y2="6"></line>
                         <line x1="8" y1="2" x2="8" y2="6"></line>
                         <line x1="3" y1="10" x2="21" y2="10"></line>
                     </svg>
-                    ${text}
+                    <span>${text}</span>
                 </div>`,
                             color,
                             textColor,
@@ -150,6 +168,26 @@ export default function CalendlyBadgeWidget({
     );
 }
 
+// Add Calendly to the Window interface
+declare global {
+    interface Window {
+        Calendly: any;
+    }
+}
+// Add Calendly to the Window interface
+declare global {
+    interface Window {
+        Calendly: any;
+    }
+}
+
+
+// Add Calendly to the Window interface
+declare global {
+    interface Window {
+        Calendly: any;
+    }
+}
 // Add Calendly to the Window interface
 declare global {
     interface Window {

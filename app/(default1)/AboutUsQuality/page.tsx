@@ -1,5 +1,8 @@
-"use client";
-
+export const metadata = {
+    title: "About PrompX Quality AI",
+    description: "Learn how our vision-language models redefine defect inspection with local LLM tech.",
+    keywords: "about us, PrompX, vision-language AI, local LLM, manufacturing quality",
+};
 import {
     Users,
     Target,

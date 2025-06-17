@@ -26,7 +26,10 @@ export default function DefaultLayout({
     <>
       <Header />
 
-      <main className="grow">{children}</main>
+      <main className="grow">
+        <h1 className="sr-only">PrompX Local AI & RAG Platform</h1>
+        {children}
+      </main>
 
       <Footer border={true} />
     </>

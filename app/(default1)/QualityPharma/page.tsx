@@ -11,6 +11,12 @@ import {
     ClipboardCheck
 } from 'lucide-react';
 
+export const metadata = {
+    title: "Pharmaceutical Quality - PrompX",
+    description: "Boost pharma manufacturing efficiency with local LLM-based AI vision for error-free compliance.",
+    keywords: "pharma quality, AI inspection, local LLM, GMP compliance, defect detection",
+};
+
 const IndustryPage = () => {
     /* ---------------- Pharmaceutical-manufacturing pain points -------------- */
     const challenges = [

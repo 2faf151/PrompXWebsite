@@ -10,6 +10,12 @@ import {
     Layers
 } from 'lucide-react';
 
+export const metadata = {
+    title: "Electronics Quality - PrompX",
+    description: "Leverage local LLM-based vision for precise PCB and electronics defect detection.",
+    keywords: "electronics quality, AI inspection, local LLM, PCB defects, manufacturing",
+};
+
 const IndustryPage = () => {
     /* -------------- Electronics-Parts manufacturing pain points -------------- */
     const challenges = [

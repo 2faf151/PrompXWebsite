@@ -10,6 +10,12 @@ import {
     Rocket
 } from 'lucide-react';
 
+export const metadata = {
+    title: "Aerospace Quality - PrompX",
+    description: "Elevate aerospace manufacturing with local LLM-based AI vision for sub-50 µm precision.",
+    keywords: "aerospace quality, AI inspection, local LLM, manufacturing, defect detection",
+};
+
 const IndustryPage = () => {
     // Aerospace-specific pain points
     const challenges = [
