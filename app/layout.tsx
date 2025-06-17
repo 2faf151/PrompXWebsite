@@ -11,7 +11,7 @@ const inter = Inter({
 export const metadata = {
   title: "PrompX",
   description:
-    "PrompX is a cutting-edge AI platform using local LLMs, RAG-based analytics, and manufacturing quality control.",
+    "PrompX is a cutting-edge AI platform using local LLMs & VLMs, RAG-based analytics, and manufacturing quality control.",
 };
 
 export default function RootLayout({
